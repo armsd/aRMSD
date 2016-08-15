@@ -4,17 +4,13 @@ An open toolbox for structural comparison.
 # Installation
 will be added
 Requirements
-------------
-    * python 2.7
-    * PyQt4
+    * python 2.7 / 3.5
     * numpy
-    * scipy
+    * vtk
+    * matplotlib
     * future
-    * pyFAI (https://github.com/kif/pyFAI)
-    * fabio (https://github.com/kif/fabio)
-    * pyqtgraph (http://www.pyqtgraph.org/) - version 0.9.9
-    * scikit-image
-    * PyCifRw
+    * uncertainties
+    * openbabel / pybel [optional]
 * Compilation to standalone .exe
 
 # Documentation
