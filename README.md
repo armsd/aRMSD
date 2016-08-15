@@ -2,7 +2,7 @@
 An open toolbox for structural comparison.
 
 # Installation
-The requirements are
+The requirements are:
 
     * Python 2.7 / 3.5
     * numpy (1.11.1+mkl)
@@ -11,9 +11,9 @@ The requirements are
     * future (0.15.2)
     * uncertainties (2.4.8.1)
 
-<b>optional:</b>
+optional:
 
-    * openbabel / pybel (1.8.4) [optional]
+    * openbabel / pybel (1.8.4) [additional file formats]
 
 In order adjust the source code get the latest version and install the required python packages listed above. It is recommended to install packages from pre-compiled Python wheels via pip.
 
