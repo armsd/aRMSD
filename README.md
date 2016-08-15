@@ -1,5 +1,5 @@
 # aRMSD
-An open toolbox for structural comparison.
+An open toolbox for structural comparison between two molecules. It provides the ca
 
 # Installation
 The requirements are:
