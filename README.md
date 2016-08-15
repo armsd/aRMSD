@@ -4,6 +4,7 @@ An open toolbox for structural comparison.
 # Installation
 will be added
 Requirements
+
     * python 2.7 / 3.5
     * numpy
     * vtk
