@@ -4,13 +4,15 @@ An open toolbox for structural comparison.
 # Installation
 The requirements are
 
-    * python 2.7 / 3.5
+    * Python 2.7 / 3.5
     * numpy (1.11.1+mkl)
     * vtk (6.2.0)
     * matplotlib (1.5.1)
     * future (0.15.2)
     * uncertainties (2.4.8.1)
-    <b>optional:</b>
+
+<b>optional:</b>
+
     * openbabel / pybel (1.8.4) [optional]
 
 In order adjust the source code get the latest version and install the required python packages listed above. It is recommended to install packages from pre-compiled Python wheels via pip.
