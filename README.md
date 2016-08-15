@@ -12,7 +12,10 @@ Requirements
     * future
     * uncertainties
     * openbabel / pybel [optional]
-* Compilation to standalone .exe
+
+In order adjust the source code get the latest version and install the required python packages listed above. It is recommended to install packages from pre-compiled Python wheels via pip.
+
+aRMSD can be compiled to a standalone executable using pyinstaller with the provided .spec file OR be used as a Python "module"
 
 # Documentation
 ...
