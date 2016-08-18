@@ -1,3 +1,7 @@
+.. image:: https://github.com/armsd/aRMSD/aRMSD_icon.ico
+   :alt: [logo]
+   :align: left
+
 # aRMSD
 An open toolbox for structural comparison between two molecules. []
 
