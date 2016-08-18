@@ -1,15 +1,15 @@
 # aRMSD
-An open toolbox for structural comparison between two molecules. It provides the ca
+An open toolbox for structural comparison between two molecules. []
 
 # Installation
-The requirements are:
+The requirements are (tested versions in parenthesis):
 
     * Python 2.7 / 3.5
     * numpy (1.11.1+mkl)
     * vtk (6.2.0)
     * matplotlib (1.5.1)
     * future (0.15.2)
-    * uncertainties (2.4.8.1)
+    * uncertainties (3.0.1)
 
 optional:
 
@@ -26,4 +26,4 @@ aRMSD can be compiled to a standalone executable using pyinstaller with the prov
 to be added
 
 # License
-This package and its documentation are released under the `MIT License <LICENSE>`_.
+This package and its documentation are released under the MIT License.
