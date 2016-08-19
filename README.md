@@ -1,4 +1,4 @@
-.. image:: https://github.com/armsd/aRMSD/aRMSD_icon.ico
+.. image:: https://github.com/armsd/aRMSD/blob/master/aRMSD_icon.ico
    :alt: [logo]
    :align: left
 
