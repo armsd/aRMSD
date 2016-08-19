@@ -1,4 +1,4 @@
-.. image:: https://github.com/armsd/aRMSD/blob/master/aRMSD_icon.ico
+.. image:: ./aRMSD_icon.ico
    :alt: [logo]
    :align: left
 
@@ -30,4 +30,4 @@ aRMSD can be compiled to a standalone executable using pyinstaller with the prov
 to be added
 
 # License
-This package and its documentation are released under the `MIT License <https://github.com/armsd/aRMSD/blob/master/LICENSE>`_
+This package and its documentation are released under the `MIT License <./LICENSE>`_
