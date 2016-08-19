@@ -1,6 +1,8 @@
 .. image:: (./aRMSD_icon.ico)
    :alt: [logo]
    :align: left
+   
+![alt tag](./aRMSD_icon.ico)
 
 # aRMSD
 An open toolbox for structural comparison between two molecules. []
