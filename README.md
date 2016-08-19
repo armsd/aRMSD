@@ -4,7 +4,7 @@
 An open toolbox for structural comparison between two molecules. []
 
 # Installation
-The requirements are (tested versions in parenthesis):
+aRMSD can be installed in two ways, either via pip (in this case it will be used as a Python module) or you can download the source code and use the .spec file to compile it into a single standalone executable. In any case some modules are required which are listed below including their versions which were tested so far:
 
     * Python 2.7 / 3.5
     * numpy (1.11.1+mkl)
