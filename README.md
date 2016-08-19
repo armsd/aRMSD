@@ -30,4 +30,4 @@ aRMSD can be compiled to a standalone executable using pyinstaller with the prov
 to be added
 
 # License
-This package and its documentation are released under the `MIT License <https://github.com/armsd/aRMSD/LICENSE>`_
+This package and its documentation are released under the `MIT License <https://github.com/armsd/aRMSD/blob/master/LICENSE>`_
