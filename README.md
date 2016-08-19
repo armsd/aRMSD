@@ -1,4 +1,4 @@
-.. image:: ./aRMSD_icon.ico
+.. image:: (./aRMSD_icon.ico)
    :alt: [logo]
    :align: left
 
