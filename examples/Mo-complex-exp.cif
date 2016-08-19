@@ -1,5 +1,5 @@
                                                                               
-data_aw64                                                                     
+data_                                                                     
                                                                               
 _audit_creation_method            SHELXL-97                                   
 _chemical_name_systematic                                                      
