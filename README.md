@@ -41,10 +41,9 @@ Download the latest version of the master branch and install [Pyinstaller] (http
 pip install pyinstaller
 ```
 
-# Documentation
-will be added in the near future.
+Download the master branch of aRMSD, extract the files and navigate to the main folder. Execute the compile_aRMSD.bat script (under Windows) which will create a single executable file in the armsd folder. Temporary files will be created during this process (compilation will take around 15 min) and afterward deleted.
 
-# Tutorial
+# Documentation and Tutorial
 will be added in the near future.
 
 # License
