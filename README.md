@@ -1,5 +1,6 @@
 
 ![alt tag](./aRMSD_logo.png)
+
 An open toolbox for structural comparison between two molecules... []
 
 # Installation
