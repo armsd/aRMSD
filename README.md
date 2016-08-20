@@ -17,13 +17,13 @@ optional (Python module only):
 
     * openbabel / pybel (1.8.4) [additional file formats]
 
-In order adjust the source code get the latest version and install the required python packages listed above. It is recommended to install packages from pre-compiled Python wheels via pip.
+In order adjust the source code make sure to have the required Python pacakges installed and download the latest version. Whenever possible it is recommended to add and update packages using pre-compiled Python [wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your operating system which can be installed via pip.
 
 # Documentation
-...
+will be added in the near future.
 
 # Tutorial
-to be added
+will be added in the near future.
 
 # License
 This package and its documentation are released under the [MIT License] (./LICENSE)
