@@ -19,6 +19,8 @@ optional (Python module only):
 
 In order adjust the source code make sure to have the required Python pacakges installed and download the latest version. Whenever possible it is recommended to add and update packages using pre-compiled Python [wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your operating system which can be installed via pip. If you add features or wish to have an idea implemented or a bug fixed, contact me or make a [request] (https://github.com/armsd/aRMSD/issues).
 
+Compilation via Pyinstaller:
+
 # Documentation
 will be added in the near future.
 
