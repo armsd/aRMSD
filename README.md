@@ -1,7 +1,7 @@
 
 ![alt tag](./aRMSD_logo.png)
 
-An open toolbox for structural comparison between two molecules. It provides the capabilities to explore structural similarity and diversity using various filn .. []
+An open toolbox for structural comparison between two molecules with various capabilities to explore different aspects of structural similarity and diversity. Using data from common file formats the minimum RMSD is found by combining the functionalities of the Hungarian and the Kabsch algorithm. Crystallographic data provided from cif files is fully supported and the results can be rendered with the help of the [vtk] (http://www.vtk.org/) package. 
 
 # Installation
 aRMSD can be installed in two ways, either via pip (in this case it will be used as a Python module) or you can download the source code and use the .spec file to compile it into a single standalone executable. In any case some modules are required which are listed below including their versions which were tested so far:
