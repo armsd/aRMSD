@@ -21,6 +21,12 @@ In order adjust the source code make sure to have the required Python pacakges i
 
 Compilation via Pyinstaller:
 
+Download the latest version of the master branch and install Pyinstaller.
+
+```bash
+conda update --all
+```
+
 # Documentation
 will be added in the near future.
 
