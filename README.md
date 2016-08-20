@@ -21,7 +21,7 @@ In order adjust the source code by yourself, always make sure to have the requir
 
 a) Usage as Python application:
 
-Simply download the project from GitHub and navigate to the armsd folder and run aRMSD.py, e.g. from command line
+Simply download the project from GitHub, navigate to the armsd folder and run aRMSD.py, e.g. from command line
 
 ```bash
 python aRMSD.py
@@ -33,7 +33,9 @@ b) Usage as Python module:
 pip ...
 ```
 
-c) Compilation via Pyinstaller:
+c) Executable compiled with Pyinstaller:
+
+- Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Ones the program has been compiled, this is the easiest way to use aRMSD. 
 
 Download the latest version of the master branch and install [Pyinstaller] (http://www.pyinstaller.org/).
 
