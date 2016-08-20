@@ -1,5 +1,5 @@
 
-![alt tag](./aRMSD_icon.ico) 
+![alt tag](./aRMSD_logo.png) 
 # aRMSD
 An open toolbox for structural comparison between two molecules... []
 
