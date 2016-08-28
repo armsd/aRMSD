@@ -29,9 +29,15 @@ python aRMSD.py
 
 b) Usage as Python module:
 
+- This will install aRMSD as a Python module that can be imported and used in other applications. This allows for both the most extensive utilization of the code and provides the possibility to keep an eye on the ongoing development via pip.
+
+Install the program by typing
+
 ```bash
-pip ...
+pip [to be added]
 ```
+
+in your command line.
 
 c) Executable compiled with Pyinstaller:
 
