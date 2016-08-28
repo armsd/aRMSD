@@ -23,7 +23,7 @@ a) Usage as Python application:
 
 - The easiest way to use aRMSD.
 
-Simply download the project from GitHub, navigate to the armsd folder and run aRMSD.py, e.g. from command line
+Simply clone the project or download the zip file from GitHub, navigate to the armsd folder and run aRMSD.py, e.g. from command line
 
 ```bash
 python aRMSD.py
