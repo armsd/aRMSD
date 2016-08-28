@@ -21,6 +21,8 @@ In order adjust the source code by yourself, always make sure to have the requir
 
 a) Usage as Python application:
 
+- The easiest way to use aRMSD.
+
 Simply download the project from GitHub, navigate to the armsd folder and run aRMSD.py, e.g. from command line
 
 ```bash
@@ -43,7 +45,7 @@ c) Executable compiled with Pyinstaller:
 
 - Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Once the program has been compiled, this is probably the easiest way to use aRMSD - especially for users that are unfamiliar with Python. 
 
-First ensure that you have the latest version of [Pyinstaller] (http://www.pyinstaller.org/), install it with pip.
+First ensure that you have the latest version of [Pyinstaller] (http://www.pyinstaller.org/) or install it with pip.
 
 ```bash
 pip install pyinstaller
@@ -57,7 +59,7 @@ python compile_aRMSD.py
 or run the file in a Python shell. This will create a single executable file in the armsd folder and should work for all operating systems. Temporary files will be created during this process (compilation will take around 25 min) and deleted after the process is finished. To use the program
 
 # Documentation and Tutorial
-will be added in the near future.
+Will be added in the near future.
 
 # License
 This package and its documentation are released under the [MIT License] (./LICENSE)
