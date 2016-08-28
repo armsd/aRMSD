@@ -35,15 +35,20 @@ pip ...
 
 c) Executable compiled with Pyinstaller:
 
-- Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Ones the program has been compiled, this is the easiest way to use aRMSD. 
+- Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Once the program has been compiled, this is probably the easiest way to use aRMSD - especially for users that are unfamiliar with Python. 
 
-Download the latest version of the master branch and install [Pyinstaller] (http://www.pyinstaller.org/).
+First ensure that you have the latest version of [Pyinstaller] (http://www.pyinstaller.org/), install it with pip.
 
 ```bash
 pip install pyinstaller
 ```
 
-Download the master branch of aRMSD, extract the files and navigate to the main folder. Execute the compile_aRMSD.bat script (under Windows) which will create a single executable file in the armsd folder. Temporary files will be created during this process (compilation will take around 15 min) and afterward deleted.
+Download the current master branch of aRMSD, extract the files and navigate to the main folder. Execute the compilation script from command line by typing
+
+```bash
+python compile_aRMSD.py
+```
+or run the file in a Python shell. This will create a single executable file in the armsd folder and should work for all operating systems. Temporary files will be created during this process (compilation will take around 25 min) and deleted after the process is finished. To use the program
 
 # Documentation and Tutorial
 will be added in the near future.
