@@ -1,11 +1,9 @@
 Version     0.9.0 (development 29 August 2016)
 ------------------------
-    - initial public release
+        - initial public release
     
 **Improvements:**
-
-    - none
+        - none
     
 **Bugfixes:**
-
-    - none
+        - none
