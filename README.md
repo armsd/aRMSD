@@ -13,13 +13,13 @@ aRMSD can be installed in two ways, either via pip (in this case it will be used
     * future (0.15.2)
     * uncertainties (3.0.1)
 
-optional (Python module/application only):
+optional (Python module/application **only**):
 
     * openbabel / pybel (1.8.4) [additional file formats]
 
 In order adjust the source code by yourself, always make sure to have the required Python pacakges installed and download the latest version of the master branch. Whenever possible it is recommended to add and update packages using pre-compiled Python [wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your operating system which can be installed via pip. If you add features or wish to have an idea implemented or a bug fixed, contact me or make a [request] (https://github.com/armsd/aRMSD/issues).
 
-a) Usage as Python application:
+**a) Usage as Python application:**
 
 - The easiest way to use aRMSD.
 
@@ -29,7 +29,7 @@ Simply clone the project or download the zip file from GitHub, navigate to the a
 python aRMSD.py
 ```
 
-b) Usage as Python module:
+**b) Usage as Python module:**
 
 - This will install aRMSD as a Python module that can be imported and used in other applications. This allows for both the most extensive utilization of the code and provides the possibility to keep an eye on the ongoing development via pip.
 
@@ -41,7 +41,7 @@ pip [to be added]
 
 in your command line.
 
-c) Executable compiled with Pyinstaller:
+**c) Executable compiled with Pyinstaller:**
 
 - Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Once the program has been compiled, this is probably the easiest way to use aRMSD - especially for users that are unfamiliar with Python. 
 
