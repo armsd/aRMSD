@@ -1,5 +1,6 @@
 """
 aRMSD main routines
+(c) 2016 by Arne Wagner
 """
 
 # Authors: Arne Wagner
@@ -51,7 +52,7 @@ author_email = 'arne.wagner@aci.uni-heidelberg.de'
 url = 'https://github.com/armsd/aRMSD'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.0'
+__aRMSD_version__ = '0.9.1'
 __aRMSD_release__ = 2016
 
 __log_version__ = '2016-08-15'
