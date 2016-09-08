@@ -1,10 +1,14 @@
 """
 Script for an easy installation/compilation of aRMSD from command line
+License: MIT
 (c) 2016 by Arne Wagner
+
+Recent changes:
+- Installer writes PyInstaller .spec file on-the-fly
+- Added checks for openbabel and customization for PyInstaller imports
+- Added optional openbabel flag for compilation
 """
 
-# Authors: Arne Wagner
-# License: MIT
 
 from __future__ import print_function
 from distutils.sysconfig import get_python_lib
@@ -16,16 +20,39 @@ import shlex
 from codecs import open
 import time
 
-inst_version = '1.1'  # Version of the installer
+inst_version = '1.2'  # Version of the installer
 
-# This is the command which calls PyInstaller (should work on every system)
-pyinstaller_cmd = 'pyinstaller --onefile aRMSD.spec'
+
+def pyinstaller_data(name, platform, obf_files):
+    """ Sets up a PyInstaller dictionary with all parameters that will be written to the .spec file """
+
+    # Excludes and hidden imports
+    data_excl = ['_ssl', '_hashlib', 'PySide', '_gtkagg', '_tkagg', '_wxagg', '_qt5agg',
+                 'bsddb', 'curses', 'pywin.debugger', 'pywin.debugger.dbgcon',
+                 'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
+    
+    hiddenimp = ['matplotlib', 'vtk', 'uncertainties']
+
+    if obf_files is not None:  # Add pybel to hiddenimports
+
+        hiddenimp.append('pybel')
+
+    # Extra data and binaries for PyInstaller
+    ext_bin = []
+
+    ext_dat = []
+
+    # Setup dictionary and return it
+    pyinst_dict = {'name': name, 'platform': platform, 'hiddenimports': hiddenimp, 'data_excludes': data_excl,
+                   'binaries': ext_bin, 'extra_datas': ext_dat}
+
+    return pyinst_dict
 
 
 def analyze_arguments(arguments):
     """ Checks given arguments and passes correct ones to the compilation script """
 
-    accepted_arg_prefix = ['--use_cython', '--cython_compiler']
+    accepted_arg_prefix = ['--use_openbabel', '--use_cython', '--cython_compiler']
 
     def _split(arg):
 
@@ -36,6 +63,7 @@ def analyze_arguments(arguments):
         return (None, None) if prefix not in accepted_arg_prefix else (prefix, suffix)
 
     # Default compiler arguments
+    use_openbabel = False
     use_cython = False
     cython_compiler = 'msvc'
 
@@ -53,7 +81,11 @@ def analyze_arguments(arguments):
 
                 cython_compiler = data[1]
 
-    return use_cython, cython_compiler
+            elif data[0] == '--use_openbabel':
+
+                use_openbabel = data[1]
+
+    return use_openbabel, use_cython, cython_compiler
 
 
 def check_for_ext(pyx_file_path, ext, default):
@@ -112,14 +144,146 @@ def get_current_version(armsd_dir):
 
     name += '_{}_{}'.format(version, platform)
 
-    return name
+    return name, platform
 
 
-def has_pyinstaller():
-    """ Checks if pyinstaller is available """
+def has_module(mod, site_packages_path):
+    """ Checks for a module folder in the site pacakges path """
 
-    site_packages_path = get_python_lib()
-    return os.path.isdir(site_packages_path+'\\pyinstaller')
+    return os.path.isdir(site_packages_path+'\\'+mod)
+
+
+def copy_obfiles(build_dir, site_packages_path):
+    """ Copies .obf files to build folder """
+
+    # List of .obf files
+    obf_files = ['formats_cairo.obf', 'formats_common.obf', 'formats_compchem.obf',
+                 'formats_misc.obf', 'formats_utility.obf']
+
+    babel_dir = site_packages_path+'\\openbabel'
+
+    # Copy the files from the openbabel path to the build directory
+    [shutil.copyfile(babel_dir+'\\'+entry, build_dir+'\\'+entry) for entry in obf_files]
+
+    return obf_files
+
+
+def write_spec_file(build_dir, pyinst_dict, obf_files):
+    """ Writes a .spec file for PyInstaller """
+
+    def _write_obf(obf_files, build_dir):
+
+        return_string = 'a.binaries'        
+
+        if obf_files is not None:
+
+            if len(obf_files) == 1:  # Only one .obf files
+
+                return_string += " + [('"+obf_files[0]+"', "+repr(build_dir+'\\'+obf_files[0])+", 'BINARY')],"
+
+            else:
+
+                for entry in range(len(obf_files) - 1):
+
+                    return_string += " + [('"+obf_files[entry]+"', "+repr(build_dir+'\\'+obf_files[entry])+", 'BINARY')]"
+
+		return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
+
+	else:
+
+            return_string += ','
+
+	return return_string
+
+    os.chdir(build_dir)  # Change to build directory and create a new file
+
+    spec_file = 'aRMSD.spec'
+
+    obf_str = _write_obf(obf_files, build_dir)
+
+    # Write temporary setup file
+    with open(spec_file, 'w') as outfile:
+        
+        outfile.write("""
+# Automatically created aRMSD 'spec' file for a PyInstaller based compilation
+# This file deletes itself after the installation.
+# You are reading this because you aborted the installation or got an error...
+
+# Authors: Arne Wagner
+# License: MIT
+
+block_cipher = None
+
+import os
+
+folder = os.getcwd()  # Get current working directory
+
+binaries = """+str(pyinst_dict['binaries'])+"""
+
+extra_datas = """+str(pyinst_dict['extra_datas'])+"""
+
+exclude_datas = """+str(pyinst_dict['data_excludes'])+"\n\n"+"""hiddenimports = """+str(pyinst_dict['hiddenimports'])+"""
+
+
+a = Analysis(['aRMSD.py'],
+             pathex = [folder],
+             binaries = binaries,
+             datas = extra_datas,
+             hiddenimports = hiddenimports,
+             hookspath = [],
+             runtime_hooks = [],
+             excludes = [],
+             win_no_prefer_redirects = False,
+             win_private_assemblies = False,
+             cipher = block_cipher)
+
+# Setup platform and program name """+"\n"+"platform, name = '"+pyinst_dict['platform']+"', '"+pyinst_dict['name']+"'\n")
+
+        outfile.write("""
+# Exclude some binaries
+#a.binaries = [x for x in a.binaries if not x[0].startswith("zmq")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("IPython")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("docutils")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("pytz")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("wx")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("libQtWebKit")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("libQtDesigner")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("PySide")]
+#a.binaries = [x for x in a.binaries if not x[0].startswith("libtk")]
+
+# Exclude selected data
+for exclude_data in exclude_datas:
+
+    a.datas = [x for x in a.datas if exclude_data not in x[0]]
+    
+# Setup pyz
+pyz = PYZ(a.pure, a.zipped_data,
+          cipher = block_cipher)
+
+exe = EXE(pyz,
+          a.scripts,\n          """+_write_obf(obf_files, build_dir)+"""
+          a.zipfiles,
+          a.datas,
+          name = name,
+          debug = False,
+          strip = False,
+          upx = True,
+          console = True,
+          icon = folder+"""+r"'\\aRMSD_icon.ico')"+"""
+
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip = False,
+               upx = True,
+               name = name)
+
+""")
+
+    outfile.close()
+
+    return spec_file
 
 
 def package_cython_modules(build_dir, list_of_files, cython_compiler):
@@ -153,10 +317,10 @@ setup(name = 'alog', ext_modules = cythonize('"""+list_of_files[2]+"""'),)
     print('Compilation time: '+str(round((t1 - t0) / 60.0, 1))+' min')
 
 
-def run_compilation(use_cython, cython_compiler):
+def run_compilation(use_openbabel, use_cython, cython_compiler):
     """ Runs the pyinstaller compilation with the given flags for cython and the c compiler """
 
-    print('\n*** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
+    print('\n   *** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
     print('==============================================================================')
     print('It will create a standalone executable using PyInstaller.')
     print('\nNote: The compilation process will take some time (see below),')
@@ -175,7 +339,14 @@ def run_compilation(use_cython, cython_compiler):
     print('      aRMSD.spec and compile_aRMSD.py files')
     print('------------------------------------------------------------------------------')
 
-    has_pyinst = has_pyinstaller()
+    # Determine site packages path
+    site_packages_path = get_python_lib()
+
+    # Check for PyInstaller and openbabel
+    has_pyinst = has_module('pyinstaller', site_packages_path)
+    has_obabel = has_module('openbabel', site_packages_path)
+    
+    obf_files = None  # Will be checked and updated if .obf files are copyied
 
     if has_pyinst:
 
@@ -203,7 +374,7 @@ def run_compilation(use_cython, cython_compiler):
         ext_log = check_for_ext(armsd_dir+'\\'+name_log, '.pyx', '.py')
 
         print('\n>> Installer was called as...')
-        print('\npython compile_aRMSD.py')
+        print('\npython compile_aRMSD.py --use_openbabel='+str(use_openbabel)+' --use_cython='+str(use_cython)+' --cython_compiler='+str(cython_compiler))
 
         print('\n>> Creating temporary directory... '+build_folder_name)
 
@@ -215,6 +386,19 @@ def run_compilation(use_cython, cython_compiler):
         shutil.copyfile(armsd_dir+'\\'+name_core+ext_core, build_dir+'\\'+name_core+ext_core)
         shutil.copyfile(armsd_dir+'\\'+name_plot+ext_plot, build_dir+'\\'+name_plot+ext_plot)
         shutil.copyfile(armsd_dir+'\\'+name_log+ext_log, build_dir+'\\'+name_log+ext_log)
+
+        if use_openbabel and has_obabel:  # Copy obenbabel files
+
+            print('\n>> Copying openbabel files...')            
+            obf_files = copy_obfiles(build_dir, site_packages_path)
+
+        elif use_openbabel and not has_obabel:
+
+            print('\n>> ERROR: Openbabel was not found on your system, will continue without it!')
+
+        else:
+
+            print('\n>> INFO: Openbabel will not be used!')
 
         print('\n>> Copying core modules...')
         print('\t... '+name_core+ext_core)
@@ -262,21 +446,28 @@ def run_compilation(use_cython, cython_compiler):
 
         print('\n>> Copying main program files...')
 
-        # Copy main file, icon and spec file to build directory
+        # Gets the file name of the created executable
+        file_name_dir, platform = get_current_version(armsd_dir)
+
+        # Copy main file and icon to build directory
         shutil.copyfile(armsd_dir+'\\aRMSD.py', build_dir+'\\aRMSD.py')
         shutil.copyfile(basic_dir+'\\aRMSD_icon.ico', build_dir+'\\aRMSD_icon.ico')
         shutil.copyfile(basic_dir+'\\aRMSD.spec', build_dir+'\\aRMSD.spec')
 
-        # Gets the file name of the created executable
-        file_name_dir = get_current_version(armsd_dir)
+        # Load PyInstaller information (modules can be adjusted in the respective function)
+        pyinst_dict = pyinstaller_data(file_name_dir, sys.platform, obf_files)
+
+        # Write .spec file for compilation
+        spec_file = write_spec_file(build_dir, pyinst_dict, obf_files)
+        pyinstaller_cmd = 'pyinstaller --onefile '+spec_file
 
         print('\n>> Calling PyInstaller...')
         print('\n'+build_dir+'> '+pyinstaller_cmd)
 
         t0 = time.clock()  # Start time
 
-        # Compile files with PyInstaller
-        pyinstaller_args = shlex.split(pyinstaller_cmd)
+        # Compile files with PyInstaller - this should work on every system
+        pyinstaller_args = shlex.split(pyinstaller_cmd+' '+spec_file)
         subprocess.call(pyinstaller_args)
 
         t1 = time.clock()  # End time
@@ -313,6 +504,6 @@ if __name__ == '__main__':  # Run the program
 
     arguments = sys.argv[1:]  # Get arguments
 
-    use_cython, cython_compiler = analyze_arguments(arguments)  # Check arguments and set variables
+    use_openbabel, use_cython, cython_compiler = analyze_arguments(arguments)  # Check arguments and set variables
 
-    run_compilation(use_cython, cython_compiler)
+    run_compilation(use_openbabel, use_cython, cython_compiler)

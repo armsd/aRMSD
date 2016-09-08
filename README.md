@@ -57,9 +57,9 @@ pip install pyinstaller
 Download the current master branch of aRMSD, extract the files and navigate to the main folder. Run the compilation script in an interactive Python shell or from command line by typing
 
 ```bash
-python compile_aRMSD.py --use_cython=True --cython_compiler=msvc  --use_openbabel=True
+python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True
 ```
-(optional use of [Cython] (http://cython.org/) and [openbabel] (http://cython.org/) can be requested with the additional arguments). This will create a single executable file in the armsd folder and should work for all operating systems. Temporary files will be created during this process (compilation will take around 25 min) and deleted after the process is finished. To use the program
+(optional use of [Cython] (http://cython.org/) and [openbabel] (http://openbabel.org/wiki/Main_Page) can be requested with the additional arguments). This will create a single executable file in the armsd folder and should work for all operating systems. Temporary files will be created during this process (compilation will take around 25 min) and deleted after the process is finished. To use the program
 
 # Documentation and Tutorial
 Will be added in the near future. For now: start the program, follow the instructions and use the two files provided in the example folder.
