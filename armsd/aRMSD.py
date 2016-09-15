@@ -28,6 +28,7 @@ except ImportError:
 try:
 
     import pybel
+    import openbabel
 
 except ImportError:
 
@@ -52,17 +53,19 @@ author_email = 'arne.wagner@aci.uni-heidelberg.de'
 url = 'https://github.com/armsd/aRMSD'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.1'
+__aRMSD_version__ = '0.9.2'
 __aRMSD_release__ = 2016
 
-__log_version__ = '2016-08-15'
-__core_version__ = '2016-08-15'
+__log_version__ = '2016-09-09'
+__core_version__ = '2016-09-09'
 __plot_version__ = '2016-08-15'
 
 __author__ = author+' <'+author_email+'>'
 
 short_description = 'short description'
 long_description = 'long description'
+
+is_compiled = False  # If the program is compiled to a standalone exe
 
 # HERE START THE MAIN PROGRAM FUNCTIONS (Menues and main program)
 ###############################################################################
@@ -591,7 +594,7 @@ def run():
     settings.parse_settings('settings.cfg')
 
     # Set up logger and print welcome screen
-    logger = al.Logger(__aRMSD_version__, __aRMSD_release__)
+    logger = al.Logger(__aRMSD_version__, __aRMSD_release__, is_compiled)
     logger.check_modules(ac.has_np, ac.np_version, ap.has_vtk, ap.vtk_version,
                          ap.has_mpl, ap.mpl_version, ac.has_pybel, ac.has_uc, ac.uc_version)
 
