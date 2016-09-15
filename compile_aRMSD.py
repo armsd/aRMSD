@@ -27,15 +27,17 @@ def pyinstaller_data(name, platform, obf_files):
     """ Sets up a PyInstaller dictionary with all parameters that will be written to the .spec file """
 
     # Excludes and hidden imports
-    data_excl = ['_ssl', '_hashlib', 'PySide', '_gtkagg', '_tkagg', '_wxagg', '_qt5agg',
-                 'bsddb', 'curses', 'pywin.debugger', 'pywin.debugger.dbgcon',
-                 'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
+    #data_excl = ['_ssl', '_hashlib', 'PySide', '_gtkagg', '_tkagg', '_wxagg', '_qt5agg',
+    #             'bsddb', 'curses', 'pywin.debugger', 'pywin.debugger.dbgcon',
+    #             'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
+
+    data_excl = []
     
     hiddenimp = ['matplotlib', 'vtk', 'uncertainties']
 
     if obf_files is not None:  # Add pybel to hiddenimports
 
-        hiddenimp.append('pybel')
+        hiddenimp.append('openbabel')
 
     # Extra data and binaries for PyInstaller
     ext_bin = []
@@ -112,6 +114,10 @@ def get_current_version(armsd_dir):
 
             version = eval(line.split()[-1])
 
+        if 'is_compiled' in line and len(line.split()) > 7:  # Let the program now that it is compiled
+
+            contents[index].replace('False', 'True')
+
     # Setup platform and program name
     platform, name = '', 'aRMSD'
 
@@ -156,16 +162,60 @@ def has_module(mod, site_packages_path):
 def copy_obfiles(build_dir, site_packages_path):
     """ Copies .obf files to build folder """
 
-    # List of .obf files
+    # List of .obf files (file format support), add or remove obf files accordingly
     obf_files = ['formats_cairo.obf', 'formats_common.obf', 'formats_compchem.obf',
-                 'formats_misc.obf', 'formats_utility.obf']
+                 'formats_misc.obf', 'formats_utility.obf', 'formats_xml.obf']
 
-    babel_dir = site_packages_path+'\\openbabel'
+    babel_dir = site_packages_path+'\\openbabel'  # Path of the .obf files
 
-    # Copy the files from the openbabel path to the build directory
+    # Copy the files from the openbabel path to the build directory, return the files names
     [shutil.copyfile(babel_dir+'\\'+entry, build_dir+'\\'+entry) for entry in obf_files]
 
     return obf_files
+
+
+def write_ob_hook(site_packages_path):
+    """ Writes a working pyinstaller hook for openbabel if there is none """
+
+    hook_path = site_packages_path+'\\PyInstaller\\hooks'  # Path of the PyInstaller hooks
+    babel_data = site_packages_path+'\\openbabel\\data'  # Path of the openbabel data files
+
+    if not os.path.isfile(hook_path+'\\hook-openbabel.py'):  # Don't overwrite files
+
+        data_files = os.listdir(babel_data)  # All files in the directory
+
+        # If these files are not included openbabel will give a warning and fall back to the internal data
+        dat_names = ['space-groups', 'element', 'types', 'resdata', 'bondtyp', 'aromatic', 'atomtyp']
+
+        datas = []
+
+        for entry in range(len(data_files)):
+
+            if data_files[entry].split('.')[0] in dat_names:  # If a file in dat_names is found, add it to datas
+
+                datas.append((site_packages_path+'\\openbabel\\data\\'+data_files[entry], 'openbabel\\data'))
+
+        os.chdir(hook_path)
+
+        # Write hook file
+        with open('hook-openbabel.py', 'w') as outfile:
+
+            outfile.write("""
+# This hook has been created by aRMSD
+# It may not work for the compilation of other executables
+
+from PyInstaller.utils.hooks import collect_dynamic_libs
+
+binaries = collect_dynamic_libs('openbabel')
+datas """+"= "+str(datas))
+
+            print('>> An openbabel hook for PyInstaller has been created!')
+
+            outfile.close()
+
+    else:
+
+        print('>> A preexisting openbabel hook was found and will be used!')
 
 
 def write_spec_file(build_dir, pyinst_dict, obf_files):
@@ -199,7 +249,7 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
     spec_file = 'aRMSD.spec'
 
-    obf_str = _write_obf(obf_files, build_dir)
+    obf_str = _write_obf(obf_files, build_dir)  # Write additional binary string for .spec file
 
     # Write temporary setup file
     with open(spec_file, 'w') as outfile:
@@ -207,7 +257,6 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
         outfile.write("""
 # Automatically created aRMSD 'spec' file for a PyInstaller based compilation
 # This file deletes itself after the installation.
-# You are reading this because you aborted the installation or got an error...
 
 # Authors: Arne Wagner
 # License: MIT
@@ -328,11 +377,11 @@ def run_compilation(use_openbabel, use_cython, cython_compiler):
 
     if not use_cython:  # Estimates the compilation time based on tests - but may be different on other machines
 
-        print('\n\t -- Estimated total compilation time: 25 min --')
+        print('\n\t -- Estimated total compilation time: 30 min --')
 
     else:
 
-        print('\n\t --Estimated total compilation time: 28 min --')
+        print('\n\t --Estimated total compilation time: 35 min --')
 
     print('------------------------------------------------------------------------------')
     print('Info: You can customize the build by adjusting the')
@@ -391,6 +440,7 @@ def run_compilation(use_openbabel, use_cython, cython_compiler):
 
             print('\n>> Copying openbabel files...')            
             obf_files = copy_obfiles(build_dir, site_packages_path)
+            write_ob_hook(site_packages_path)
 
         elif use_openbabel and not has_obabel:
 

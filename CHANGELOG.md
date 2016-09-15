@@ -1,3 +1,16 @@
+Version     0.9.2 (15 September 2016, development)
+------------------------
+     
+**Improvements:**
+
+         - added openbabel support for the compiled program version
+         - updated installer to generate required files on-the-fly
+    
+**Bugfixes:**
+
+         - none	   
+
+
 Version     0.9.1 (31 August 2016, development)
 ------------------------
      
