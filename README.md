@@ -4,10 +4,10 @@
 An open toolbox for structural comparison between two molecules with various capabilities to explore different aspects of structural similarity and diversity. Using data from common file formats the minimum RMSD is found by combining the functionalities of the Hungarian and the Kabsch algorithm. Crystallographic data provided from cif files is fully supported and the results can be rendered with the help of the [vtk] (http://www.vtk.org/) package.
 
 # News & Updates
-This page is currently under construction and more files will be added from day to day. So the best way to keep track of all changes and the ongoing delevopment process is by inspecting the [changelog] (./CHANGELOG.md). Due to last checks of the source code, the capabilities of the program are currently limited to Python 2.7 under Windows (.pyd files). This temporary restriction will be resolved in the next weeks. Please note that aRMSD was developed under Windows and is therefore not tested under other operating systems. Any feedback concerning the execution or PyInstaller compilation on Linux / Mac / ... is greatly appreciated.
+This page is currently under construction and more files will be added from day to day. So the best way to keep track of all changes and the ongoing delevopment process is by inspecting the [changelog] (./CHANGELOG.md). Due to last checks of the source code, the capabilities of the program are currently limited to Python 2.7 under Windows (.pyd files). This temporary restriction will be resolved in the next weeks. Please note that *aRMSD* was developed under Windows and is therefore not tested under other operating systems. Any feedback concerning the execution or PyInstaller compilation on Linux / Mac / ... is greatly appreciated.
 
 # Installation
-aRMSD can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some [modules] (./INSTALLATION.md) are required which are listed below:
+*aRMSD* can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some [modules] (./INSTALLATION.md) are required which are listed below:
 
     * Python 2.7
     * numpy
@@ -25,7 +25,7 @@ In order adjust the source code by yourself, always make sure to have the requir
 
 **a) Usage as Python application:**
 
-- The easiest way to use aRMSD.
+- The easiest way to use *aRMSD*.
 
 Simply clone the project or download the zip file from GitHub, navigate to the armsd folder and run aRMSD.py, e.g. from command line
 
@@ -35,7 +35,7 @@ python aRMSD.py
 
 **b) Usage as Python module:**
 
-- This will install aRMSD as a Python module that can be imported and used in other applications. This allows for both the most extensive utilization of the code and provides the possibility to keep an eye on the ongoing development via pip.
+- This will install *aRMSD* as a Python module that can be imported and used in other applications. This allows for both the most extensive utilization of the code and provides the possibility to keep an eye on the ongoing development via pip.
 
 Install the program by typing
 
@@ -47,15 +47,15 @@ in your command line.
 
 **c) Executable compiled with PyInstaller:**
 
-- Produces a single file which can be copied anlongside the settings.cfg and the xsf folder to different machines with the same architecture. Once the program has been compiled, this is probably the easiest way to use aRMSD - especially for users that are unfamiliar with Python. 
+- Produces a single file which can be copied anlongside the *settings.cfg* and the *xsf folder* to different machines with the same architecture. Once the program has been compiled, this is probably the easiest way to use *aRMSD* - especially for users that are unfamiliar with Python. 
 
-First ensure that you have the latest version of [Pyinstaller] (http://www.pyinstaller.org/) or install it with pip.
+First ensure that you have the latest version of [PyInstaller] (http://www.pyinstaller.org/) or install it with pip.
 
 ```bash
 pip install pyinstaller
 ```
 
-Download the current master branch of aRMSD, extract the files and navigate to the main folder. Run the compilation script in an interactive Python shell or from command line by typing
+Download the current master branch of *aRMSD*, extract the files and navigate to the main folder. Run the compilation script in an interactive Python shell or from command line by typing
 
 ```bash
 python compile_aRMSD.py
