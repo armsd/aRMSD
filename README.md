@@ -7,18 +7,19 @@ An open toolbox for structural comparison between two molecules with various cap
 This page is currently under construction and more files will be added from day to day. So the best way to keep track of all changes and the ongoing delevopment process is by inspecting the [changelog] (./CHANGELOG.md). Due to last checks of the source code, the capabilities of the program are currently limited to Python 2.7 under Windows (.pyd files). This temporary restriction will be resolved in the next weeks. Please note that aRMSD was developed under Windows and is therefore not tested under other operating systems. Any feedback concerning the execution or PyInstaller compilation on Linux / Mac / ... is greatly appreciated.
 
 # Installation
-aRMSD can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and use the .spec file to compile it into a single standalone executable. In any case some modules are required which are listed below including their versions which were tested so far:
+aRMSD can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some [modules] (./INSTALLATION.md) are required which are listed below:
 
     * Python 2.7
-    * numpy (1.11.1+mkl)
-    * vtk (6.2.0)
-    * matplotlib (1.5.1)
-    * future (0.15.2)
-    * uncertainties (3.0.1)
+    * numpy
+    * vtk
+    * matplotlib
+    * future
+    * uncertainties
 
 optional:
 
-    * openbabel / pybel (1.8.4) [additional file formats]
+    * Cython [performance improvements]
+    * openbabel / pybel [additional file formats]
 
 In order adjust the source code by yourself, always make sure to have the required Python pacakges installed and download the latest version of the master branch. Whenever possible it is recommended to add and update packages using pre-compiled Python [wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your operating system which can be installed via pip. If you add features or wish to have an idea implemented or a bug fixed, contact me or make a [request] (https://github.com/armsd/aRMSD/issues).
 
@@ -63,7 +64,7 @@ python compile_aRMSD.py
 This will create a single executable file in the armsd folder and should work for all operating systems. Temporary files will be created during this process (the compilation will take around 30 min, depending on the machine) and deleted after the executable is created. Optional arguments can be given to make use of [Cython] (http://cython.org/) and [openbabel] (http://openbabel.org/wiki/Main_Page). Note that Cython C compiler should be specified if several options are available.
 
 ```bash
-python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True
+python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
 ```
 
 # Documentation and Tutorial

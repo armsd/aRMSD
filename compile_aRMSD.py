@@ -3,9 +3,10 @@ Script for an easy installation/compilation of aRMSD from command line
 License: MIT
 (c) 2016 by Arne Wagner
 
-Recent changes:
+*Recent changes:
 - Installer writes PyInstaller .spec file on-the-fly
-- Added checks for openbabel and customization for PyInstaller imports
+- Added support for openbabel (writes hook if none exists)
+- PyInstaller imports/excludes can be modified in the functions
 - Added optional openbabel flag for compilation
 """
 
@@ -20,7 +21,7 @@ import shlex
 from codecs import open
 import time
 
-inst_version = '1.2'  # Version of the installer
+inst_version = '1.3'  # Version of the installer
 
 
 def pyinstaller_data(name, platform, obf_files):
@@ -54,7 +55,7 @@ def pyinstaller_data(name, platform, obf_files):
 def analyze_arguments(arguments):
     """ Checks given arguments and passes correct ones to the compilation script """
 
-    accepted_arg_prefix = ['--use_openbabel', '--use_cython', '--cython_compiler']
+    accepted_arg_prefix = ['--use_openbabel', '--use_cython', '--cython_compiler', '--overwrite']
 
     def _split(arg):
 
@@ -68,8 +69,9 @@ def analyze_arguments(arguments):
     use_openbabel = False
     use_cython = False
     cython_compiler = 'msvc'
+    overwrite = False
 
-    if len(arguments) != 0:  # Arguments given
+    if len(arguments) != 0:  # Arguments are given
 
         for entry in arguments:
 
@@ -87,7 +89,11 @@ def analyze_arguments(arguments):
 
                 use_openbabel = data[1]
 
-    return use_openbabel, use_cython, cython_compiler
+            elif data[0] == '--overwrite':
+
+                overwrite = data[1]
+
+    return use_openbabel, use_cython, cython_compiler, overwrite
 
 
 def check_for_ext(pyx_file_path, ext, default):
@@ -174,13 +180,13 @@ def copy_obfiles(build_dir, site_packages_path):
     return obf_files
 
 
-def write_ob_hook(site_packages_path):
+def write_ob_hook(site_packages_path, overwrite):
     """ Writes a working pyinstaller hook for openbabel if there is none """
 
     hook_path = site_packages_path+'\\PyInstaller\\hooks'  # Path of the PyInstaller hooks
     babel_data = site_packages_path+'\\openbabel\\data'  # Path of the openbabel data files
 
-    if not os.path.isfile(hook_path+'\\hook-openbabel.py'):  # Don't overwrite files
+    if not os.path.isfile(hook_path+'\\hook-openbabel.py') or overwrite:  # Don't overwrite files
 
         data_files = os.listdir(babel_data)  # All files in the directory
 
@@ -366,7 +372,7 @@ setup(name = 'alog', ext_modules = cythonize('"""+list_of_files[2]+"""'),)
     print('Compilation time: '+str(round((t1 - t0) / 60.0, 1))+' min')
 
 
-def run_compilation(use_openbabel, use_cython, cython_compiler):
+def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
     """ Runs the pyinstaller compilation with the given flags for cython and the c compiler """
 
     print('\n   *** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
@@ -423,7 +429,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler):
         ext_log = check_for_ext(armsd_dir+'\\'+name_log, '.pyx', '.py')
 
         print('\n>> Installer was called as...')
-        print('\npython compile_aRMSD.py --use_openbabel='+str(use_openbabel)+' --use_cython='+str(use_cython)+' --cython_compiler='+str(cython_compiler))
+        print('\npython compile_aRMSD.py --use_openbabel='+str(use_openbabel)+' --use_cython='+str(use_cython)+
+              ' --cython_compiler='+str(cython_compiler)+' --overwrite='+str(overwrite))
 
         print('\n>> Creating temporary directory... '+build_folder_name)
 
@@ -436,11 +443,15 @@ def run_compilation(use_openbabel, use_cython, cython_compiler):
         shutil.copyfile(armsd_dir+'\\'+name_plot+ext_plot, build_dir+'\\'+name_plot+ext_plot)
         shutil.copyfile(armsd_dir+'\\'+name_log+ext_log, build_dir+'\\'+name_log+ext_log)
 
+        if overwrite:
+
+            print('\n>> INFO: All existing files (hooks, etc.) will be overwritten')
+
         if use_openbabel and has_obabel:  # Copy obenbabel files
 
             print('\n>> Copying openbabel files...')            
             obf_files = copy_obfiles(build_dir, site_packages_path)
-            write_ob_hook(site_packages_path)
+            write_ob_hook(site_packages_path, overwrite)
 
         elif use_openbabel and not has_obabel:
 
@@ -554,6 +565,6 @@ if __name__ == '__main__':  # Run the program
 
     arguments = sys.argv[1:]  # Get arguments
 
-    use_openbabel, use_cython, cython_compiler = analyze_arguments(arguments)  # Check arguments and set variables
+    use_openbabel, use_cython, cython_compiler, overwrite = analyze_arguments(arguments)  # Check arguments and set variables
 
-    run_compilation(use_openbabel, use_cython, cython_compiler)
+    run_compilation(use_openbabel, use_cython, cython_compiler, overwrite)
