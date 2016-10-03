@@ -51,18 +51,26 @@ name = 'aRMSD'
 author = 'Arne Wagner'
 author_email = 'arne.wagner@aci.uni-heidelberg.de'
 url = 'https://github.com/armsd/aRMSD'
+doc = 'http://armsd.rtfd.io'
 lic = 'MIT'
 
 __aRMSD_version__ = '0.9.2'
 __aRMSD_release__ = 2016
 
-__log_version__ = '2016-09-09'
-__core_version__ = '2016-09-09'
-__plot_version__ = '2016-08-15'
+__log_version__ = '2016-09-27'
+__core_version__ = '2016-09-27'
+__plot_version__ = '2016-09-27'
 
 __author__ = author+' <'+author_email+'>'
 
-short_description = 'short description'
+short_description = """
+aRMSD
+==================================
+aRMSD is a Python module/program that allows for a fast and comprehensive
+analysis of molecular structures parsed from different files. Unique features
+are a support of crystallographic data, error propagation and specific types
+of graphical representations. """
+
 long_description = 'long description'
 
 is_compiled = False  # If the program is compiled to a standalone exe

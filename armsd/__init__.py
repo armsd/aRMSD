@@ -20,33 +20,20 @@ Dependencies:
 * matplotlib
 * vtk
 * uncertainties
+* [Cython]
 * [openbabel/pybel]
 
 *** IMPORTANT NOTICE ***
 It is highly recommended to install all dependencies directly from
-python wheels prior to the installation of aRMSD
+python wheels prior to the installation of aRMSD (especially numpy and vtk)
 
-* KNOWN ISSUES AND FUTURE DEVELOPMENT
--- Compatability
-- Known shader problem with VTK 7 (Rollback to VTK 6.2 was needed)
-- Full compatability with Python 3.5
--- Feature addition
-- Add: Parser for .res, .mol2
-- Add: group symbols for bond types
-- Add: more output for interpolation
--- Minor fixes
-- Fix: RMSD results formatting
-- Fix: outfile without standard deviations
-- Fix: percentages in substructure contributions
-- Fix: Camera in blender for some orientations
--- Tweaks and Improvments
-- Improve internal coordinates with highest deviations
-- Logfile design and content
-- VTK: Colorbar text size and colorbar widget and settings
-- VTK: Better label orientation
-- MPL: Spacing in statistics text
+* For known issues and future developments see INSTALLATION.md
 
-* Documentation: See https://github.com/armsd/aRMSD for further information
+* Recent changes are listed in CHANGELOG.md
+
+* This project is hosted on GitHub: https://github.com/armsd/aRMSD
+
+* Documentation: https://
 
 (c) 2016 by Arne Wagner <arne.wagner@aci.uni-heidelberg.de>.
 Please send feature requests, bugs and feedback to this address.
