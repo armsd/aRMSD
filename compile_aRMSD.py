@@ -21,7 +21,7 @@ import shlex
 from codecs import open
 import time
 
-inst_version = '1.3'  # Version of the installer
+inst_version = '1.4'  # Version of the installer
 
 
 def pyinstaller_data(name, platform, obf_files):
@@ -434,6 +434,11 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 
         print('\n>> Creating temporary directory... '+build_folder_name)
 
+        if os.path.isdir(build_folder_name):  # Remove build folder if it exists
+
+            shutil.rmtree(build_dir)
+            print('\n>> Build directory already exists... it will be removed!')
+
         os.makedirs(build_folder_name)  # Make temporary build directory
 
         os.chdir(build_folder_name)  # Change to build folder
@@ -513,7 +518,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         # Copy main file and icon to build directory
         shutil.copyfile(armsd_dir+'\\aRMSD.py', build_dir+'\\aRMSD.py')
         shutil.copyfile(basic_dir+'\\aRMSD_icon.ico', build_dir+'\\aRMSD_icon.ico')
-        shutil.copyfile(basic_dir+'\\aRMSD.spec', build_dir+'\\aRMSD.spec')
 
         # Load PyInstaller information (modules can be adjusted in the respective function)
         pyinst_dict = pyinstaller_data(file_name_dir, sys.platform, obf_files)
