@@ -27,13 +27,11 @@ Dependencies:
 It is highly recommended to install all dependencies directly from
 python wheels prior to the installation of aRMSD (especially numpy and vtk)
 
-* For known issues and future developments see INSTALLATION.md
-
 * Recent changes are listed in CHANGELOG.md
 
 * This project is hosted on GitHub: https://github.com/armsd/aRMSD
 
-* Documentation: https://
+* Documentation: http://armsd.rtfd.io
 
 (c) 2016 by Arne Wagner <arne.wagner@aci.uni-heidelberg.de>.
 Please send feature requests, bugs and feedback to this address.
