@@ -7,7 +7,7 @@ An open toolbox for structural comparison between two molecules with various cap
 This page is currently under construction and more files will be added from day to day. So the best way to keep track of all changes and the ongoing delevopment process is by inspecting the [changelog] (./CHANGELOG.md). Due to last checks of the source code, the capabilities of the program are currently limited to Python 2.7 under Windows (.pyd files). This temporary restriction will be resolved in the next weeks. Please note that *aRMSD* was developed under Windows and is therefore not tested under other operating systems. Any feedback concerning the execution or PyInstaller compilation on Linux / Mac / ... is greatly appreciated.
 
 # Installation
-*aRMSD* can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some [modules] (./INSTALLATION.md) are required which are listed below:
+*aRMSD* can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some packages are required which are listed below:
 
     * Python 2.7
     * numpy
