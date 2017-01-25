@@ -16,7 +16,7 @@ import alog as al
 
 import numpy as np
 
-try:  # Will be checked in core module - this is just for the correct pyinstaller hooks
+try:  # Will be checked in core module - this is just for the correct PyInstaller hooks
 
     import uncertainties.unumpy as unp
     from uncertainties import ufloat, ufloat_fromstr
@@ -54,12 +54,12 @@ url = 'https://github.com/armsd/aRMSD'
 doc = 'http://armsd.rtfd.io'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.2'
-__aRMSD_release__ = 2016
+__aRMSD_version__ = '0.9.4'
+__aRMSD_release__ = 2017
 
-__log_version__ = '2016-09-27'
-__core_version__ = '2016-09-27'
-__plot_version__ = '2016-09-27'
+__log_version__ = '2016-11-03'
+__core_version__ = '2017-01-03'
+__plot_version__ = '2016-11-03'
 
 __author__ = author+' <'+author_email+'>'
 
@@ -71,9 +71,19 @@ analysis of molecular structures parsed from different files. Unique features
 are a support of crystallographic data, error propagation and specific types
 of graphical representations. """
 
-long_description = 'long description'
+long_description = """
+For a full description of the capabilities and usage of aRMSD see the online
+documentation under """+str(doc)+""". To use the program execute aRMSD.py or
+open a new shell and write
 
-is_compiled = False  # If the program is compiled to a standalone exe
+from aRMSD import run
+
+run()
+
+This fill start the program and print the welcome screen along all needed
+instructions. Load two molecular structures from files and work your way
+through the program """
+
 
 # HERE START THE MAIN PROGRAM FUNCTIONS (Menues and main program)
 ###############################################################################
@@ -401,6 +411,10 @@ def kabsch_menu(molecule1, molecule2, logger, settings):
 
                 logger.pt_kabsch_first()
 
+            elif not align.has_sub_rmsd and align.has_sub:
+
+                logger.pt_kabsch_first()
+
             else:
 
                 logger.write_logfile(align, settings)
@@ -602,9 +616,10 @@ def run():
     settings.parse_settings('settings.cfg')
 
     # Set up logger and print welcome screen
-    logger = al.Logger(__aRMSD_version__, __aRMSD_release__, is_compiled)
+    logger = al.Logger(__aRMSD_version__, __aRMSD_release__)
     logger.check_modules(ac.has_np, ac.np_version, ap.has_vtk, ap.vtk_version,
-                         ap.has_mpl, ap.mpl_version, ac.has_pybel, ac.has_uc, ac.uc_version)
+                         ap.has_mpl, ap.mpl_version, ac.has_pybel, ac.pyb_version,
+                         ac.has_uc, ac.uc_version)
 
     logger.pt_welcome()
     logger.pt_versions(__core_version__, __plot_version__, __log_version__)
