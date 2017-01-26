@@ -1,3 +1,20 @@
+Version     0.9.4 (26 January 2017, development)
+------------------------
+     
+**Improvements:**
+
+         - aRMSD is now running under both Python 2.7 and 3.6
+         - better file handling and openbabel interface
+         - added a new coloring scheme for the aRMSD representation
+         - added .mol/.sdf/.sd file support
+         - updated installer for Python 3 environment
+    
+**Bugfixes:**
+
+         - fixed incorrect / missing versioning for pybel / openbabel
+         - fixed some bugs in the outfile creation
+
+
 Version     0.9.3 (25 September 2016, development)
 ------------------------
      

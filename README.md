@@ -9,11 +9,11 @@ This page is currently under construction and more files will be added from day 
 # Installation
 *aRMSD* can be installed in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some packages are required which are listed below:
 
-    * Python 2.7
+    * Python 2.7 or 3.6
     * numpy
     * vtk
     * matplotlib
-    * future
+    * PyQt4
     * uncertainties
 
 optional:
@@ -66,6 +66,8 @@ This will create a single executable file in the armsd folder and should work fo
 ```bash
 python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
 ```
+
+If you are using Python 3.5, there is a bug in the PyInstaller entry script and typing pyinstaller in a shell will not start a correct process. To fix this, go in the Python installation folder and edit the pyinstaller-script.py file: add quotes around the path in the first program line (e.g. "c:\program files\python36\python.exe")) 
 
 # Documentation and Tutorial
 To use the program, start the executable (if you are running aRMSD for the first time it is recommended to start the executable from command line to catch potential error messages) or run the application in a Python shell. Copy the example files to your current working directory and follow the instructions on screen. More information will be added in the near future.
