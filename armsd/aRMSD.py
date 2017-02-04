@@ -1,6 +1,6 @@
 """
 aRMSD main routines
-(c) 2016 by Arne Wagner
+(c) 2017 by Arne Wagner
 """
 
 # Authors: Arne Wagner
