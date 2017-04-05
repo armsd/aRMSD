@@ -206,8 +206,8 @@ class Logger(object):
             output.write('\n\n\tA brief description of the program can be found in the manual and in:')
             output.write('\n\tA. Wagner, PhD thesis, University of Heidelberg, 2015.\n')
             output.write('\n---------------------------------------------------------------------------------------------------\n')
-            output.write('\nCite this program as: \tA. Wagner, aRMSD, Version ' +
-                         str(self.version) + ', ' + str(self.year) + '.')
+            output.write('\n*** Cite this program as:' +
+                         '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
             output.write('\n\n---------------------------------------------------------------------------------------------------')
             output.write(adj_str('*** Log file of the superposition between the structures ***', prefix='\n\n', suffix='\n'))
             output.write(adj_str('"' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol1))
@@ -603,7 +603,8 @@ class Logger(object):
         print("  ... documentation: http://armsd.rtfd.io")
         print("-----------------------------------------------------------------------------")
         print(
-            '\n*** Cite this program as:\tA. Wagner, aRMSD, Version ' + str(self.version) + ', ' + str(self.year) + '.')
+            '\n*** Cite this program as:' + 
+            '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
 
     def pt_versions(self, core_version, plot_version, log_version):
 

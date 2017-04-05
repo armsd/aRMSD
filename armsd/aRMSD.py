@@ -57,7 +57,7 @@ lic = 'MIT'
 __aRMSD_version__ = '0.9.4'
 __aRMSD_release__ = 2017
 
-__log_version__ = '2016-11-03'
+__log_version__ = '2017-04-05'
 __core_version__ = '2017-01-03'
 __plot_version__ = '2016-11-03'
 
