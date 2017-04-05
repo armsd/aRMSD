@@ -6,6 +6,8 @@ An open toolbox for structural comparison between two molecules with various cap
 # News & Updates
 This page is currently under construction and more files will be added from day to day. So the best way to keep track of all changes and the ongoing delevopment process is by inspecting the [changelog] (./CHANGELOG.md). Please note that *aRMSD* was developed under Windows and is therefore not tested under other operating systems. Any feedback concerning the execution or PyInstaller compilation on Linux / Mac / ... is greatly appreciated.
 
+The official publication was published recently and can be found under (DOI: 10.1021/acs.jcim.6b00516). If you use *aRMSD* in your work, please cite: A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.
+
 # Installation
 *aRMSD* can be [installed] (./INSTALLATION.md) in two ways, either via pip (in this case it will be used as a Python module or Python application) or you can download the source code and compile it into a single standalone executable. In any case some packages are required which are listed below:
 
