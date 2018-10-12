@@ -2,6 +2,7 @@
 Script for an easy installation/compilation of aRMSD from command line
 License: MIT
 (c) 2016 by Arne Wagner
+(c) 2018 by Norwid Behrnd
 
 *Recent changes:
 - Installer writes PyInstaller .spec file on-the-fly
@@ -243,13 +244,13 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
                     return_string += " + [('"+obf_files[entry]+"', "+repr(build_dir+'\\'+obf_files[entry])+", 'BINARY')]"
 
-		return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
+        return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
 
-	else:
+    else:
 
             return_string += ','
 
-	return return_string
+    return return_string
 
     os.chdir(build_dir)  # Change to build directory and create a new file
 
