@@ -1,0 +1,11 @@
+# aRSMD-primer.org
+
+* Generalities
+
+  Development of the program aRMSD started by Arne Wagner during his
+  PhD in the Himmel group (University of Heidelberg).  aRMSD was
+  presented both in his PhD thesis () and in a publication ().
+
+  The aim of this fork is to use aRMSD in a "portable mode" on a
+  computer running Linux Debian (sid/buster, 64 bit) from the CLI
+  provided by python -- without assistance of PyInstaller.
