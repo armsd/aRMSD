@@ -114,3 +114,17 @@
   You leave this loop by hitting =10= (one-zero) to enter the next stage.
   
 ** Structure re-ordering
+  
+  The Kabsch algorithm will work successfully with consistent attribution
+  of atoms in reference and test motif.  This is ensured by launching the
+  Hungarian algorithm (key stroke =-1= (minus-one)).  This opens again the
+  structure visualizer.  In contrast to the previous display, you will
+  notice that atoms of test and reference structure, simultaenously 
+  perceived as related as well as in geometrical proximity to each other
+  are displayed with the same atom labeling.  If still sufficiently distant
+  from each other, their relationship will be marked by yellow spheres and
+  rods.
+  
+  [[./Hungarian-01.png]]
+  
+  Quit the visualizer (=q=) and leave this menu by hitting =0= (zero).
