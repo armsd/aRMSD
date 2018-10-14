@@ -102,8 +102,9 @@
   window, however, the more rapid these changes are.  Should this not
   suffice you may engage an anaglyph view with keystroke =3=, too.
   
-  If you are confident enough about the scenery encounterd, close the
-  structure visuzalizer by keystroke =q=.  Now decide if the quality
+  If you are confident enough about the scenery encountered, you may
+  keep a still about the arangement as *.png by hitting =s=.  To close
+  the structure visuzalizer by keystroke =q=.  Now decide if the quality
   of this /preliminary/ superposition may be improved by either inversion
   of the test molecules' orienation in regard to the coordinate system,
   or by reflection at one of the principal planes may be improved further.
@@ -146,9 +147,14 @@
   to the contribution of said atom (in both reference and test motif)
   to the global RMSD of the whole comparison.  The /color/ of the spheres
   scales to the absolute remaining difference of the to fit structures
-  about said atom.
+  about said atom.  Again, it may be useful to keep a still of this
+  by generation of a *.png (key stroke =s=) prior to closing (=q=).
   
   By hitting =1=, you may inspect the minimized best fit of the two
   motifs in a standard chicken-wire representation.
   
+  [[./Kabsch-analysis-01.png]]
   
+  It is useful to inspect both two graphical representations in conjunction
+  with the log file about the analysis which you may generate with
+  key stroke =5=.
