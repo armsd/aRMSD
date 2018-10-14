@@ -10,6 +10,7 @@
   computer running Linux Debian (sid/buster, 64 bit) from the CLI
   provided by python -- without assistance of PyInstaller.
 
+<<<<<<< HEAD
   aRMSD allows a pre-alignment of a test relative to a reference motif
   and subsequent refinement of this initial superposition of according
   to the Kabsch test.  Accepted file formats of the model data to test
@@ -26,14 +27,118 @@
   Debian:
   + python (version 2.7.15+) and python3 (version 3.6.6)
 
+=======
+  aRMSD allows a pre-alignment of a test relative to a reference
+  motif and subsequent refinement of this initial superposition 
+  according to the Kabsch test. Accepted file formats of the model
+  data to test include *.xyz and *.pdb, and other formats openbabel
+  may read and convert into them. aRMSD’s focus is the pairwise
+  comparison of two model data; if you intend to compare several model
+  data batch-wise, you may be better served with alternatives presented
+  in section (TODO).
+
+
+* System at dispostion
+
+  The system at disposition runs Linux Debian (sid/buster, 64 bit).
+  Installed packages deemed to be relevant in successful deployment of
+  aRMSD are, as readout with the synaptic package manager by Debian:
+  + python (version 2.7.15+) and python3 (version 3.6.6)
+    
+>>>>>>> development
   + cython (version 0.28.4-1)
 
   + openbabel, libopenbabel5, python-openbabel (all in version 2.4.1+dfsg-2)
 
+<<<<<<< HEAD
   + python-matplotlib, python-matplotlib-data, python3-matplotlib
     (all in version 2.2.2-4+b1)
+=======
+  + python-matplotlib, python-matplotlib-data, python3-matplotlib (all
+    in version 2.2.2-4+b1)
+>>>>>>> development
 
   + python-uncertainties, python3-uncertainties (all in version 2.4.4-1)
 
   + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
+<<<<<<< HEAD
     libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5)
+=======
+    libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5).
+
+
+* Basic deployment
+
+  Ensure your system contains the libraries mentioned.  Either clone,
+  or download the zip archive of the master branch of this project. To
+  familiarize with some of the programs functions, the Kabsch test will
+  be demonstrated on two model data of benzamide, provided with
+  =BZAMID-A.pdb= and =BZAMID-B.pdb= in sub-folder examples.  Copy these
+  into sub-folder =aRMSD=.
+
+** Loading of structures
+
+  In sub-folder =aRMSD= now containing both model data to compare with
+  each other, launch the program
+  #+BEGIN_SRC python
+     python aRMSD.py
+  #+END_SRC
+
+  During the first launch of the program, additional files are written
+  into the current directory.  Assuming you use a 80x24 terminal, you 
+  should see an output as in the following figure.
+  
+  [[./load-structures01.png]]
+
+  Enter the names of the files intended for comparison.  There is no
+  autocompletion of the file names, nor bash-like history provided --
+  if you err, the easiest escape is hitting Ctrl + C twice to leave
+  the script.
+
+  /Note:/  For the sake of mere performing the Kabsch test, a missing
+  or currently not correctly recognized =matplotlib= is irrelevant.
+
+  For each entry, aRMSD will provide feedback if the model was read
+  successfully, or not.  If necessary, you will offered a new prompt
+  to attempt a new data entry.
+
+  The subsequent interaction with aRMSD is keyboard driven.  The
+  program will check if the two models are consistent to each other
+  and ask you if all hydrogens should be excluded from the Kabsch
+  test, only the ones not attached to carbon atoms, or none.  For the
+  sake of this primer, the third option was chosen here.
+
+  [[./load-structures02.png]]
+
+  The confirmation by =ENT= will trigger the program to attempt a 
+  first /initial/ superposition of the two models, depicted in a
+  newly opened window, the structure visualizer.  
+  
+  [[./structure-visualizer01.png]]
+
+** structure pre-alignment
+  
+  It is now the task of the user to assist in the program about the
+  pre-alignment of the tested model (red motif) in regard to the
+  reference model (green) and coordinate system (blue).  To familiarize
+  yourself with the situation, assisted with your mouse, you may tilt
+  the orientation (left mouse button), roll (left mouse button while
+  pressing the =Ctrl= key), pan (left mouse button while pressing either
+  of the =Shift= keys), or zoom (pressing the middle mouse key) while
+  hovering over this window.  The more you are out of the center of this
+  window, however, the more rapid these changes are.  Should this not
+  suffice you may engage an anaglyph view with keystroke =3=, too.
+  
+  If you are confident enough about the scenery encounterd, close the
+  structure visuzalizer by keystroke =q=.  Now decide if the quality
+  of this /preliminary/ superposition may be improved by either inversion
+  of the test molecules' orienation in regard to the coordinate system,
+  or by reflection at one of the principal planes may be improved further.
+  Each time you hit the corresponding key, the program attempts a new
+  /preliminary/ superposition and it is up to you to find the best
+  /preliminary/ superposition.
+  
+  You leave this loop by hitting =10= (one-zero) to enter the next stage.
+  
+** Structure re-ordering
+>>>>>>> development
