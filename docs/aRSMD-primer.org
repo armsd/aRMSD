@@ -9,3 +9,31 @@
   The aim of this fork is to use aRMSD in a "portable mode" on a
   computer running Linux Debian (sid/buster, 64 bit) from the CLI
   provided by python -- without assistance of PyInstaller.
+
+  aRMSD allows a pre-alignment of a test relative to a reference
+  motif and subsequent refinement of this initial superposition 
+  according to the Kabsch test. Accepted file formats of the model
+  data to test include *.xyz and *.pdb, and other formats openbabel
+  may read and convert into them. aRMSD’s focus is the pairwise
+  comparison of two model data; if you intend to compare several model
+  data batch-wise, you may be better served with alternatives presented
+  in section (TODO).
+
+* System at dispostion
+
+  The system at disposition runs Linux Debian (sid/buster, 64 bit).
+  Installed packages deemed to be relevant in successful deployment of
+  aRMSD are, as readout with the synaptic package manager by Debian:
+  + python (version 2.7.15+) and python3 (version 3.6.6)
+    
+  + cython (version 0.28.4-1)
+
+  + openbabel, libopenbabel5, python-openbabel (all in version 2.4.1+dfsg-2)
+
+  + python-matplotlib, python-matplotlib-data, python3-matplotlib (all
+    in version 2.2.2-4+b1)
+
+  + python-uncertainties, python3-uncertainties (all in version 2.4.4-1)
+
+  + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
+    libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5).
