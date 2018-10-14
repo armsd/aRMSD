@@ -1,4 +1,10 @@
-*Note:*
+*Note:*  This fork targets a deployment of aRMSD under Linux without
+assistance by PyInstaller and calling the program from the CLI (i.e.,
+option a) of the original description).  It might be that changes of
+this fork equally work under other operational systems, too.
+
+For further information, see [./docs/aRSMD-primer.org].
+
 ![alt tag](./aRMSD_logo.png)
 
 An open toolbox for structural comparison between two molecules with various capabilities to explore different aspects of structural similarity and diversity. Using data from common file formats the minimum RMSD is found by combining the functionalities of the Hungarian and the Kabsch algorithm. Crystallographic data provided from cif files is fully supported and the results can be rendered with the help of the [vtk] (http://www.vtk.org/) package.
