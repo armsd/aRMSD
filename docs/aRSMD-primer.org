@@ -155,5 +155,6 @@
   
   It is useful to inspect both two graphical representations in conjunction
   with the log file about the analysis which you may generate with
-  key stroke =5=.
+  key stroke =5=.  The then generated detailed file =aRMSD_logfile.out= will
+  mention both the RMSD of pre-alignment, as well of Kabsch test.
 
