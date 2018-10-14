@@ -26,7 +26,6 @@
   Debian:
   + python (version 2.7.15+) and python3 (version 3.6.6)
 
-=======
   aRMSD allows a pre-alignment of a test relative to a reference
   motif and subsequent refinement of this initial superposition 
   according to the Kabsch test. Accepted file formats of the model
@@ -37,7 +36,7 @@
   in section (TODO).
 
 
-* System at dispostion
+* System at disposition
 
   The system at disposition runs Linux Debian (sid/buster, 64 bit).
   Installed packages deemed to be relevant in successful deployment of
@@ -81,7 +80,7 @@
   [[./load-structures01.png]]
 
   Enter the names of the files intended for comparison.  There is no
-  autocompletion of the file names, nor bash-like history provided --
+  auto-completion of the file names, nor bash-like history provided --
   if you err, the easiest escape is hitting Ctrl + C twice to leave
   the script.
 
@@ -100,7 +99,7 @@
 
   [[./load-structures02.png]]
 
-  The confirmation by =ENT= will trigger the program to attempt a 
+  The confirmation by =ENTER= will trigger the program to attempt a 
   first /initial/ superposition of the two models, depicted in a
   newly opened window, the structure visualizer.  
   
@@ -120,10 +119,10 @@
   suffice you may engage an anaglyph view with keystroke =3=, too.
   
   If you are confident enough about the scenery encountered, you may
-  keep a still about the arangement as *.png by hitting =s=.  To close
-  the structure visuzalizer by keystroke =q=.  Now decide if the quality
+  keep a still about the arrangement as *.png by hitting =s=.  To close
+  the structure visualizer by keystroke =q=.  Now decide if the quality
   of this /preliminary/ superposition may be improved by either inversion
-  of the test molecules' orienation in regard to the coordinate system,
+  of the test molecules' orientation in regard to the coordinate system,
   or by reflection at one of the principal planes may be improved further.
   Each time you hit the corresponding key, the program attempts a new
   /preliminary/ superposition and it is up to you to find the best
@@ -137,7 +136,7 @@
   of atoms in reference and test motif.  This is ensured by launching the
   Hungarian algorithm (key stroke =-1= (minus-one)).  This opens again the
   structure visualizer.  In contrast to the previous display, you will
-  notice that atoms of test and reference structure, simultaenously 
+  notice that atoms of test and reference structure, simultaneously 
   perceived as related as well as in geometrical proximity to each other
   are displayed with the same atom labeling.  If still sufficiently distant
   from each other, their relationship will be marked by yellow spheres and
@@ -150,7 +149,7 @@
 ** Kabsch test
   
   The new interface eventually allows you to perform the Kabsch test,
-  to be triggered by =-1= (minus one) as prerequiste of further analysis.
+  to be triggered by =-1= (minus one) as prerequisite of further analysis.
   
   /Note:/ By default, aRMSD treats all atoms present as equally important
   in this test.  By hitting =-2= prior to performing the Kabsch test,
