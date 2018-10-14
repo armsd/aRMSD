@@ -49,6 +49,8 @@
   =BZAMID-A.pdb= and =BZAMID-B.pdb= in sub-folder examples.  Copy these
   into sub-folder =aRMSD=.
 
+** Loading of structures
+
   In sub-folder =aRMSD= now containing both model data to compare with
   each other, launch the program
   #+BEGIN_SRC python
@@ -84,3 +86,31 @@
   The confirmation by =ENT= will trigger the program to attempt a 
   first /initial/ superposition of the two models, depicted in a
   newly opened window, the structure visualizer.  
+  
+  [[./structure-visualizer01.png]]
+
+** structure pre-alignment
+  
+  It is now the task of the user to assist in the program about the
+  pre-alignment of the tested model (red motif) in regard to the
+  reference model (green) and coordinate system (blue).  To familiarize
+  yourself with the situation, assisted with your mouse, you may tilt
+  the orientation (left mouse button), roll (left mouse button while
+  pressing the =Ctrl= key), pan (left mouse button while pressing either
+  of the =Shift= keys), or zoom (pressing the middle mouse key) while
+  hovering over this window.  The more you are out of the center of this
+  window, however, the more rapid these changes are.  Should this not
+  suffice you may engage an anaglyph view with keystroke =3=, too.
+  
+  If you are confident enough about the scenery encounterd, close the
+  structure visuzalizer by keystroke =q=.  Now decide if the quality
+  of this /preliminary/ superposition may be improved by either inversion
+  of the test molecules' orienation in regard to the coordinate system,
+  or by reflection at one of the principal planes may be improved further.
+  Each time you hit the corresponding key, the program attempts a new
+  /preliminary/ superposition and it is up to you to find the best
+  /preliminary/ superposition.
+  
+  You leave this loop by hitting =10= (one-zero) to enter the next stage.
+  
+** Structure re-ordering
