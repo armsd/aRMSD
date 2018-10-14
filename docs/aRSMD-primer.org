@@ -87,7 +87,7 @@
   first /initial/ superposition of the two models, depicted in a
   newly opened window, the structure visualizer.  
   
-  [[./structure-visualizer01.png]]
+  [[./structure-visualizer-01.png]]
 
 ** structure pre-alignment
   
