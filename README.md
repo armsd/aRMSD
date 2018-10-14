@@ -1,4 +1,4 @@
-
+*Note:*
 ![alt tag](./aRMSD_logo.png)
 
 An open toolbox for structural comparison between two molecules with various capabilities to explore different aspects of structural similarity and diversity. Using data from common file formats the minimum RMSD is found by combining the functionalities of the Hungarian and the Kabsch algorithm. Crystallographic data provided from cif files is fully supported and the results can be rendered with the help of the [vtk] (http://www.vtk.org/) package.
