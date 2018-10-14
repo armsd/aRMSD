@@ -10,7 +10,6 @@
   computer running Linux Debian (sid/buster, 64 bit) from the CLI
   provided by python -- without assistance of PyInstaller.
 
-<<<<<<< HEAD
   aRMSD allows a pre-alignment of a test relative to a reference motif
   and subsequent refinement of this initial superposition of according
   to the Kabsch test.  Accepted file formats of the model data to test
@@ -44,27 +43,18 @@
   Installed packages deemed to be relevant in successful deployment of
   aRMSD are, as readout with the synaptic package manager by Debian:
   + python (version 2.7.15+) and python3 (version 3.6.6)
-    
->>>>>>> development
+
   + cython (version 0.28.4-1)
 
   + openbabel, libopenbabel5, python-openbabel (all in version 2.4.1+dfsg-2)
 
-<<<<<<< HEAD
   + python-matplotlib, python-matplotlib-data, python3-matplotlib
     (all in version 2.2.2-4+b1)
-=======
-  + python-matplotlib, python-matplotlib-data, python3-matplotlib (all
-    in version 2.2.2-4+b1)
->>>>>>> development
 
   + python-uncertainties, python3-uncertainties (all in version 2.4.4-1)
 
   + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
-<<<<<<< HEAD
     libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5)
-=======
-    libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5).
 
 
 * Basic deployment
@@ -142,9 +132,6 @@
   You leave this loop by hitting =10= (one-zero) to enter the next stage.
   
 ** Structure re-ordering
-<<<<<<< HEAD
->>>>>>> development
-=======
   
   The Kabsch algorithm will work successfully with consistent attribution
   of atoms in reference and test motif.  This is ensured by launching the
@@ -188,4 +175,4 @@
   It is useful to inspect both two graphical representations in conjunction
   with the log file about the analysis which you may generate with
   key stroke =5=.
->>>>>>> development
+
