@@ -21,24 +21,6 @@
 * System at disposition
 
   The system at disposition runs Linux Debian (sid/buster, 64 bit).
-  Installed packages deemed to be relevant in successful deployment
-  of aRMSD are, as readout with the synaptic package manager by
-  Debian:
-  + python (version 2.7.15+) and python3 (version 3.6.6)
-
-  aRMSD allows a pre-alignment of a test relative to a reference
-  motif and subsequent refinement of this initial superposition 
-  according to the Kabsch test. Accepted file formats of the model
-  data to test include *.xyz and *.pdb, and other formats openbabel
-  may read and convert into them. aRMSD’s focus is the pairwise
-  comparison of two model data; if you intend to compare several model
-  data batch-wise, you may be better served with alternatives presented
-  in section (TODO).
-
-
-* System at disposition
-
-  The system at disposition runs Linux Debian (sid/buster, 64 bit).
   Installed packages deemed to be relevant in successful deployment of
   aRMSD are, as readout with the synaptic package manager by Debian:
   + python (version 2.7.15+) and python3 (version 3.6.6)
