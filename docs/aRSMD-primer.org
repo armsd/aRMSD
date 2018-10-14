@@ -114,7 +114,7 @@
   first /initial/ superposition of the two models, depicted in a
   newly opened window, the structure visualizer.  
   
-  [[./structure-visualizer01.png]]
+  [[./structure-visualizer-01.png]]
 
 ** structure pre-alignment
   
@@ -129,8 +129,9 @@
   window, however, the more rapid these changes are.  Should this not
   suffice you may engage an anaglyph view with keystroke =3=, too.
   
-  If you are confident enough about the scenery encounterd, close the
-  structure visuzalizer by keystroke =q=.  Now decide if the quality
+  If you are confident enough about the scenery encountered, you may
+  keep a still about the arangement as *.png by hitting =s=.  To close
+  the structure visuzalizer by keystroke =q=.  Now decide if the quality
   of this /preliminary/ superposition may be improved by either inversion
   of the test molecules' orienation in regard to the coordinate system,
   or by reflection at one of the principal planes may be improved further.
@@ -141,4 +142,50 @@
   You leave this loop by hitting =10= (one-zero) to enter the next stage.
   
 ** Structure re-ordering
+<<<<<<< HEAD
+>>>>>>> development
+=======
+  
+  The Kabsch algorithm will work successfully with consistent attribution
+  of atoms in reference and test motif.  This is ensured by launching the
+  Hungarian algorithm (key stroke =-1= (minus-one)).  This opens again the
+  structure visualizer.  In contrast to the previous display, you will
+  notice that atoms of test and reference structure, simultaenously 
+  perceived as related as well as in geometrical proximity to each other
+  are displayed with the same atom labeling.  If still sufficiently distant
+  from each other, their relationship will be marked by yellow spheres and
+  rods.
+  
+  [[./Hungarian-01.png]]
+  
+  Quit the visualizer (=q=) and leave this menu by hitting =0= (zero).
+  
+** Kabsch test
+  
+  The new interface eventually allows you to perform the Kabsch test,
+  to be triggered by =-1= (minus one) as prerequiste of further analysis.
+  
+  /Note:/ By default, aRMSD treats all atoms present as equally important
+  in this test.  By hitting =-2= prior to performing the Kabsch test,
+  however, you may consider atoms e.g. of higher number of (core) electrons,
+  scattering factors, or mass a higher weight than, for example, "less 
+  well determined" hydrogens.
+  
+  You may visually inspect the result of the Kabsch test by =0= (zero)
+  again interactively displaying the atoms of the two motifs compared
+  with each other.  Here, the /atom radii/ of the atoms are proportional
+  to the contribution of said atom (in both reference and test motif)
+  to the global RMSD of the whole comparison.  The /color/ of the spheres
+  scales to the absolute remaining difference of the to fit structures
+  about said atom.  Again, it may be useful to keep a still of this
+  by generation of a *.png (key stroke =s=) prior to closing (=q=).
+  
+  By hitting =1=, you may inspect the minimized best fit of the two
+  motifs in a standard chicken-wire representation.
+  
+  [[./Kabsch-analysis-01.png]]
+  
+  It is useful to inspect both two graphical representations in conjunction
+  with the log file about the analysis which you may generate with
+  key stroke =5=.
 >>>>>>> development
