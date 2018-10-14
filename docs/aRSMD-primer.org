@@ -69,5 +69,18 @@
   /Note:/  For the sake of mere performing the Kabsch test, a missing
   or currently not correctly recognized =matplotlib= is irrelevant.
 
-  
-  
+  For each entry, aRMSD will provide feedback if the model was read
+  successfully, or not.  If necessary, you will offered a new prompt
+  to attempt a new data entry.
+
+  The subsequent interaction with aRMSD is keyboard driven.  The
+  program will check if the two models are consistent to each other
+  and ask you if all hydrogens should be excluded from the Kabsch
+  test, only the ones not attached to carbon atoms, or none.  For the
+  sake of this primer, the third option was chosen here.
+
+  [[./load-structures02.png]]
+
+  The confirmation by =ENT= will trigger the program to attempt a 
+  first /initial/ superposition of the two models, depicted in a
+  newly opened window, the structure visualizer.  
