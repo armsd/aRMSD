@@ -19,6 +19,7 @@
   data batch-wise, you may be better served with alternatives presented
   in section (TODO).
 
+
 * System at dispostion
 
   The system at disposition runs Linux Debian (sid/buster, 64 bit).
@@ -37,3 +38,36 @@
 
   + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
     libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5).
+
+
+* Basic deployment
+
+  Ensure your system contains the libraries mentioned.  Either clone,
+  or download the zip archive of the master branch of this project. To
+  familiarize with some of the programs functions, the Kabsch test will
+  be demonstrated on two model data of benzamide, provided with
+  =BZAMID-A.pdb= and =BZAMID-B.pdb= in sub-folder examples.  Copy these
+  into sub-folder =aRMSD=.
+
+  In sub-folder =aRMSD= now containing both model data to compare with
+  each other, launch the program
+  #+BEGIN_SRC python
+     python aRMSD.py
+  #+END_SRC
+
+  During the first launch of the program, additional files are written
+  into the current directory.  Assuming you use a 80x24 terminal, you 
+  should see an output as in the following figure.
+  
+  [[./load-structures01.png]]
+
+  Enter the names of the files intended for comparison.  There is no
+  autocompletion of the file names, nor bash-like history provided --
+  if you err, the easiest escape is hitting Ctrl + C twice to leave
+  the script.
+
+  /Note:/  For the sake of mere performing the Kabsch test, a missing
+  or currently not correctly recognized =matplotlib= is irrelevant.
+
+  
+  
