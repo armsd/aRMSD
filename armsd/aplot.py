@@ -1,6 +1,6 @@
 """
 aRMSD plot functions
-(c) 2017 by Arne Wagner
+(c) 2017 by Arne Wagner, 2018 by Norwid Behrnd
 """
 
 # Authors: Arne Wagner
@@ -39,10 +39,10 @@ try:
     
     import matplotlib as mpl
     has_mpl, mpl_version = True, mpl.__version__
-
-    if sys.version_info <= (3,0):
-
-        mpl.use('QT4Agg')  # Set MPL backend to QT4Agg
+# subject to change, but muting these helped to launch aRMSD from the CLI
+#    if sys.version_info <= (3,0):
+#
+#        mpl.use('QT4Agg')  # Set MPL backend to QT4Agg
 
     from matplotlib import pyplot as plt
     import matplotlib.gridspec as gridspec
