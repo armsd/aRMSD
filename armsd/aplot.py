@@ -1291,7 +1291,7 @@ class Statistics_mpl(object):
             data_mol2 = align.bnd_dis_mol2
             plot_color = settings.new_red
             plt_axis = self.ax1
-            title_prefix = 'All Bond Distances:'
+            title_prefix = 'All Bond Distances '
             label_suffix = ' distances'
             label_unit = r' $\AA$'
             extra_space = 0.2
@@ -1327,7 +1327,7 @@ class Statistics_mpl(object):
 
             plot_color = settings.new_red
             plt_axis = self.ax2
-            title_prefix = 'Average Distances per Bond Type:'
+            title_prefix = 'Average Distances per Bond Type '
             label_suffix = ' distance types'
             label_unit = r' $\AA$'
             extra_space = 0.1 + np.max(np.hstack((error_prop1, error_prop2)))  # Additional extra space for markers
@@ -1348,7 +1348,7 @@ class Statistics_mpl(object):
             data_mol2 = align.ang_deg_mol2
             plot_color = settings.new_green
             plt_axis = self.ax3
-            title_prefix = 'All Angles:'
+            title_prefix = 'All Angles '
             label_suffix = ' angles'
             label_unit = r' $^\circ$'
             extra_space = 3.5
@@ -1365,7 +1365,7 @@ class Statistics_mpl(object):
             data_mol2 = align.tor_deg_mol2
             plot_color = settings.new_blue
             plt_axis = self.ax3
-            title_prefix = 'All Angles / Dihedrals:'
+            title_prefix = 'All Angles / Dihedrals '
             label_suffix = ' dihedrals'
             label_unit = r' $^\circ$'
             extra_space = 3.5
@@ -1377,7 +1377,7 @@ class Statistics_mpl(object):
             logger.prop_tor_rmsd, logger.prop_tor_r_sq = rmsd, r**2  # Log quality descriptors
 
         # Generate all titles and labels
-        ax_title = title_prefix + '    RMSE = ' + str(np.around(rmsd, settings.calc_prec_stats)) + label_unit
+        ax_title = title_prefix + '(RMSE: ' + str(np.around(rmsd, settings.calc_prec_stats)) + label_unit + ')'
         xlabel = align.name2+' /' + label_unit
         ylabel = align.name1+' /' + label_unit
         
