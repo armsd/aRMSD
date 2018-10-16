@@ -1,0 +1,222 @@
+# aRSMD-primer.org
+
+* Generalities
+
+  Development of the program aRMSD started by Arne Wagner during his
+  PhD in the Himmel group (University of Heidelberg).  aRMSD was
+  presented both in his PhD thesis () and in a publication ().
+
+  The aim of this fork is to use aRMSD in a "portable mode" on a
+  computer running Linux Debian (sid/buster, 64 bit) from the CLI
+  provided by python -- without assistance of PyInstaller.
+
+  aRMSD allows a pre-alignment of a test relative to a reference
+  motif and subsequent refinement of this initial superposition
+  according to the Kabsch test. Accepted file formats of the model
+  data to test include *.xyz and *.pdb, and other formats openbabel
+  may read and convert into them. aRMSD’s focus is the pairwise
+  comparison of two model data; if you intend to compare several model
+  data batch-wise, you may be better served with alternatives presented
+  in section (TODO).
+
+
+* System at dispostion
+
+  The system at disposition runs Linux Debian (sid/buster, 64 bit).
+  Installed packages deemed to be relevant in successful deployment of
+  aRMSD are, as readout with the synaptic package manager by Debian:
+  + python (version 2.7.15+) and python3 (version 3.6.6)
+
+  + cython (version 0.28.4-1)
+
+  + openbabel, libopenbabel5, python-openbabel (all in version 2.4.1+dfsg-2)
+
+  + python-matplotlib, python-matplotlib-data, python3-matplotlib (all
+    in version 2.2.2-4+b1)
+
+  + python-uncertainties, python3-uncertainties (all in version 2.4.4-1)
+
+  + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
+    libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5).
+
+
+* Basic deployment
+
+  Ensure your system contains the libraries mentioned.  Either clone,
+  or download the zip archive of the master branch of this project. To
+  familiarize with some of the programs functions, the Kabsch test will
+  be demonstrated on two model data of benzamide, provided with
+  =BZAMID-A.pdb= and =BZAMID-B.pdb= in sub-folder examples.  Copy these
+  into sub-folder =aRMSD=.
+
+** Loading of structures
+
+  In sub-folder =aRMSD= now containing both model data to compare with
+  each other, launch the program
+  #+BEGIN_SRC python
+     python aRMSD.py
+  #+END_SRC
+
+  During the first launch of the program, additional files are written
+  into the current directory.  Assuming you use a 80x24 terminal, you
+  should see an output as in the following figure.
+
+  [[./load-structures01.png]]
+
+  Enter the names of the files intended for comparison.  There is no
+  auto-completion of the file names, nor bash-like history provided --
+  if you err, the easiest escape is hitting Ctrl + C twice to leave
+  the script.
+
+  /Note:/  For the sake of mere performing the Kabsch test, a missing
+  or currently not correctly recognized =matplotlib= is irrelevant.
+
+  For each entry, aRMSD will provide feedback if the model was read
+  successfully, or not.  If necessary, you will offered a new prompt
+  to attempt a new data entry.
+
+  The subsequent interaction with aRMSD is keyboard driven.  The
+  program will check if the two models are consistent to each other
+  and ask you if all hydrogens should be excluded from the Kabsch
+  test, only the ones not attached to carbon atoms, or none.  For the
+  sake of this primer, the third option was chosen here.
+
+  [[./load-structures02.png]]
+
+  The confirmation by =ENT= will trigger the program to attempt a
+  first /initial/ superposition of the two models, depicted in a
+  newly opened window, the structure visualizer.  The structure
+  visualizer may be adjusted in dimension to your needs.  If it is
+  the currently active window, it may be closed at any time by =q=.
+
+  [[./structure-visualizer-01.png]]
+
+** structure pre-alignment
+
+  It is now the task of the user to assist in the program about the
+  pre-alignment of the tested model (red motif) in regard to the
+  reference model (green) and coordinate system (blue).  To familiarize
+  yourself with the situation, assisted with your mouse, you may tilt
+  the orientation (left mouse button), roll (left mouse button while
+  pressing the =Ctrl= key), pan (left mouse button while pressing either
+  of the =Shift= keys), or zoom (pressing the middle mouse key) while
+  hovering over this window.  The more you are out of the center of this
+  window, however, the more rapid these changes are.  Should this not
+  suffice you may engage an anaglyph view with keystroke =3=, too.
+
+  If you are confident enough about the scenery encountered, you may
+  keep a still about the arrangement as *.png by hitting =s=.  To close
+  the structure visualizer by keystroke =q=.  Now decide if the quality
+  of this /preliminary/ superposition may be improved by either inversion
+  of the test molecules' orientation in regard to the coordinate system,
+  or by reflection at one of the principal planes may be improved further.
+  Each time you hit the corresponding key, the program attempts a new
+  /preliminary/ superposition and it is up to you to find the best
+  /preliminary/ superposition.
+
+  You leave this loop by hitting =10= to enter the next stage.  The figure
+  below illustrates few possible preliminary alignments of with test
+  structures =BZAMID-A.pdb= and =BZAMID-B.pdb=.
+
+  /Note:/ In principle, it is possible to compare structures provided
+  in different file formats provided either aRMSD recognizes them
+  naively, or by because of a conversion provided by openbabel.
+
+  [[./alignments.png]]
+
+** Structure re-ordering
+
+  The Kabsch algorithm will work successfully with consistent attribution
+  of atoms in reference and test motif.  This is ensured by launching the
+  Hungarian algorithm (key stroke =-1=).  This opens again the structure
+  visualizer.  In contrast to the previous display, you will notice that
+  atoms of test and reference structure, simultaneously perceived as related
+  as well as in geometrical proximity to each other are displayed with
+  the same atom labeling.  If still sufficiently distant from each other,
+  their relationship will be marked by yellow spheres and rods.
+
+  This display may equally help to sort out at least most of alignments
+  which should not be amended to further scrutiny (right hand example).
+
+  [[./Hungarian-01.png]]
+
+  In the later case, you should continue to cycle through different relative
+  orientations of test and reference structure.  Once the pre-alignment is
+  reasonable well, quit the visualizer (=q=) and leave this menu with =0=.
+
+** Kabsch test
+
+  The new interface eventually allows you to perform the Kabsch test,
+  to be triggered by =-1= as prerequisite of further analysis.
+
+  /Note:/ By default, aRMSD treats all atoms present as equally important
+  in this test.  By hitting =-2= prior to performing the Kabsch test,
+  however, you may consider atoms e.g. of higher number of (core) electrons,
+  scattering factors, or mass a higher weight than, for example, "less
+  well determined" hydrogens.  It is possible to revoke the parameters
+  for the Kabsch test  and subsequently refine the superposition again
+  without need to recur to the stage of pre-alignment.
+
+  The following steps may be performed in any order of consecution.
+
+  + Visual inspection of the Kabsch test in a common structure (=0=)
+
+    In this ball-and-stick representation comparing the refined fit of
+    model and reference structure, the /atom radii/ of the atoms are
+    proportional to the contribution of said atom to the global RMSD.
+    The /color/ of the spheres scales to the absolute remaining
+    difference of the to fit structures about said atom in \AA.
+
+    Clicking /on/ a representation of one, two, three, or four
+    adjacent atoms marks them to read-out to the final RMSD data about
+    the corresponding position; or corresponding difference in
+    distance, angle, or dihedral angle between model and reference.
+    These read-outs are non-permanent.
+
+    Some of the bonds depicted bear a red band in the center.  This is
+    to indicate that the same bond in the reference model is significantly
+    shorter, than in the tested model.  Conversely, a green band would
+    indicate a bond that is longer.  (Both threshold (default 0.2 \AA) and
+    color coding about this may be altered in the file =settings.cfg=.)
+
+    Again, it may be useful to keep a still of this by generation of a
+    *.png (key stroke =s=) prior to closing (=q=).
+
+  + Classical superposition display (=1=).  Model and reference are
+    depicted in the same color scheme as at the stage of pre-alignment.
+    In addition to the graphical display, it is possible to export both
+    now aligned models in either individually in two separate, or in
+    one common xyz-like file /via/ sub-menu =20=.  It is possible to
+    read these structures again in programs like VMD.
+
+    [[./Kabsch-analysis-01.png]]
+
+  + Statistics plots of the superposition (=2=).  Provided aRMSD was able
+    to access =python.matplotlib=, the comparison of distances, angles,
+    and dihedral angles of model and reference structure are depicted
+    in a synopsis.
+
+    [[./statistics.png]]
+
+    Currently, this is organized in sub-plots that may partially overlap
+    with each other if the new GUI starts.  Increasing the later's
+    dimension will render the diagrams more legible.  As usual for
+    =python.matplotlib=, you have the options to zoom and pan into
+    regions of particular interest, and save the drawing as bitmap
+    (*.jpeg, * .png), vector (*(e).ps, *.pdf, *.svg), or tikz's *.pgf.
+
+  + Optional log file about the analysis (key stroke =5=).  ASCII file
+    aRMSD_logfile.out provides you a verbose documentation about
+    the performed analysis.  It will report about the quality of the
+    pre-alignment; parameters, rotation matrix and results of the
+    Kabsch test (second RMSD provided).  If you hit =3= to show the RMSD
+    results on the terminal (80x24 is minimal, 80x43 is recommended
+    dimension) to display these briefly, than the log equally will
+    include them in addition under section ``Evaluation of structural
+    parameters''.
+
+  + Interpolation between the structures (=4=).  This will generate a
+    set of 10 xyz files between your reference structure and the fitted
+    model structure.
+
+  You leave =aRMSD= with key stroke =-10=.
