@@ -1,9 +1,13 @@
-*Note:*  This fork targets a deployment of aRMSD under Linux without
+**Note 1:**  This fork targets a deployment of aRMSD under Linux without
 assistance by PyInstaller and calling the program from the CLI (i.e.,
 option a) of the original description).  It might be that changes of
 this fork equally work under other operational systems, too.
 
-For further information, see [./docs/aRSMD-primer.org].
+**Note 2:**  Familarizing with the code takes some time.  Which is why
+a rather conservative approach changing the program seems personally
+more comfortable for me.  However, an initial illustrayed primer about
+how to use this program was written.  Altogether with some test data in
+[./examples], for further information, see [./docs/aRSMD-primer.org].
 
 ![alt tag](./aRMSD_logo.png)
 
