@@ -10,15 +10,6 @@
   computer running Linux Debian (sid/buster, 64 bit) from the CLI
   provided by python -- without assistance of PyInstaller.
 
-<<<<<<< HEAD
-  aRMSD allows a pre-alignment of a test relative to a reference motif
-  and subsequent refinement of this initial superposition of according
-  to the Kabsch test.  Accepted file formats of the model data to test
-  include *.xyz and *.pdb, and other formats openbabel may read and
-  convert into them.  aRMSD's focus is the pairwise comparison of two
-  model data; if you intend to compare several model data batch-wise,
-  you may be better served with alternatives presented in section (TODO).
-=======
   aRMSD allows a pre-alignment of a test relative to a reference
   motif and subsequent refinement of this initial superposition
   according to the Kabsch test. Accepted file formats of the model
@@ -27,7 +18,6 @@
   comparison of two model data; if you intend to compare several model
   data batch-wise, you may be better served with alternatives presented
   in section (TODO).
->>>>>>> development
 
 * System at disposition
 
@@ -92,11 +82,7 @@
 
   [[./load-structures02.png]]
 
-<<<<<<< HEAD
   The confirmation by =ENTER= will trigger the program to attempt a 
-=======
-  The confirmation by =ENT= will trigger the program to attempt a
->>>>>>> development
   first /initial/ superposition of the two models, depicted in a
   newly opened window, the structure visualizer.  The structure
   visualizer may be adjusted in dimension to your needs.  If it is
@@ -141,16 +127,6 @@
 
   The Kabsch algorithm will work successfully with consistent attribution
   of atoms in reference and test motif.  This is ensured by launching the
-<<<<<<< HEAD
-  Hungarian algorithm (key stroke =-1= (minus-one)).  This opens again the
-  structure visualizer.  In contrast to the previous display, you will
-  notice that atoms of test and reference structure, simultaneously 
-  perceived as related as well as in geometrical proximity to each other
-  are displayed with the same atom labeling.  If still sufficiently distant
-  from each other, their relationship will be marked by yellow spheres and
-  rods.
-  
-=======
   Hungarian algorithm (key stroke =-1=).  This opens again the structure
   visualizer.  In contrast to the previous display, you will notice that
   atoms of test and reference structure, simultaneously perceived as related
@@ -161,7 +137,6 @@
   This display may equally help to sort out at least most of alignments
   which should not be amended to further scrutiny (right hand example).
 
->>>>>>> development
   [[./Hungarian-01.png]]
 
   In the later case, you should continue to cycle through different relative
@@ -171,9 +146,8 @@
 ** Kabsch test
 
   The new interface eventually allows you to perform the Kabsch test,
-<<<<<<< HEAD
   to be triggered by =-1= (minus one) as prerequisite of further analysis.
-  
+
   /Note:/ By default, aRMSD treats all atoms present as equally important
   in this test.  By hitting =-2= prior to performing the Kabsch test,
   however, you may consider atoms e.g. of higher number of (core) electrons,
