@@ -146,34 +146,6 @@
 ** Kabsch test
 
   The new interface eventually allows you to perform the Kabsch test,
-  to be triggered by =-1= (minus one) as prerequisite of further analysis.
-
-  /Note:/ By default, aRMSD treats all atoms present as equally important
-  in this test.  By hitting =-2= prior to performing the Kabsch test,
-  however, you may consider atoms e.g. of higher number of (core) electrons,
-  scattering factors, or mass a higher weight than, for example, "less
-  well determined" hydrogens.
-
-  You may visually inspect the result of the Kabsch test by =0= (zero)
-  again interactively displaying the atoms of the two motifs compared
-  with each other.  Here, the /atom radii/ of the atoms are proportional
-  to the contribution of said atom (in both reference and test motif)
-  to the global RMSD of the whole comparison.  The /color/ of the spheres
-  scales to the absolute remaining difference of the to fit structures
-  about said atom.  Again, it may be useful to keep a still of this
-  by generation of a *.png (key stroke =s=) prior to closing (=q=).
-
-  By hitting =1=, you may inspect the minimized best fit of the two
-  motifs in a standard chicken-wire representation.
-
-  [[./Kabsch-analysis-01.png]]
-
-  It is useful to inspect both two graphical representations in conjunction
-  with the log file about the analysis which you may generate with
-  key stroke =5=.  The then generated detailed file =aRMSD_logfile.out= will
-  mention both the RMSD of pre-alignment, as well of Kabsch test.
-
-=======
   to be triggered by =-1= as prerequisite of further analysis.
 
   /Note:/ By default, aRMSD treats all atoms present as equally important
