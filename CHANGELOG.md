@@ -49,7 +49,8 @@ Version     0.9.1 (31 August 2016, development)
     
 **Bugfixes:**
 
-         - fixed a few bugs that were introduced during the rewrite for Python 2.7/3.5 compatability
+         - fixed a few bugs that were introduced during the rewrite for
+           Python 2.7/3.5 compatability
          - corrected some typos
 
 
