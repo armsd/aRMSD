@@ -5,7 +5,7 @@ aRMSD uses several packages that are actively developed and continuously
 change in the future. Therefore keeping track of changes in other
 packages is important to ensure that aRMSD will continue to work with
 newer package versions. The program was developed and tested with the
-following versions of the directly used thrid party packages. 
+following versions of the directly used third party packages. 
 
 **Module versions**
 

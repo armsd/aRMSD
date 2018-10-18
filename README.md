@@ -3,9 +3,9 @@ assistance by PyInstaller and calling the program from the CLI (i.e.,
 option a) of the original description).  It might be that changes of
 this fork equally work under other operational systems, too.
 
-**Note 2:**  Familarizing with the code takes some time.  Which is why
+**Note 2:**  Familiarizing with the code takes some time.  Which is why
 a rather conservative approach changing the program seems personally
-more comfortable for me.  However, an initial illustrayed primer about
+more comfortable for me.  However, an initial illustrated primer about
 how to use this program was written.  Altogether with some test data in
 [./examples], for further information, see [./docs/aRSMD-primer.org].
 
@@ -22,7 +22,7 @@ is fully supported and the results can be rendered with the help of the
 # News & Updates
 This page is currently under construction and more files will be added
 from day to day. So the best way to keep track of all changes and the
-ongoing delevopment process is by inspecting the
+ongoing development process is by inspecting the
 [changelog] (./CHANGELOG.md). Please note that *aRMSD* was developed
 under Windows and is therefore not tested under other operating systems.
 Any feedback concerning the execution or PyInstaller compilation on
@@ -54,7 +54,7 @@ optional:
     * openbabel / pybel [additional file formats]
 
 In order adjust the source code by yourself, always make sure to have
-the required Python pacakges installed and download the latest version
+the required Python packages installed and download the latest version
 of the master branch. Whenever possible it is recommended to add and
 update packages using pre-compiled Python
 [wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your
@@ -90,7 +90,7 @@ in your command line.
 
 **c) Executable compiled with PyInstaller:**
 
-- Produces a single file which can be copied anlongside the
+- Produces a single file which can be copied alongside the
 *settings.cfg* and the *xsf folder* to different machines with the same
 architecture. Once the program has been compiled, this is probably the
 easiest way to use *aRMSD* - especially for users that are unfamiliar
