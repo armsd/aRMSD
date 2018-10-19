@@ -307,7 +307,9 @@ class Logger(object):
                 output.write(adj_str('Number of highest deviations to be shown...', prefix='\n\t', suffix='\t') + str(self.n_dev))
                 output.write(adj_str('The highest deviations were between the pairs...', prefix='\n\n\t', suffix='\t') + '[Angstrom]\n')
 
-                [output.write('\n\t\t\t' + self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]], align.sym_idf_mol2[self.disord_pos[entry]]) + '\t\t\t\t\t\t\t' +
+                [output.write('\n\t\t\t\t\t\t\t' + 
+                              self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
+                              align.sym_idf_mol2[self.disord_pos[entry]]) + '\t\t\t\t\t\t' +
                               '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
 
                 output.write(adj_str('The RMSD after matching was...', prefix='\n\n\t', suffix='\t') +
