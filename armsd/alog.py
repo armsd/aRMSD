@@ -145,7 +145,7 @@ class Logger(object):
         ft_str_norm = '{:3.2f}'
 
         if n_digits != 0:
-            
+
             ft_str_norm = '{:' + str(n_digits) + '.' + str(n_digits) + 'f}'
             ft_str_unce = '{:.1uS}'  # One digit for values with uncertainties
 
@@ -187,7 +187,6 @@ class Logger(object):
     # WRITE OUTFILE
     ###############################################################################
 
-
     def write_logfile(self, align, settings):
 
         def adj_str(string, prefix='\n\t', suffix='\t'):
@@ -223,12 +222,12 @@ class Logger(object):
             output.write(adj_str('# regarded as consistent', prefix='\n\t', suffix=''))
 
             if self.disorder_mol1:
-                
+
                 output.write(adj_str('   - Initial disorder was found in "', prefix='\n\n', suffix='') + str(self.name_mol2) + '"')
                 output.write(adj_str('Disorder was resolved by the user...', prefix='\n\t', suffix=''))
 
             if self.disorder_mol2:
-                
+
                 output.write(adj_str('   - Initial disorder was found in "', prefix='\n\t', suffix='') + str(self.name_mol2) + '"')
                 output.write(adj_str('Disorder was resolved by the user...', prefix='\n\t', suffix=''))
 
@@ -307,10 +306,10 @@ class Logger(object):
 
                 output.write(adj_str('Number of highest deviations to be shown...', prefix='\n\t', suffix='\t') + str(self.n_dev))
                 output.write(adj_str('The highest deviations were between the pairs...', prefix='\n\n\t', suffix='\t') + '[Angstrom]\n')
-                
+
                 [output.write('\n\t\t\t' + self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]], align.sym_idf_mol2[self.disord_pos[entry]]) + '\t\t\t\t\t\t\t' +
                               '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
-                
+
                 output.write(adj_str('The RMSD after matching was...', prefix='\n\n\t', suffix='\t') +
                              '{:6.5f}'.format(self.match_rmsd) + ' [Angstrom]')
 
@@ -330,16 +329,16 @@ class Logger(object):
             output.write(adj_str('Threshold for bond comparison...', prefix='\n\t', suffix='\t') + str(settings.thresh) + '  [Angstrom]')
             output.write(adj_str('Number of distance pairs above threshold...', prefix='\n\t', suffix='\t') + str(align.n_chd_bnd) + '  [Angstrom]')
             output.write(adj_str('Percentage of the colored intersections...', prefix='\n\t', suffix='\t') + str((1.0 - 2 * settings.n) * 100) + '  [%]')
-            
+
             output.write(adj_str('Color for shorter bonds in "' + str(self.name_mol1) + '" wrt "' + str(self.name_mol2) + '"...', prefix='\n\t', suffix='\t') +
                          str(settings.col_short_hex) + '  [HEX]')
             output.write(adj_str('Color for longer bonds in "' + str(self.name_mol2) + '" wrt "' + str(self.name_mol2) + '"...', prefix='\n\t', suffix='\t') +
                          str(settings.col_long_hex) + '  [HEX]')
             output.write(adj_str('Number of bonds below threshold...', prefix='\n\t', suffix='\t') + str(align.n_chd_bnd))
-            
+
             output.write(adj_str('Color of "' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(settings.col_model_fin_hex) + '  [HEX]')
             output.write(adj_str('Color of "' + str(self.name_mol2) + '"...', prefix='\n\t', suffix='\t') + str(settings.col_refer_fin_hex) + '  [HEX]')
-            
+
             output.write(adj_str('Final rotation matrix from "Standard Orientation"...', prefix='\n\n\t', suffix='\n'))
 
             output.write('\n\t           |' + '{:+06.8f}'.format(align.tot_rot_mat[0][0]) + '  ' +
@@ -366,7 +365,7 @@ class Logger(object):
             output.write(adj_str('RMSD...', prefix='\n\t', suffix='\t') + self.format_value(align.rmsd, n_digits=5) +
                          '  [Angstrom]')
             output.write(adj_str('   - Decomposition into different atom types', prefix='\n\n', suffix='\t\t') + 'Absolute [Angstrom] \tRelative [%]\n')
-            
+
             [output.write('\n\t\t\t' + "{:4.4s}".format(align.at_types[entry]) + ' (#' + "{:3.0f}".format(align.occ[entry]) + ')\t\t\t\t\t\t\t\t' +
                           self.format_value(align.rmsd_idv[entry], n_digits=5) + '  \t\t\t(' +
                           self.format_value(rmsd_perc[entry], n_digits=0) + ')')
@@ -385,26 +384,25 @@ class Logger(object):
             output.write(adj_str('Contribution of dihedral angles...', prefix='\n\t', suffix='\t') + self.format_value(align.c_tor * 100, n_digits=0) + '  [%]')
 
             if align.has_sub_rmsd:
-                
+
                 form1 = align.make_sum_formula(pos=align.pos_sub1)
                 form2 = align.make_sum_formula(pos=align.pos_sub2)
 
                 output.write(adj_str('   - Decomposition into different substructures', prefix='\n\n', suffix='\n'))
 
                 output.write(adj_str('Substructure 1', prefix='\n\t', suffix='\t') + '[' + str(form1) + ']' + '  (' + str(len(align.pos_sub1)) + ' atoms)')
-                
+
                 output.write(adj_str('Superposition R^2...', prefix='\n\t', suffix='\t') + self.format_value(align.r_sq_sub1, n_digits=5) + '  [Dimensionless]')
                 output.write(adj_str('Cosine similarity...', prefix='\n\t', suffix='\t') + self.format_value(align.cos_sim_sub1, n_digits=5) + '  [Dimensionless]')
                 output.write(adj_str('RMSD...', prefix='\n\t', suffix='\t') + self.format_value(align.rmsd_sub1, n_digits=5) + '  [Angstrom]')
                 output.write(adj_str('Contribution...', prefix='\n\t', suffix='\t') + self.format_value(align.c_sub1 * 100, n_digits=0) + '  [%]')
 
                 output.write(adj_str('Substructure 2', prefix='\n\n\t', suffix='\t') + '[' + str(form2) + ']' + '  (' + str(len(align.pos_sub2)) + ' atoms)')
-                
+
                 output.write(adj_str('Superposition R^2...', prefix='\n\t', suffix='\t') + self.format_value(align.r_sq_sub2, n_digits=5) + '  [Dimensionless]')
                 output.write(adj_str('Cosine similarity...', prefix='\n\t', suffix='\t') + self.format_value(align.cos_sim_sub2, n_digits=5) + '  [Dimensionless]')
                 output.write(adj_str('RMSD...', prefix='\n\t', suffix='\t') + self.format_value(align.rmsd_sub2, n_digits=5) + '  [Angstrom]')
                 output.write(adj_str('Contribution...', prefix='\n\t', suffix='\t') + self.format_value(align.c_sub2 * 100, n_digits=0) + '  [%]')
-
 
         def wt_prop(prop):
 
@@ -603,7 +601,7 @@ class Logger(object):
         print("  ... documentation: http://armsd.rtfd.io")
         print("-----------------------------------------------------------------------------")
         print(
-            '\n*** Cite this program as:' + 
+            '\n*** Cite this program as:' +
             '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
 
     def pt_versions(self, core_version, plot_version, log_version):
@@ -669,7 +667,6 @@ class Logger(object):
     ###############################################################################
     # Plotting
     ###############################################################################
-
 
     def pt_plotting(self):
 
@@ -889,7 +886,7 @@ class Logger(object):
         print("\n    The reference structure (RMSD = 0.0) corresponds to file number 0")
         print("\n          The model structure corresponds to file number " +
               str(len(align.interp_rmsd) - 1) + "\n")
-        
+
         [print('\tFile number: ' + str(entry).zfill(2) + ' \tRMSD...\t\t' +
                self.format_value(align.interp_rmsd[entry], n_digits=5)
                + '  [Angstrom]') for entry in range(len(align.interp_rmsd))]
@@ -1001,7 +998,6 @@ class Logger(object):
     # MATCHING AND SYMMETRY OPERATIONS
     # ------------------------------------------------------------------------------
 
-
     def pt_sym_expand(self, symOP):
 
         print("\n> Expanding coordinates by symmetry operation '" + str(symOP) + "'")
@@ -1066,7 +1062,7 @@ class Logger(object):
 
         print("\nThe molecules were not matched, exit anyway? ('y' / 'n')")
 
-    def pt_highest_deviations(self, molecule1, molecule2, settings):                
+    def pt_highest_deviations(self, molecule1, molecule2, settings):
 
         print("\n-----------------------------------------------------------------------------\n")
         print("\tThe geometric RMSD of the current alignment is: " + "{:6.3f}".format(self.match_rmsd) + " A\n")

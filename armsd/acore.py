@@ -508,7 +508,7 @@ def get_el_config(charge):
 
             shell += 1
 
-    # Return value(s) 
+    # Return value(s)
     return el_shell
 
 
@@ -928,7 +928,7 @@ def calc_permutation_matrix(xyz1, xyz2, logger):
         return np.sqrt(np.sum(vector ** 2, axis=1))
 
     def distance_from_all_atoms(pos_in_vector, vector):
-        """ Returns the total absolute distance of the given atom position 
+        """ Returns the total absolute distance of the given atom position
             from all atoms in the molecule """
 
         return np.sum(np.sqrt(np.sum((vector - vector[pos_in_vector]) ** 2, axis=1)))
@@ -1022,7 +1022,7 @@ def decompose_molecule(chg, cor, idf):
     def per_atom_type(atom_type, chg, cor, idf):
         """ Returns tuple for each atom type """
 
-        # Find all positions of actual element type in substructure charge array 
+        # Find all positions of actual element type in substructure charge array
         pos = np.where(chg == atom_type)[0]
 
         # Return all corresponding identifiers and coordinate tuples
@@ -1103,7 +1103,7 @@ def match_molecules(molecule1, molecule2, logger):
                     indices = np.where(permutation_matrix == np.min(permutation_matrix))
 
                     if len(indices[0]) != 1:  # Check if there is more than one solution
-                        
+
                         # If there is: use the first match
                         indices = np.array((indices[0][0], indices[1][0]))
 
@@ -1218,9 +1218,9 @@ def project_radii(radii, spacing, r_min, r_max):
 
 def hungarian_solver(cost_matrix):
     """ Solve the linear assignment problem using the Hungarian algorithm """
-    
+
     idx_row, idx_col = _hungarian(cost_matrix)
-    
+
     return idx_row, idx_col
 
 
@@ -1228,7 +1228,7 @@ class _HungarianState(object):
     """ State of one execution of the Hungarian algorithm """
 
     def __init__(self, cost_matrix):
-        
+
         self.C = cost_matrix.copy()
 
         n, m = self.C.shape
@@ -1241,7 +1241,7 @@ class _HungarianState(object):
 
     def _clear_covers(self):
         """Clear all covered matrix cells"""
-        
+
         self.row_uncovered[:] = True
         self.col_uncovered[:] = True
 
@@ -1250,20 +1250,20 @@ def _hungarian(cost_matrix):
     """ Executes actual Hungarian algorithm """
 
     cost_matrix = np.asarray(cost_matrix)
-    
+
     if len(cost_matrix.shape) != 2:
-        
+
         raise ValueError("expected a matrix (2-d array), got a %r array"
                          % (cost_matrix.shape,))
 
     # The algorithm expects more columns than rows in the cost matrix
     if cost_matrix.shape[1] < cost_matrix.shape[0]:
-        
+
         cost_matrix = cost_matrix.T
         transposed = True
-        
+
     else:
-        
+
         transposed = False
 
     state = _HungarianState(cost_matrix)
@@ -1272,15 +1272,15 @@ def _hungarian(cost_matrix):
     step = None if 0 in cost_matrix.shape else _step1
 
     while step is not None:
-        
+
         step = step(state)
 
     if transposed:
-        
+
         marked = state.marked.T
-        
+
     else:
-        
+
         marked = state.marked
 
     return np.where(marked == 1)
@@ -1305,7 +1305,7 @@ def _step1(state):
 
 
 def _step3(state):
-    
+
     marked = (state.marked == 1)
     state.col_uncovered[np.any(marked, axis=0)] = False
 
@@ -1314,7 +1314,7 @@ def _step3(state):
 
 
 def _step4(state):
-    
+
     # We convert to int as numpy operations are faster on int
     C = (state.C == 0).astype(int)
     covered_C = C * state.row_uncovered[:, np.newaxis]
@@ -1346,7 +1346,7 @@ def _step4(state):
 
 
 def _step5(state):
-    
+
     count = 0
     path = state.path
     path[count, 0] = state.Z0_r
@@ -1386,10 +1386,10 @@ def _step5(state):
 
 
 def _step6(state):
-    
+
     # The smallest uncovered value in the matrix
     if np.any(state.row_uncovered) and np.any(state.col_uncovered):
-        
+
         minval = np.min(state.C[state.row_uncovered], axis=0)
         minval = np.min(minval[state.col_uncovered])
         state.C[~state.row_uncovered] += minval
@@ -1672,9 +1672,9 @@ class Molecule(object):
         chg_swap = np.copy(self.chg)
         std_swap = np.copy(self.cor_std)
 
-        # Iterate through the number of atom pairs given by user input 
+        # Iterate through the number of atom pairs given by user input
         for pair in range(n_atom_pairs):
-            
+
             # Request two identifiers of the atoms that are to be swapped
             fir_atom = logger.get_menu_choice(range(1, self.n_atoms + 1),
                                               question="\n>>  Enter first identifier: ", return_type='int')
@@ -1838,7 +1838,7 @@ class Molecule(object):
 
             # Principal axes not rotated properly
             if not np.asarray(np.diag(self.ine_pa) == np.ones(3, dtype=np.float)).all():
-                
+
                 X = np.linalg.solve(self.ine_pa, identity_matrix)
                 self.cor = np.transpose(np.dot(X, np.transpose(self.cor)))
                 self.calc_ine_tens(calc_for)
@@ -2063,7 +2063,7 @@ class Kabsch(object):
         self.col_bnd_mol2_rgb = None  # Color array for the bonds of molecule 2 [RGB]
         self.col_at_hex = None  # Color array of the atoms in aRMSD representation [HEX]
         self.col_at_rgb = None  # Color array of the atoms in aRMSD representation [RGB]
-        self.chd_bnd_col_rgb = None  # Colors of the changed bonds [RGB] 
+        self.chd_bnd_col_rgb = None  # Colors of the changed bonds [RGB]
 
         if molecule2.n_atoms >= molecule1.n_atoms:  # Use molecule with larger number of bonds
 
@@ -3552,7 +3552,6 @@ class settings(object):
         self.atom_limit = _set_variable(data, 'gen_n_atoms_coord_type=', 'int', default=4, options=[0, 8])
         self.delta = _set_variable(data, 'gen_delta_identical=', 'float', default=0.3, options=[0.0, 1.0])
         self.use_aRMSD_col = _set_variable(data, 'gen_armsd_colors= ', 'bool', default=True, options=None)
-        
 
         # 3. VTK variables
         self.window_size = _set_variable(data, 'vtk_window_size=', 'tuple', default=(512, 512), options=[128, 1024])
@@ -3979,7 +3978,7 @@ def parse_files(logger, number, settings):
             try:
 
                 if contains_path(input_file):
-                    
+
                     name_start = len(input_file) - [entry for entry, count in enumerate(input_file[::-1])
                                                     if count == '\\'][0]
 
@@ -4175,7 +4174,7 @@ def get_data(logger, input_file, filetype, settings):
     if not check_problem:  # Check and adjust arrays and return value(s)
 
         if element_xyz_std is None:
-            
+
             element_xyz_std = np.zeros((len(element_symbol), 3))
 
     elif element_symbol is not None:
@@ -4205,7 +4204,7 @@ def read_orca_out_file(logger, data):
                 f = 2
 
                 while len(data[index + f].split()) == 4:
-                    
+
                     element_symbol.append(data[index + f].split()[0])
                     element_xyz.append(data[index + f].split()[-3:])
 
@@ -4224,7 +4223,7 @@ def read_orca_out_file(logger, data):
                 f = 3
 
                 while len(data[index + f].split()) == 6:
-                    
+
                     element_xyz_std.append(data[index + f].split()[-3:])
 
                     f += 1
@@ -4258,7 +4257,7 @@ def read_gaussian_out_file(logger, data):
             f = 0
 
             while len(data[index + f].split()) > 1:
-                
+
                 element_charge.append(data[index + f].split()[1])
                 element_xyz.append(data[index + f].split()[-3:])
 
@@ -4273,7 +4272,7 @@ def read_gaussian_out_file(logger, data):
             f = 0
 
             while len(data[index + f].split()) == 5:
-                
+
                 element_xyz_std.append(data[index + f].split()[-3:])
 
                 f += 1
@@ -4347,7 +4346,7 @@ def read_mol2_file(logger, data):
                 element_xyz.append(data[index + f].split()[2:5])
 
                 if len(data[index + f + 1].split()) == 1:
-                    
+
                     coordinates_left_to_read = False
 
     # Transform lists to arrays
@@ -4981,7 +4980,7 @@ class Xray_structure(object):
                                      [m21, m22, m23],
                                      [m31, m32, m33]])
 
-        # Round values and recombine to transformation matrix        
+        # Round values and recombine to transformation matrix
         nom = np.around(unp.nominal_values(self.trans_mat), 10)
         dev = np.around(unp.std_devs(self.trans_mat), 10)
 

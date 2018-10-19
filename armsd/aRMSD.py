@@ -428,7 +428,7 @@ def kabsch_menu(molecule1, molecule2, logger, settings):
             else:
 
                 align.export_kabsch(logger, settings)
-                
+
         else:
 
             logger.pt_invalid_input()
@@ -465,7 +465,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
 
     choices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 20, 21, 24, -1, -2, -3, -4, -5, -6]  # List of accepted choices
 
-    # Dictionary of symmetry number and transformation correlations 
+    # Dictionary of symmetry number and transformation correlations
     sym_number = {1: 'inv', 2: 'xy', 3: 'xz', 4: 'yz', 5: 'x', 6: 'y', 7: 'z'}
     sym_transf = {'xy': ac.z_axis, 'xz': ac.y_axis, 'yz': ac.x_axis, 'x': ac.x_axis, 'y': ac.y_axis, 'z': ac.z_axis}
 
@@ -484,7 +484,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
     while True:
 
         logger.pt_match_menu(settings)
-        
+
         if molecule1.show_mol:
 
             viewmol_vtk = ap.Molecular_Viewer_vtk(settings)
@@ -493,7 +493,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
             logger.pt_plotting_screenshot()
             viewmol_vtk.show(molecule1, molecule2, settings)
             molecule1.show_mol = False
-            
+
         symmetry_operation = logger.get_menu_choice(choices, question, return_type='int')
 
         if symmetry_operation == -6:  # Set number of deviations and update information

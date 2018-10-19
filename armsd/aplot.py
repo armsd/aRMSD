@@ -12,7 +12,7 @@ from builtins import range
 import sys
 
 try:
-    
+
     import numpy as np
 
 except ImportError:
@@ -20,7 +20,7 @@ except ImportError:
     pass
 
 try:
-    
+
     from vtk import (vtkCellPicker, vtkSphereSource, vtkLineSource, vtkTubeFilter, vtkPolyDataMapper, vtkActor,
                      vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, vtkRenderLargeImage, vtkPNGWriter,
                      vtkWindowToImageFilter, vtkCamera, vtkVectorText, vtkFollower, vtkArrowSource, vtkCubeSource,
@@ -29,14 +29,14 @@ try:
                      vtkPropPicker, VTK_VERSION)
 
     has_vtk, vtk_version = True, VTK_VERSION
-    
+
 except ImportError:
-    
+
     has_vtk = False
     vtk_version = 'Module not available'
 
 try:
-    
+
     import matplotlib as mpl
     has_mpl, mpl_version = True, mpl.__version__
 # subject to change, but muting these helped to launch aRMSD from the CLI
@@ -46,14 +46,14 @@ try:
 
     from matplotlib import pyplot as plt
     import matplotlib.gridspec as gridspec
-    
+
 except ImportError:
-    
+
     has_mpl = False
     mpl_version = 'Module not available'
 
 try:
-    
+
     from uncertainties import unumpy as unp
     from uncertainties import ufloat
     has_uc = True
@@ -121,17 +121,17 @@ def geo_torsion(xyz1, xyz2, xyz3, xyz4):
 
 class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
     """ Class for the fractional coordinates / aRMSD substructure selection """
- 
+
     def __init__(self, settings, atoms_to_pick, align, plot_type, picker_type):
         """ Initializes the picker interactor """
 
         self.plot_type = plot_type
-        
+
         self.AddObserver('LeftButtonPressEvent', self.leftButtonPressEvent)
 
         # Arrays for picked atoms and actors
         self.PickedAtoms, self.PickedActors = np.array([], dtype=np.int), np.array([], dtype=np.int)
- 
+
         self.LastPickedActor = None
         self.LastPickedProperty = vtkProperty()
 
@@ -221,12 +221,12 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
 
     def leftButtonPressEvent(self, obj, event):
         """ Event that will happen on left mouse click """
-        
+
         clickPos = self.GetInteractor().GetEventPosition()  # Get the clicked position
- 
+
         picker = vtkPropPicker()
         picker.Pick(clickPos[0], clickPos[1], 0, self.GetDefaultRenderer())
- 
+
         self.NewPickedActor = picker.GetActor()  # Get the actual actor on the clicked position
 
         # If an actor/atom has been selected (only selective pick events via actors_to_pick)
@@ -266,7 +266,7 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
 
                     self.PickedActors = np.unique(np.asarray([np.delete(self.PickedActors, np.where(self.PickedActors == self.actors_to_pick[pos])[0]) for pos in all_positions]))  # Remove actor from array
                     self.PickedAtoms = np.unique(np.delete(self.PickedAtoms, pos_in_picked_atoms, axis=0))  # Remove atomic index from index array
-                    
+
                     [actor.GetProperty().SetColor(self.colors) for actor in self.PickedActors]  # Change colors for all atoms
 
                 else:
@@ -281,15 +281,16 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
 
 # ---------------------------------------------------------------------------------
 
+
 class aRMSD_plot_picker(vtkInteractorStyleTrackballCamera):
     """ Class for picking events in the aRMSD plot """
- 
+
     def __init__(self, settings, atoms_to_pick, align):
         """ Initializes the picker interactor """
-        
+
         self.AddObserver('LeftButtonPressEvent', self.leftButtonPressEvent)
         self.PickedAtoms, self.PickedActors = [], []  # Lists for picked atoms and actors
- 
+
         self.LastPickedActor = None
         self.LastPickedProperty = vtkProperty()
 
@@ -342,7 +343,7 @@ class aRMSD_plot_picker(vtkInteractorStyleTrackballCamera):
 
             elif len(list_of_picks) == 3:  # Angle
 
-               value = geo_angle(xyz[0], xyz[1], xyz[2])
+                value = geo_angle(xyz[0], xyz[1], xyz[2])
 
             elif len(list_of_picks) == 4:  # Torsion angle
 
@@ -400,49 +401,57 @@ class aRMSD_plot_picker(vtkInteractorStyleTrackballCamera):
 
         def print_values(values, n_digits, unit=' deg.'):
 
-            print('\n           '+str(self.name_mol1)+': '+apply_format(values[0], n_digits)+unit+
-                  '\n       '+str(self.name_mol2)+': '+apply_format(values[1], n_digits)+unit+
-                  '\t\tDiff. = '+apply_format(values[2], n_digits)+unit)
+            print('\n           ' + str(self.name_mol1) + ': ' +
+                  apply_format(values[0], n_digits) + unit +
+                  '\n       ' + str(self.name_mol2) + ': ' +
+                  apply_format(values[1], n_digits) + unit +
+                  '\t\tDiff. = ' + apply_format(values[2], n_digits)+unit)
 
         if len(list_of_picks) == 1:  # Show RMSD contribution of the atom
 
-            print('\nAtom [' +str(self.sym_idf[list_of_picks[0]])+']: RMSD = '+
-                  apply_format(self.RMSD_per_atom[list_of_picks[0]], 3)+
-                  ' Angstrom ('+apply_format(self.rmsd_perc[list_of_picks[0]], 0)+' % of the total RMSD)')
+            print('\nAtom [' + str(self.sym_idf[list_of_picks[0]]) + ']: RMSD = ' +
+                  apply_format(self.RMSD_per_atom[list_of_picks[0]], 3) +
+                  ' Angstrom (' + apply_format(self.rmsd_perc[list_of_picks[0]], 0) +
+                  ' % of the total RMSD)')
 
         elif len(list_of_picks) == 2:  # Calculate distance
 
             d1, d2, delta = self.calc_picker_property(list_of_picks)
 
-            print('\nDistance between: ['+str(self.sym_idf[list_of_picks[0]])+' -- '+
-                  str(self.sym_idf[list_of_picks[1]])+']')
+            print('\nDistance between: [' + str(self.sym_idf[list_of_picks[0]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[1]])+']')
+
             print_values([d1, d2, delta], n_digits=5, unit=' A')
 
         elif len(list_of_picks) == 3:  # Calculate angle
 
             a1, a2, delta = self.calc_picker_property(list_of_picks)
 
-            print('\nAngle between: ['+str(self.sym_idf[list_of_picks[0]])+' -- '+
-                  str(self.sym_idf[list_of_picks[1]])+' -- '+str(self.sym_idf[list_of_picks[2]])+']')
+            print('\nAngle between: [' + str(self.sym_idf[list_of_picks[0]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[1]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[2]])+']')
+
             print_values([a1, a2, delta], n_digits=5, unit=' deg.')
 
         elif len(list_of_picks) == 4:  # Calculate dihedral angle
 
             t1, t2, delta = self.calc_picker_property(list_of_picks)
 
-            print('\nDihedral between: ['+str(self.sym_idf[list_of_picks[0]])+' -- '+
-                  str(self.sym_idf[list_of_picks[1]])+' -- '+str(self.sym_idf[list_of_picks[2]])+' -- '+
-                  str(self.sym_idf[list_of_picks[3]])+']')
+            print('\nDihedral between: [' + str(self.sym_idf[list_of_picks[0]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[1]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[2]]) +
+                  ' -- ' + str(self.sym_idf[list_of_picks[3]])+']')
+
             print_values([t1, t2, delta], n_digits=5, unit=' deg.')
 
     def leftButtonPressEvent(self, obj, event):
         """ Event that will happen on left mouse click """
-        
+
         clickPos = self.GetInteractor().GetEventPosition()  # Get the clicked position
- 
+
         picker = vtkPropPicker()
         picker.Pick(clickPos[0], clickPos[1], 0, self.GetDefaultRenderer())
- 
+
         self.NewPickedActor = picker.GetActor()  # Get the actual actor on the clicked position
 
         # If an actor/atom has been selected (only selective pick events via actors_to_pick)
@@ -484,17 +493,17 @@ class aRMSD_plot_picker(vtkInteractorStyleTrackballCamera):
 
 class Molecular_Viewer_vtk(object):
     """ A molecular viewer object based on vtk used for 3d plots """
- 
+
     def __init__(self, settings):
         """ Initializes object and creates the renderer and camera """
 
         self.ren = vtkRenderer()
         self.ren_win = vtkRenderWindow()
         self.ren_win.AddRenderer(self.ren)
-        
+
         self.ren.SetBackground(settings.backgr_col_rgb)
         self.ren.SetUseDepthPeeling(settings.use_depth_peel)
-               
+
         self.title = 'aRMSD Structure Visualizer'
         self.magnif = None
         self.save_counts = 0
@@ -554,7 +563,7 @@ class Molecular_Viewer_vtk(object):
         self.ren_win.SetWindowName(self.title)
 
         self.iren.AddObserver('KeyPressEvent', self.keypress)  # Key events for screenshots, etc.
-        
+
         self.ren_win.Render()
         self.iren.Start()
 
@@ -637,18 +646,18 @@ class Molecular_Viewer_vtk(object):
         math.Subtract(endPoint, startPoint, normalizedX)
         length = math.Norm(normalizedX)
         math.Normalize(normalizedX)
-     
+
         # The Z axis is an arbitrary vector cross X
         arbitrary = np.asarray([0.2, -0.3, 1.7])
         math.Cross(normalizedX, arbitrary, normalizedZ)
         math.Normalize(normalizedZ)
-         
+
         # The Y axis is Z cross X
         math.Cross(normalizedZ, normalizedX, normalizedY)
         matrix = vtkMatrix4x4()
-         
+
         matrix.Identity()  # Create the direction cosine matrix
-        
+
         for i in range(3):
 
             matrix.SetElement(i, 0, normalizedX[i])
@@ -660,7 +669,7 @@ class Molecular_Viewer_vtk(object):
         transform.Translate(startPoint)
         transform.Concatenate(matrix)
         transform.Scale(length, length, length)
-         
+
         # Transform the polydata
         transformPD = vtkTransformPolyDataFilter()
         transformPD.SetTransform(transform)
@@ -709,18 +718,18 @@ class Molecular_Viewer_vtk(object):
         math.Subtract(endPoint, startPoint, normalizedX)
         length = math.Norm(normalizedX)
         math.Normalize(normalizedX)
-     
+
         # The Z axis is an arbitrary vector cross X
         arbitrary = np.asarray([0.2, -0.3, 1.7])
         math.Cross(normalizedX, arbitrary, normalizedZ)
         math.Normalize(normalizedZ)
-         
+
         # The Y axis is Z cross X
         math.Cross(normalizedZ, normalizedX, normalizedY)
         matrix = vtkMatrix4x4()
-         
+
         matrix.Identity()  # Create the direction cosine matrix
-        
+
         for i in range(3):
 
             matrix.SetElement(i, 0, normalizedX[i])
@@ -732,7 +741,7 @@ class Molecular_Viewer_vtk(object):
         transform.Translate(startPoint)
         transform.Concatenate(matrix)
         transform.Scale(length, length, length)
-         
+
         # Transform the polydata
         transformPD = vtkTransformPolyDataFilter()
         transformPD.SetTransform(transform)
@@ -757,7 +766,7 @@ class Molecular_Viewer_vtk(object):
         atom = vtkSphereSource()
         atom.SetCenter(pos)
         atom.SetRadius(radius*settings.scale_at)
-        
+
         atom.SetPhiResolution(settings.res_atom)
         atom.SetThetaResolution(settings.res_atom)
 
@@ -894,7 +903,7 @@ class Molecular_Viewer_vtk(object):
 
     def add_all_bonds_kabsch(self, align, settings):
         """ Wrapper for the addition of all bonds (Kabsch) from the molecule """
-        
+
         if align.chd_bnd_col_rgb is None:  # Check if changed bonds exist at all - if they don't: use normal bonds
 
             [self.add_bond(align.cor[align.bnd_idx[bond][0]]*settings.scale_glob,
@@ -968,7 +977,7 @@ class Molecular_Viewer_vtk(object):
         """ Adds a legend to the VTK renderer """
 
         cube_source = vtkCubeSource()
-        cube_source.SetBounds(-0.001,0.001,-0.001,0.001,-0.001,0.001)
+        cube_source.SetBounds(-0.001, 0.001, -0.001, 0.001, -0.001, 0.001)
 
         mapper = vtkPolyDataMapper()
         mapper.SetInputConnection(cube_source.GetOutputPort())  # connect source and mapper
@@ -1012,7 +1021,7 @@ class Molecular_Viewer_vtk(object):
         lut.SetNumberOfColors(settings.n_col_aRMSD)
         lut.SetRange(0.0, settings.max_RMSD_diff)  # Labels from 0.0 to max_RMSD
         lut.Build()  # Build the table
-         
+
         # Create the scalar_bar
         scalar_bar = vtkScalarBarActor()
         scalar_bar.SetTitle(' ')  # Otherwise it causes a string error
@@ -1022,7 +1031,7 @@ class Molecular_Viewer_vtk(object):
         scalar_bar.SetLookupTable(lut)
 
         self.ren.AddActor(scalar_bar)
-         
+
         # Create the scalar_bar_widget
         #scalar_bar_widget = vtkScalarBarWidget()
         #scalar_bar_widget.SetInteractor(self.iren)
@@ -1059,7 +1068,7 @@ class Molecular_Viewer_vtk(object):
             self.add_arrow('z', arrow_length, settings)
 
         if settings.draw_labels:  # Draw arrow labels
-            
+
             self.add_label([arrow_length, 0.0, 0.0], settings.arrow_col_rgb, 'X')
             self.add_label([0.0, arrow_length, 0.0], settings.arrow_col_rgb, 'Y')
             self.add_label([0.0, 0.0, arrow_length], settings.arrow_col_rgb, 'Z')
@@ -1067,7 +1076,7 @@ class Molecular_Viewer_vtk(object):
         if settings.draw_legend:  # Draw legend
 
             self.add_legend(molecule1, molecule2, settings)
-            
+
         self.add_camera_setting(molecule2)
 
     def make_inertia_plot(self, molecule1, molecule2, pa_mol1, pa_mol2, settings):
@@ -1111,7 +1120,7 @@ class Molecular_Viewer_vtk(object):
 
         self.add_all_atoms(align, settings)
         self.add_all_bonds_kabsch(align, settings)
-        self.add_all_labels(align, settings) 
+        self.add_all_labels(align, settings)
         self.add_camera_setting(align)
 
         if settings.use_aRMSD_col and settings.draw_col_map:  # If aRMSD colors are requested
@@ -1130,7 +1139,7 @@ class Molecular_Viewer_vtk(object):
 
         self.add_all_atoms(align, settings)
         self.add_all_bonds_regular(align, settings)
-        self.add_all_labels(align, settings) 
+        self.add_all_labels(align, settings)
         self.add_camera_setting(align)
 
         # Connect with picker
@@ -1175,12 +1184,12 @@ class Molecular_Viewer_mpl(object):
     def __init__(self):
         """ Initializes the molecular viewer """
 
-        self.space = plt.figure() # Define plotting space and axes
+        self.space = plt.figure()    # Define plotting space and axes
 
         self.axes = self.space.add_subplot(111)
 
-        self.axes.grid(False) # Switch off grid
-        self.axes.axis('off') # Switch off axis
+        self.axes.grid(False)    # Switch off grid
+        self.axes.axis('off')    # Switch off axis
 
         self.n_plots = 1
 
@@ -1205,7 +1214,7 @@ class Molecular_Viewer_mpl(object):
         norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 
         # Create a second axes for the colorbar
-        self.axes2 = self.space.add_axes([0.88, 0.1, 0.03, 0.8]) # Global values (do not change)
+        self.axes2 = self.space.add_axes([0.88, 0.1, 0.03, 0.8])  # Global values (do not change)
 
         # Create colorbar
         mpl.colorbar.ColorbarBase(self.axes2, cmap=cmap, norm=norm,
@@ -1214,9 +1223,9 @@ class Molecular_Viewer_mpl(object):
         # Set y label and label size
         self.axes2.set_ylabel(r'RMSD / $\AA$', size=12)
 
-        self.space.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0) # Set margins of the plot window
-        plt.show() # Show result
-        
+        self.space.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)  # Set margins of the plot window
+        plt.show()  # Show result
+
 
 class Statistics_mpl(object):
     """ A statistics object based on matplotlib used for 2d plots """
@@ -1225,9 +1234,10 @@ class Statistics_mpl(object):
         """ Initializes the main window via gridspec and defines plotting colors """
 
         # Define subplot locations and set titles and grids
-        self.gs = gridspec.GridSpec(3,3, left=0.08, bottom=0.08, right=0.96, top=0.92, wspace=0.30, hspace=0.97)
-    
-        self.ax1 = plt.subplot(self.gs[0, :-1])      
+        self.gs = gridspec.GridSpec(3, 3, left=0.08, bottom=0.08, right=0.96,
+                                    top=0.92, wspace=0.30, hspace=0.97)
+
+        self.ax1 = plt.subplot(self.gs[0, :-1])
         self.ax2 = plt.subplot(self.gs[1:, :-1])
         self.ax3 = plt.subplot(self.gs[0:, -1])
 
@@ -1255,7 +1265,7 @@ class Statistics_mpl(object):
 
         eps = 1.0E-20
         x, y = np.asarray(x), np.asarray(y)
-            
+
         n = len(x)
         xmean, ymean = np.mean(x, None), np.mean(y, None)
 
@@ -1286,7 +1296,7 @@ class Statistics_mpl(object):
 
         # Details for the handling of the different quantities
         if prop == 'bond_dist':
-            
+
             data_mol1 = align.bnd_dis_mol1
             data_mol2 = align.bnd_dis_mol2
             plot_color = settings.new_red
@@ -1343,7 +1353,7 @@ class Statistics_mpl(object):
                 logger.pt_warning_bond_types()  # Warn user if 2 or less bond types were found
 
         elif prop == 'angles':
-            
+
             data_mol1 = align.ang_deg_mol1
             data_mol2 = align.ang_deg_mol2
             plot_color = settings.new_green
@@ -1360,7 +1370,7 @@ class Statistics_mpl(object):
             logger.prop_ang_rmsd, logger.prop_ang_r_sq = rmsd, r**2  # Log quality descriptors
 
         elif prop == 'torsions':
-            
+
             data_mol1 = align.tor_deg_mol1
             data_mol2 = align.tor_deg_mol2
             plot_color = settings.new_blue
@@ -1380,12 +1390,12 @@ class Statistics_mpl(object):
         ax_title = title_prefix + '(RMSE: ' + str(np.around(rmsd, settings.calc_prec_stats)) + label_unit + ')'
         xlabel = align.name2+' /' + label_unit
         ylabel = align.name1+' /' + label_unit
-        
+
         plt_axis.set_title(ax_title, fontsize=settings.title_pt)
         plt_axis.set_xlabel(xlabel, fontsize=settings.ax_pt, style='italic')
         plt_axis.set_ylabel(ylabel, fontsize=settings.ax_pt, style='italic')
         plt_axis.grid(False)
-        
+
         label_data = str(len(data_mol2)) + label_suffix
         label_fit = r'R$^2$ = '+str(np.around(r**2, settings.calc_prec_stats))
 
@@ -1410,17 +1420,17 @@ class Statistics_mpl(object):
                           zorder=1, mec=plot_color, label=label_data)
 
         plt_axis.plot(x_axis, m*x_axis+b, lw=2, zorder=1, color=plot_color, label=label_fit)
-            
+
         plt_axis.set_xlim([limits[0] - extra_space, limits[1] + extra_space])
         plt_axis.set_ylim([limits[0] - extra_space, limits[1] + extra_space])
 
         # Draw legend and add grid upon request
         if settings.stats_draw_legend:
-            
+
             plt_axis.legend(loc=settings.legend_pos, frameon=False)
 
         if settings.stats_draw_grid:
-            
+
             plt_axis.grid()
 
     def prep_simulation(self, data1, data2, settings):
