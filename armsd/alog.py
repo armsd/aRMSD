@@ -436,7 +436,7 @@ class Logger(object):
                          str(settings.col_short_hex) + '  [HEX]')
 
             output.write(adj_str('Color for longer bonds in "' +
-                                 str(self.name_mol2) + '" vs. "' +
+                                 str(self.name_mol1) + '" vs. "' +
                                  str(self.name_mol2) + '"...',
                                  prefix='\n\t', suffix='\t') +
                          str(settings.col_long_hex) + '  [HEX]')
