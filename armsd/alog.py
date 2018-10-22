@@ -191,7 +191,7 @@ class Logger(object):
 
         def adj_str(string, prefix='\n\t', suffix='\t'):
 
-            delta = self.max_string_len - len(string)
+            delta = self.max_string_len - len(string) - 4  # -4 accounts for \t
 
             return prefix + string + ' ' * delta + suffix
 
@@ -384,9 +384,9 @@ class Logger(object):
                                      prefix='\n\n\t', suffix='\t') +
                              '[Angstrom]\n')
 
-                [output.write('\n\t\t\t\t\t\t\t' + 
+                [output.write('\n' + 8*'\t' + 
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
-                              align.sym_idf_mol2[self.disord_pos[entry]]) + '\t\t\t\t\t\t' +
+                              align.sym_idf_mol2[self.disord_pos[entry]]) + 4*'\t' + 
                               '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
                               
 # old form
@@ -443,7 +443,7 @@ class Logger(object):
 #                         str(settings.thresh) + '  [Angstrom]')
 # new form
             output.write(adj_str('Threshold for bond comparison [Angstrom]...',
-                                 prefix='\n\t', suffix='') +
+                                 prefix='\n\t', suffix='\t') +
                          str(settings.thresh))
 # end of change
 
