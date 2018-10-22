@@ -183,9 +183,9 @@ class Logger(object):
 
         return ' ' * (6 - len(sym_idf1)) + sym_idf1 + ' -- ' + sym_idf2 + ' ' * (6 - len(sym_idf2))
 
-    ###############################################################################
+    ############################################################################
     # WRITE OUTFILE
-    ###############################################################################
+    ############################################################################
 
     def write_logfile(self, align, settings):
 
@@ -196,19 +196,6 @@ class Logger(object):
             return prefix + string + ' ' * delta + suffix
 
         def wt_general_info():
-# subject to change, old set:
-#            output.write('===================================================================================================')
-#            output.write('\n                 aRMSD - automatic RMSD Calculator: Version ' +
-#                         str(self.version))
-#            output.write('\n===================================================================================================')
-#            output.write('\n                  A. Wagner, University of Heidelberg (' + str(self.year) + ')')
-#            output.write('\n\n\tA brief description of the program can be found in the manual and in:')
-#            output.write('\n\tA. Wagner, PhD thesis, University of Heidelberg, 2015.\n')
-#            output.write('\n---------------------------------------------------------------------------------------------------\n')
-#            output.write('\n*** Cite this program as:' +
-#                         '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
-#            output.write('\n\n---------------------------------------------------------------------------------------------------')
-# new set:
             output.write(80*'=')
             output.write('\n                 aRMSD - automatic RMSD Calculator: Version ' +
                          str(self.version))
@@ -219,7 +206,7 @@ class Logger(object):
             output.write('\n' + 80*'-')
             output.write('\n*** Cite this program as:' +
                          '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
-            output.write('\n\n' + 80* '-')
+            output.write('\n\n' + 80 * '-')
 
             output.write(adj_str('*** Log file of the superposition between the structures ***', prefix='\n\n', suffix='\n'))
             output.write(adj_str('"' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol1))
@@ -302,7 +289,7 @@ class Logger(object):
                          ' H atoms)')
 
             output.write(adj_str('The number of atoms in "' + str(self.name_mol2) +
-                        '"...', prefix='\n\t', suffix='\t') +
+                                 '"...', prefix='\n\t', suffix='\t') +
                          str(self.cons_at_mol2) + '\t(' + str(self.cons_at_H_mol2) +
                          ' H atoms)')
 
@@ -327,7 +314,7 @@ class Logger(object):
                                      prefix='\n\n', suffix=''))
 
             output.write(adj_str('Final number of atoms...',
-                                 prefix='\n\n\t', suffix='\t') + 
+                                 prefix='\n\n\t', suffix='\t') +
                          str(align.n_atoms) +
                          '\t(' + str(align.n_hydro) + ' H atoms)')
 
@@ -384,19 +371,14 @@ class Logger(object):
                                      prefix='\n\n\t', suffix='\t') +
                              '[Angstrom]\n')
 
-                [output.write('\n' + 8*'\t' + 
+                [output.write('\n' + 8*'\t' +
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
-                              align.sym_idf_mol2[self.disord_pos[entry]]) + 4*'\t' + 
+                              align.sym_idf_mol2[self.disord_pos[entry]]) + 4*'\t' +
                               '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
-                              
-# old form
-#                output.write(adj_str('The RMSD after matching was...', prefix='\n\n\t', suffix='\t') +
-#                             '{:6.5f}'.format(self.match_rmsd) + ' [Angstrom]')
-# new form, subject to change
+
                 output.write(adj_str('The RMSD after matching was [Angstrom]..',
                                      prefix='\n\n\t', suffix='\t') +
                              '{:6.5f}'.format(self.match_rmsd))
-# end of change
 
         def wt_kabsch():
 
@@ -427,38 +409,19 @@ class Logger(object):
             output.write(adj_str('Number of colors for aRMSD plot...',
                                  prefix='\n\t', suffix='\t') +
                          str(settings.n_col_aRMSD))
-                         
-# subject to change, old form:
-#            output.write(adj_str('Maximum RMSD value for color projection...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         str(settings.max_RMSD_diff) + '  [Angstrom]')
-# new form:
+
             output.write(adj_str('Maximum RMSD value for color projection [Angstrom]..',
                                  prefix='\n\t', suffix='\t') +
                          str(settings.max_RMSD_diff))
 
-# subject to change, old form
-#            output.write(adj_str('Threshold for bond comparison...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         str(settings.thresh) + '  [Angstrom]')
-# new form
             output.write(adj_str('Threshold for bond comparison [Angstrom]...',
                                  prefix='\n\t', suffix='\t') +
                          str(settings.thresh))
-# end of change
 
-# subject to change, old set
-#            output.write(adj_str('Number of distance pairs above threshold...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         str(align.n_chd_bnd) + '  [Angstrom]')
             output.write(adj_str('Number of distance pairs above threshold...',
                                  prefix='\n\t', suffix='\t') +
                          str(align.n_chd_bnd))
 
-# subject to change, old set
-#            output.write(adj_str('Percentage of the colored intersections...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         str((1.0 - 2 * settings.n) * 100) + '  [%]')
             output.write(adj_str('Percentage of the colored intersections...',
                                  prefix='\n\t', suffix='\t') +
                          str((1.0 - 2 * settings.n) * 100))
@@ -477,15 +440,15 @@ class Logger(object):
 
             output.write(adj_str('Number of bonds below threshold...',
                                  prefix='\n\t', suffix='\t') +
-                                 str(align.n_chd_bnd))
+                         str(align.n_chd_bnd))
 
             output.write(adj_str('Color of "' + str(self.name_mol1) + '"...',
                                  prefix='\n\t', suffix='\t') +
-                                 str(settings.col_model_fin_hex) + '  [HEX]')
+                         str(settings.col_model_fin_hex) + '  [HEX]')
 
             output.write(adj_str('Color of "' + str(self.name_mol2) + '"...',
-                                prefix='\n\t', suffix='\t') +
-                                str(settings.col_refer_fin_hex) + '  [HEX]')
+                                 prefix='\n\t', suffix='\t') +
+                         str(settings.col_refer_fin_hex) + '  [HEX]')
 
 # Rotation matrix
             output.write(adj_str('Final rotation matrix from "Standard Orientation"...',
@@ -516,63 +479,27 @@ class Logger(object):
                                  prefix='\n\t', suffix='\t') +
                          str(self.d_min) + ', ' + str(self.d_max))
 
-# subject to change, old form:
-#            output.write(adj_str('Superposition R^2...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         self.format_value(align.r_sq, n_digits=5) +
-#                         '  [Dimensionless]')
-# new form
             output.write(adj_str('Superposition R^2 (dimensionless)...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.r_sq, n_digits=5))
 
-# subject to change, old form:
-#            output.write(adj_str('Cosine similarity...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         self.format_value(align.cos_sim, n_digits=5) +
-#                         '  [Dimensionless]')
-# new form
             output.write(adj_str('Cosine similarity (dimensionless)...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.cos_sim, n_digits=5))
 
-
-# subject to change, old form
-#            output.write(adj_str('GARD score...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         self.format_value(align.gard, n_digits=5) +
-#                         '  [Dimensionless]')
-# new form:
             output.write(adj_str('GARD score (dimensionless)...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.gard, n_digits=5))
 
-# subject to change, old form
-#            output.write(adj_str('RMSD...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         self.format_value(align.rmsd, n_digits=5) +
-#                         '  [Angstrom]')
-# new form
             output.write(adj_str('RMSD (refined, Angstrom)...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
+            output.write("\n\n- Decomposition into different atom types" +
+                         11*(" ") + "absolute" + "        relative\n")
 
-# subject to change, old form
-#            output.write(adj_str('   - Decomposition into different atom types',
-#                                 prefix='\n\n', suffix='\t\t') +
-#                         'Absolute [Angstrom] \tRelative [%]\n')
-# new form, subject to change
-            output.write("\n\n- Decomposition into different atom types" +\
-            11*(" ") + "absolute" + "        relative\n")
             output.write(50*" " + "[Angstrom]" + 9*" " + "[%]")
 
-# subject to change, old form
-#            [output.write('\n\t\t\t' + "{:4.4s}".format(align.at_types[entry]) +
-#                          ' (#' + "{:3.0f}".format(align.occ[entry]) + ')\t\t\t\t\t\t\t\t' +
-#                          self.format_value(align.rmsd_idv[entry], n_digits=5) + '  \t\t\t(' +
-#                          self.format_value(rmsd_perc[entry], n_digits=0) + ')')
-# new form
             [output.write('\n' + 5*"\t" + "{:4.4s}".format(align.at_types[entry]) +
                           ' (#' + "{:3.0f}".format(align.occ[entry]) + ')\t\t\t\t\t\t' +
                           self.format_value(align.rmsd_idv[entry], n_digits=5) + '  \t\t(' +
@@ -594,17 +521,9 @@ class Logger(object):
             output.write(adj_str('# the relative contributions are calculated',
                                  prefix='\n\t', suffix='\n'))
 
-# subject to change, old form:
-#            output.write(adj_str('RMSD...',
-#                                 prefix='\n\t', suffix='\t') +
-#                         self.format_value(align.rmsd_z_matrix, n_digits=5) +
-#                         '  [Angstrom]')
-# new form:
             output.write(adj_str('RMSD [Angstrom]...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.rmsd_z_matrix, n_digits=5))
-
-
 
             output.write(adj_str('Contribution of distances...',
                                  prefix='\n\t', suffix='\t') +
@@ -642,8 +561,8 @@ class Logger(object):
 
                 output.write(adj_str('Cosine similarity...',
                                      prefix='\n\t', suffix='\t') +
-                                     self.format_value(align.cos_sim_sub1, n_digits=5) +
-                                     '  [Dimensionless]')
+                             self.format_value(align.cos_sim_sub1, n_digits=5) +
+                             '  [Dimensionless]')
 
                 output.write(adj_str('RMSD...',
                                      prefix='\n\t', suffix='\t') +
@@ -714,11 +633,11 @@ class Logger(object):
 
                 output.write(adj_str('RMSE...',
                                      prefix='\n\t', suffix='\t') +
-                                     wt_prop(self.prop_bnd_dist_rmsd) +
-                                     '  [Angstrom]')
+                             wt_prop(self.prop_bnd_dist_rmsd) +
+                             '  [Angstrom]')
 
                 output.write(adj_str('Number of bond types...',
-                                     prefix='\n\n\t', suffix='\t') + 
+                                     prefix='\n\n\t', suffix='\t') +
                              str(align.n_bnd_types))
 
                 output.write(adj_str('R2 of linear correlation...',
