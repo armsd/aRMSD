@@ -196,17 +196,37 @@ class Logger(object):
             return prefix + string + ' ' * delta + suffix
 
         def wt_general_info():
-            output.write(80*'=')
-            output.write('\n                 aRMSD - automatic RMSD Calculator: Version ' +
-                         str(self.version))
-            output.write('\n' + 80*'=')
-            output.write('\n                  A. Wagner, University of Heidelberg (' + str(self.year) + ')')
-            output.write('\n\n\tA brief description of the program can be found in the manual and in:')
-            output.write('\n\tA. Wagner, PhD thesis, University of Heidelberg, 2015.\n')
-            output.write('\n' + 80*'-')
-            output.write('\n*** Cite this program as:' +
-                         '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
-            output.write('\n\n' + 80 * '-')
+            output.write("+" + 78 * '-' + "+\n")
+            output.write('|' + 17 * " " +
+                         'aRMSD - automatic RMSD Calculator (version ' + str(self.version) + ")" +
+                         12 * " " + "|\n")
+
+            output.write('|' + 17 * " " +
+                         'A. Wagner, University of Heidelberg (' + str(self.year) + ')' +
+                         19 * " " + "|\n")
+
+            output.write("|" + 78 * " " + "|\n")
+
+            output.write("|" + 4 * " " +
+                         'A brief description of the program can be found in the manual and in:' +
+                         5 * " " + "|\n")
+
+            output.write("|" + 4 * " " +
+                         'A. Wagner, PhD thesis, University of Heidelberg, 2015.' +
+                         20 * " " + "|\n")
+
+            output.write("|" + 78 * " " + "|\n")
+
+            output.write("|" + '*** Cite this program as:' + 53 * " " + "|\n")
+
+            output.write("|" + 4 * " " +
+                         'A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.' +
+                         10 * " " + "|\n")
+
+            output.write("|" + 4 * " " +
+                         "doi: 10.1021/acs.jcim.6b00516" + 45 * " " + "|\n")
+
+            output.write("+" + 78 * "-" + "+\n")
 
             output.write(adj_str('*** Log file of the superposition between the structures ***', prefix='\n\n', suffix='\n'))
             output.write(adj_str('"' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol1))
