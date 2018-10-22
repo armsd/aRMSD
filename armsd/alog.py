@@ -258,12 +258,12 @@ class Logger(object):
             output.write(adj_str('Initial number of atoms in "' + str(self.name_mol1) +
                          '"...', prefix='\n\t', suffix='\t') +
                          str(self.cons_init_at_mol1) +
-                         '\t(' + str(self.cons_init_at_H_mol1) + ' H atoms)')
+                         '  (' + str(self.cons_init_at_H_mol1) + ' H atoms)')
 
             output.write(adj_str('Initial number of atoms in "' + str(self.name_mol2) +
                          '"...', prefix='\n\t', suffix='\t') +
                          str(self.cons_init_at_mol2) +
-                         '\t(' + str(self.cons_init_at_H_mol2) + ' H atoms)')
+                         '  (' + str(self.cons_init_at_H_mol2) + ' H atoms)')
 
             if self.rem_H_btc:
 
@@ -285,12 +285,14 @@ class Logger(object):
 
             output.write(adj_str('The number of atoms in "' + str(self.name_mol1) +
                          '"...', prefix='\n\n\t', suffix='\t') +
-                         str(self.cons_at_mol1) + '\t(' + str(self.cons_at_H_mol1) +
+                         str(self.cons_at_mol1) +
+                         '  (' + str(self.cons_at_H_mol1) +
                          ' H atoms)')
 
             output.write(adj_str('The number of atoms in "' + str(self.name_mol2) +
                                  '"...', prefix='\n\t', suffix='\t') +
-                         str(self.cons_at_mol2) + '\t(' + str(self.cons_at_H_mol2) +
+                         str(self.cons_at_mol2) +
+                         '  (' + str(self.cons_at_H_mol2) +
                          ' H atoms)')
 
             if not self.user_choice_rem_all_H and not self.user_choice_rem_btc_H and not self.user_choice_rem_btg14_H:
@@ -316,7 +318,7 @@ class Logger(object):
             output.write(adj_str('Final number of atoms...',
                                  prefix='\n\n\t', suffix='\t') +
                          str(align.n_atoms) +
-                         '\t(' + str(align.n_hydro) + ' H atoms)')
+                         '  (' + str(align.n_hydro) + ' H atoms)')
 
         def wt_std_orientation():
 
@@ -371,9 +373,10 @@ class Logger(object):
                                      prefix='\n\n\t', suffix='\t') +
                              '[Angstrom]\n')
 
-                [output.write('\n' + 8*'\t' +
+                [output.write('\n' + 29 * " " +
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
-                              align.sym_idf_mol2[self.disord_pos[entry]]) + 4*'\t' +
+                              align.sym_idf_mol2[self.disord_pos[entry]]) +
+                               20 * " " +
                               '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
 
                 output.write(adj_str('The RMSD after matching was [Angstrom]..',
@@ -496,13 +499,16 @@ class Logger(object):
                          self.format_value(align.rmsd, n_digits=5))
 
             output.write("\n\n- Decomposition into different atom types" +
-                         11*(" ") + "absolute" + "        relative\n")
+                         10 * (" ") + "absolute" + 5 * " " + "relative\n")
 
-            output.write(50*" " + "[Angstrom]" + 9*" " + "[%]")
+            output.write(50*" " + "[Angstrom]" + 6 * " " + "[%]")
 
-            [output.write('\n' + 5*"\t" + "{:4.4s}".format(align.at_types[entry]) +
-                          ' (#' + "{:3.0f}".format(align.occ[entry]) + ')\t\t\t\t\t\t' +
-                          self.format_value(align.rmsd_idv[entry], n_digits=5) + '  \t\t(' +
+            [output.write('\n' + 30 * " " +
+                          "{:4.4s}".format(align.at_types[entry]) +
+                          ' (#' + "{:3.0f}".format(align.occ[entry]) + ')' +
+                          10 * " " +
+                          self.format_value(align.rmsd_idv[entry], n_digits=5) +
+                          6 * " " + '(' +
                           self.format_value(rmsd_perc[entry], n_digits=0) + ')')
 
              for entry in range(align.n_atom_types)]
