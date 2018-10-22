@@ -12,7 +12,7 @@ from builtins import range, input
 try:
 
     import numpy as np
-
+    from datetime import date
 except ImportError:
 
     pass
@@ -25,6 +25,7 @@ class Logger(object):
         """ Initializes messenger """
 
         self.version = __version__  # Program version
+        self.timestamp = date.today()  # Logging the date of the test performed.
         self.year = year  # Year
         self.file_name = 'aRMSD_logfile.out'  # Name of the designated outfile
         self.file_mol1 = None  # File name of molecule 1
@@ -217,7 +218,8 @@ class Logger(object):
 
             output.write("|" + 78 * " " + "|\n")
 
-            output.write("|" + '*** Cite this program as:' + 53 * " " + "|\n")
+            output.write("|" + 4 * " " +
+                         'Cite this program as:' + 53 * " " + "|\n")
 
             output.write("|" + 4 * " " +
                          'A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.' +
@@ -228,7 +230,9 @@ class Logger(object):
 
             output.write("+" + 78 * "-" + "+\n")
 
-            output.write(adj_str('*** Log file of the superposition between the structures ***', prefix='\n\n', suffix='\n'))
+            output.write("\n" + str(self.timestamp.strftime("%d-%b-%Y")).rjust(80))
+
+            output.write(adj_str('*** Log file about the superposition of structures ***', prefix='\n\n', suffix='\n'))
             output.write(adj_str('"' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol1))
             output.write(adj_str('"' + str(self.name_mol2) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol2))
 
