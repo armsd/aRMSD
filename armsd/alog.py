@@ -217,10 +217,10 @@ class Logger(object):
             output.write(adj_str('* Consistency establishment between the structures:',
                                  prefix='\n\n', suffix='\n'))
 
-            output.write(adj_str('# The basic approach is to subsequently remove hydrogen atoms until',
+            output.write(adj_str('# The basic approach is to subsequently remove hydrogen atoms',
                                  prefix='\n\t', suffix=''))
 
-            output.write(adj_str('# the same number of atoms is found in both molecules',
+            output.write(adj_str('# until the same number of atoms is found in both molecules.',
                                  prefix='\n\t', suffix=''))
 
             output.write(adj_str('# If the number of atoms is identical and the atom types belong',
@@ -229,7 +229,7 @@ class Logger(object):
             output.write(adj_str('# to the same group in the periodic table, the molecules are',
                                  prefix='\n\t', suffix=''))
 
-            output.write(adj_str('# regarded as consistent',
+            output.write(adj_str('# considered as consistent.',
                                  prefix='\n\t', suffix=''))
 
             if self.disorder_mol1:
@@ -331,7 +331,7 @@ class Logger(object):
             output.write(adj_str('# 2. The moment of inertia tensor was constructed, diagonalized',
                          prefix='\n\t', suffix=''))
 
-            output.write(adj_str('#    and the eigenvectors rotated on the x, y and z axes',
+            output.write(adj_str('#    and the eigenvectors rotated on the x, y and z axes.',
                          prefix='\n\t', suffix=''))
 
         def wt_match():
@@ -469,7 +469,7 @@ class Logger(object):
 
             output.write(adj_str('# This matrix aligns "' +
                                  str(self.name_mol1) + '" with "' +
-                                 str(self.name_mol2) + '"',
+                                 str(self.name_mol2) + '".',
                                  prefix='\n\n\t', suffix=''))
 
             output.write(adj_str('# U already includes all custom symmetry operations!',
@@ -524,7 +524,7 @@ class Logger(object):
 
             output.write(adj_str('# 3 N - 3 dihedral angles and the total RMSD and',
                                  prefix='\n\t', suffix=''))
-            output.write(adj_str('# the relative contributions are calculated',
+            output.write(adj_str('#' + 8 * " " + ' the relative contributions are calculated.',
                                  prefix='\n\t', suffix='\n'))
 
             output.write(adj_str('RMSD [Angstrom]...',
