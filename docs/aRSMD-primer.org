@@ -39,6 +39,10 @@
   + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
     libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5)
 
+  If the user has administrative privileges, calling script 
+  =debcollector-aRMSD.py= from the CLI of python automates
+  fetching and installation of these necessary packages in one batch.
+
 
 * Basic deployment
 
