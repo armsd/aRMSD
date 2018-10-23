@@ -522,6 +522,15 @@ class Logger(object):
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
+            output.write("\n\n" + 4 * " " +
+                         "For an introduction into the GARD calculation, see J. C. Baber,\n")
+
+            output.write(4 * " " +
+                         "D. C. Thompson, J. B. Cross and C. Humblet, J. Chem. Inf. Model.,\n")
+
+            output.write(4 * " " +
+                         "2009, 49, 1889-1900, doi: 10.1021/ci9001074.\n")
+
             output.write("\n\n- Decomposition into different atom types" +
                          10 * (" ") + "absolute" + 5 * " " + "relative\n")
 
