@@ -8,8 +8,8 @@ that changes of this fork equally work under other operational systems
 
 **Note 2:**  Familiarizing with the code takes some time.  Which is why
 a rather conservative approach changing the program seems personally
-more comfortable for me.  However, an initial *illustrated primer about
-how to use* this program was written.  Altogether with some test data in
+more comfortable for me.  However, an initial **illustrated primer about
+how to use** this program was written.  Altogether with some **test data** in
 [./examples], for further information, see [./docs/aRSMD-primer.org].
 
 ![alt tag](./aRMSD_logo.png)
