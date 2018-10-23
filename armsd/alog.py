@@ -695,14 +695,13 @@ class Logger(object):
                                      prefix='\n\n\t', suffix='\t') +
                              str(align.n_torsions))
 
-                output.write(adj_str('R2 of linear correlation (dimensionless)...',
+                output.write(adj_str('R**2 of linear correlation (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
                              wt_prop(self.prop_tor_r_sq))
 
                 output.write(adj_str('RMSE [degrees]...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_tor_rmsd) +
-)
+                             wt_prop(self.prop_tor_rmsd))
 
         def wt_eof():
 
