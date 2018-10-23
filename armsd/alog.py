@@ -593,20 +593,17 @@ class Logger(object):
                              '  (' + str(len(align.pos_sub1)) +
                              ' atoms)')
 
-                output.write(adj_str('Superposition R^2...',
+                output.write(adj_str('Superposition R^2 (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.r_sq_sub1, n_digits=5) +
-                             '  [Dimensionless]')
+                             self.format_value(align.r_sq_sub1, n_digits=5))
 
-                output.write(adj_str('Cosine similarity...',
+                output.write(adj_str('Cosine similarity (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.cos_sim_sub1, n_digits=5) +
-                             '  [Dimensionless]')
+                             self.format_value(align.cos_sim_sub1, n_digits=5))
 
-                output.write(adj_str('RMSD...',
+                output.write(adj_str('RMSD [Angstrom]...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.rmsd_sub1, n_digits=5) +
-                             '  [Angstrom]')
+                             self.format_value(align.rmsd_sub1, n_digits=5))
 
                 output.write(adj_str('Contribution...',
                                      prefix='\n\t', suffix='\t') +
@@ -619,20 +616,17 @@ class Logger(object):
                              '  (' + str(len(align.pos_sub2)) +
                              ' atoms)')
 
-                output.write(adj_str('Superposition R^2...',
+                output.write(adj_str('Superposition R^2 (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.r_sq_sub2, n_digits=5) +
-                             '  [Dimensionless]')
+                             self.format_value(align.r_sq_sub2, n_digits=5))
 
-                output.write(adj_str('Cosine similarity...',
+                output.write(adj_str('Cosine similarity (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.cos_sim_sub2, n_digits=5) +
-                             '  [Dimensionless]')
+                             self.format_value(align.cos_sim_sub2, n_digits=5))
 
-                output.write(adj_str('RMSD...',
+                output.write(adj_str('RMSD [Angstrom]...',
                                      prefix='\n\t', suffix='\t') +
-                             self.format_value(align.rmsd_sub2, n_digits=5) +
-                             '  [Angstrom]')
+                             self.format_value(align.rmsd_sub2, n_digits=5))
 
                 output.write(adj_str('Contribution...',
                                      prefix='\n\t', suffix='\t') +
@@ -656,7 +650,7 @@ class Logger(object):
                 output.write(adj_str('#    between the corresponding properties of the two structures',
                                      prefix='\n\t', suffix=''))
 
-                output.write(adj_str('# 2. The R2 values are the the correlation coefficients',
+                output.write(adj_str('# 2. The R**2 values are the the correlation coefficients',
                                      prefix='\n\t', suffix=''))
                 output.write(adj_str('#    between the two data sets',
                                      prefix='\n\t', suffix=''))
@@ -665,57 +659,50 @@ class Logger(object):
                                      prefix='\n\n\t', suffix='\t') +
                              str(align.n_bonds))
 
-                output.write(adj_str('R2 of linear correlation...',
+                output.write(adj_str('R**2 of linear correlation (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_r_sq) +
-                             '  [Dimensionless]')
+                             wt_prop(self.prop_bnd_dist_r_sq))
 
-                output.write(adj_str('RMSE...',
+                output.write(adj_str('RMSE [Angstrom]...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_rmsd) +
-                             '  [Angstrom]')
+                             wt_prop(self.prop_bnd_dist_rmsd))
 
                 output.write(adj_str('Number of bond types...',
                                      prefix='\n\n\t', suffix='\t') +
                              str(align.n_bnd_types))
 
-                output.write(adj_str('R2 of linear correlation...',
+                output.write(adj_str('R**2 of linear correlation (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_r_sq) +
-                             '  [Dimensionless]')
+                             wt_prop(self.prop_bnd_dist_r_sq))
 
-                output.write(adj_str('RMSE...',
+                output.write(adj_str('RMSE [Angstrom]...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_type_rmsd) +
-                             '  [Angstrom]')
+                             wt_prop(self.prop_bnd_dist_type_rmsd))
 
                 output.write(adj_str('Number of angles...',
                                      prefix='\n\n\t', suffix='\t') +
                              str(align.n_angles))
 
-                output.write(adj_str('R2 of linear correlation...',
+                output.write(adj_str('R**2 of linear correlation (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_ang_r_sq) +
-                             '  [Dimensionless]')
+                             wt_prop(self.prop_ang_r_sq))
 
-                output.write(adj_str('RMSE...',
+                output.write(adj_str('RMSE [degrees]...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_ang_rmsd) +
-                             '  [Degrees]')
+                             wt_prop(self.prop_ang_rmsd))
 
                 output.write(adj_str('Number of dihedrals...',
                                      prefix='\n\n\t', suffix='\t') +
                              str(align.n_torsions))
 
-                output.write(adj_str('R2 of linear correlation...',
+                output.write(adj_str('R2 of linear correlation (dimensionless)...',
                                      prefix='\n\t', suffix='\t') +
-                             wt_prop(self.prop_tor_r_sq) +
-                             '  [Dimensionless]')
+                             wt_prop(self.prop_tor_r_sq))
 
-                output.write(adj_str('RMSE...',
+                output.write(adj_str('RMSE [degrees]...',
                                      prefix='\n\t', suffix='\t') +
                              wt_prop(self.prop_tor_rmsd) +
-                             '  [Degrees]')
+)
 
         def wt_eof():
 
