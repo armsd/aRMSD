@@ -162,6 +162,10 @@
   without need to recur to the stage of pre-alignment.
 
   The following steps may be performed in any order of consecution.
+  While it may be tempting to jump to the log generation directly (key
+  stroke =5=), calling both the statistics plot (key stroke =2=) and
+  terminal display of RMSD details (key stroke =3=) prior to this will
+  yield the most complete log file.
 
   + Visual inspection of the Kabsch test in a common structure (=0=)
 
@@ -219,6 +223,19 @@
     file equally lists other characteristics such as $R^2$ and cosine
     similiarity, as well as results by the GARD
     calculation[fn:GARD-paper].
+
+    In case of testing BZAMID-A.pdb with BZAMID-B.pdb with each other,
+    the best fit aRMSD may find is described by
+    
+    #+BEGIN_SRC shell
+      * Quality of the Superposition:                         
+
+	      d values for the GARD calculation...                    	0.3, 1.2
+	      Superposition R^2 (dimensionless)...                    	0.99905
+	      Cosine similarity (dimensionless)...                    	0.99947
+	      GARD score (dimensionless)...                           	1.00000
+	      RMSD (refined, Angstrom)...                             	0.07669
+    #+END_SRC
 
     If you hit =3= to show the RMSD results on the terminal (80 \times
     24 px is minimal, 80 \times 43 px is recommended dimension) to
