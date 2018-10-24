@@ -220,6 +220,19 @@
     similiarity, as well as results by the GARD
     calculation[fn:GARD-paper].
 
+    In case of testing BZAMID-A.pdb with BZAMID-B.pdb with each other,
+    the best fit aRMSD may find is described by
+    
+    #+BEGIN_SRC shell
+      * Quality of the Superposition:                         
+
+	      d values for the GARD calculation...                    	0.3, 1.2
+	      Superposition R^2 (dimensionless)...                    	0.99905
+	      Cosine similarity (dimensionless)...                    	0.99947
+	      GARD score (dimensionless)...                           	1.00000
+	      RMSD (refined, Angstrom)...                             	0.07669
+    #+END_SRC
+
     If you hit =3= to show the RMSD results on the terminal (80 \times
     24 px is minimal, 80 \times 43 px is recommended dimension) to
     display these briefly, than the log equally will include them in
