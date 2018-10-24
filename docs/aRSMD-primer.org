@@ -162,6 +162,10 @@
   without need to recur to the stage of pre-alignment.
 
   The following steps may be performed in any order of consecution.
+  While it may be tempting to jump to the log generation directly (key
+  stroke =5=), calling both the statistics plot (key stroke =2=) and
+  terminal display of RMSD details (key stroke =3=) prior to this will
+  yield the most complete log file.
 
   + Visual inspection of the Kabsch test in a common structure (=0=)
 
