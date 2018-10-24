@@ -1,9 +1,9 @@
 """
 aRMSD log functions
-(c) 2017 by Arne Wagner
+(c) 2017 by Arne Wagner, 2018 added by Norwid Behrnd
 """
 
-# Authors: Arne Wagner
+# Authors: Arne Wagner, Norwid Behrnd
 # License: MIT
 
 from __future__ import absolute_import, division, print_function
@@ -202,8 +202,8 @@ class Logger(object):
                          'aRMSD - automatic RMSD Calculator (version ' + str(self.version) + ")" +
                          12 * " " + "|\n")
 
-            output.write('|' + 17 * " " +
-                         'A. Wagner, University of Heidelberg (' + str(self.year) + ')' +
+            output.write('|' + 26 * " " +
+                         'Arne Wagner, Norwid Behrnd (' + str(self.year) + ')' +
                          19 * " " + "|\n")
 
             output.write("|" + 78 * " " + "|\n")

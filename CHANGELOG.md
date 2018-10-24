@@ -1,3 +1,23 @@
+Version     0.9.5 (24 October 2018, development)
+------------------------
+
+**Improvements**
+
+         - deployment of aRMSD under Linux Debian 9 (buster/sid) is facilitated
+           by a script collecting and installing the *.deb dependicies
+         - provision of an initial, illustrated primer about the progam
+           altogether with additional test data BZAMID-A / BZAMID-B both in 
+           *.xyz and *.pdb
+
+**Bugfixes**
+
+         - aRMSD's color scheme to display of model and reference compared with
+           each other prior and after the Kabsch test now is the same
+         - addition of a time stamp about the analysis (log file)
+         - gently change of aRMSD's log line limit to 80 chars now allows a
+           smoother display in either terminal / text editor, or word processor
+
+
 Version     0.9.4 (26 January 2017, development)
 ------------------------
      

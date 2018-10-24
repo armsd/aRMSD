@@ -1,6 +1,6 @@
 """
 aRMSD core functions
-(c) 2017 by Arne Wagner
+(c) 2017 by Arne Wagner, 2018 added by Norwid Behrnd
 """
 
 # Authors: Arne Wagner

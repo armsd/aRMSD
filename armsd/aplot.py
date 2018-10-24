@@ -1,6 +1,6 @@
 """
 aRMSD plot functions
-(c) 2017 by Arne Wagner, 2018 by Norwid Behrnd
+(c) 2017 by Arne Wagner
 """
 
 # Authors: Arne Wagner

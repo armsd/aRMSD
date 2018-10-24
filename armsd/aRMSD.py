@@ -1,6 +1,6 @@
 """
 aRMSD main routines
-(c) 2017 by Arne Wagner
+(c) 2017 by Arne Wagner, 2018 added by Norwid Behrnd
 """
 
 # Authors: Arne Wagner
@@ -47,21 +47,41 @@ except ImportError:
 #   X.YrcN  # Release Candidate
 #   X.Y     # Final release
 
+# the original entries found, backup copy
+# name = 'aRMSD'
+# author = 'Arne Wagner'
+# author_email = 'arne.wagner@aci.uni-heidelberg.de'
+# url = 'https://github.com/armsd/aRMSD'
+# doc = 'http://armsd.rtfd.io'
+# lic = 'MIT'
+#
+# __aRMSD_version__ = '0.9.4'
+# __aRMSD_release__ = 2017
+# 
+# __log_version__ = '2017-04-05'
+# __core_version__ = '2017-01-03'
+# __plot_version__ = '2016-11-03'
+# 
+# __author__ = author+' <'+author_email+'>'
+# end of the backup copy
+
+# revised block
 name = 'aRMSD'
-author = 'Arne Wagner'
+author = 'Arne Wagner'    # with work done, how to /add/ a second author?
 author_email = 'arne.wagner@aci.uni-heidelberg.de'
 url = 'https://github.com/armsd/aRMSD'
 doc = 'http://armsd.rtfd.io'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.4'
-__aRMSD_release__ = 2017
+__aRMSD_version__ = '0.9.5'
+__aRMSD_release__ = 2018
 
-__log_version__ = '2017-04-05'
-__core_version__ = '2017-01-03'
-__plot_version__ = '2016-11-03'
+__log_version__ = '2018-10-24'
+__core_version__ = '2018-10-24'
+__plot_version__ = '2016-11-03'  # there are points to better, but no change yet
 
 __author__ = author+' <'+author_email+'>'
+
 
 short_description = """
 aRMSD
