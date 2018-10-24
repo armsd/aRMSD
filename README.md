@@ -4,7 +4,7 @@ option a) of the original description).  Intended for Linux Debian 9
 (sid buster), the installation of the packages allowing aRMSD to work is
 partially automated by script [./debcollector_aRMSD.py].  It might be
 that changes of this fork equally work under other operational systems
-(closer / farter relatives like Xubuntu 18.04 LTS / Fedora), too.
+(closer / farther relatives like Xubuntu 18.04 LTS / Fedora), too.
 
 **Note 2:**  Familiarizing with the code takes some time.  Which is why
 a rather conservative approach changing the program seems personally
