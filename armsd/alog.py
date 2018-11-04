@@ -524,7 +524,7 @@ class Logger(object):
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.gard, n_digits=5))
 
-            output.write(adj_str('RMSD (refined, Angstrom)...',
+            output.write(adj_str('RMSD (Kabsch test after refined suposition, Angstrom)...',
                                  prefix='\n\t', suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
