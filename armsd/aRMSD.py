@@ -73,10 +73,10 @@ url = 'https://github.com/armsd/aRMSD'
 doc = 'http://armsd.rtfd.io'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.5'
+__aRMSD_version__ = '0.9.6'
 __aRMSD_release__ = 2018
 
-__log_version__ = '2018-10-24'
+__log_version__ = '2018-11-04'
 __core_version__ = '2018-10-24'
 __plot_version__ = '2016-11-03'  # there are points to better, but no change yet
 
