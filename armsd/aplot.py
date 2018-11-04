@@ -1303,7 +1303,7 @@ class Statistics_mpl(object):
             plt_axis = self.ax1
             title_prefix = 'All Bond Distances '
             label_suffix = ' distances'
-            label_unit = r' $\mathsf{\AA}$'
+            label_unit = r' $\AA$'
             extra_space = 0.2
 
             # Do actual statistics for the two data sets
@@ -1339,7 +1339,7 @@ class Statistics_mpl(object):
             plt_axis = self.ax2
             title_prefix = 'Average Distances per Bond Type '
             label_suffix = ' distance types'
-            label_unit = r' $\mathsf{\AA}$'
+            label_unit = r' $\AA$'
             extra_space = 0.1 + np.max(np.hstack((error_prop1, error_prop2)))  # Additional extra space for markers
 
             # Do actual statistics for the two data sets
