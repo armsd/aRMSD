@@ -233,8 +233,14 @@ class Logger(object):
             output.write("\n" + str(self.timestamp.strftime("%d-%b-%Y")).rjust(80))
 
             output.write(adj_str('*** Log file about the superposition of structures ***', prefix='\n\n', suffix='\n'))
-            output.write(adj_str('"' + str(self.name_mol1) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol1))
-            output.write(adj_str('"' + str(self.name_mol2) + '"...', prefix='\n\t', suffix='\t') + str(self.file_mol2))
+
+            # accessed model datum:
+            output.write(4 * " " + '"' + str(self.name_mol1) + '"...' +
+                         4 * " " + str(self.file_mol1).rjust(62) + "\n")
+
+            # accessed reference datum:
+            output.write(4 * " " + '"' + str(self.name_mol2) + '"...' +
+                         4 * " " + str(self.file_mol2).rjust(58) + "\n")
 
         def wt_consistency():
 
