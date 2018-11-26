@@ -232,7 +232,9 @@ class Logger(object):
 
             output.write("\n" + str(self.timestamp.strftime("%d-%b-%Y")).rjust(80))
 
-            output.write(adj_str('*** Log file about the superposition of structures ***', prefix='\n\n', suffix='\n'))
+            output.write("\n\n" +
+                         '*** Log file about the superposition of structures ***' +
+                         "\n\n")
 
             # accessed model datum:
             output.write(4 * " " + '"' + str(self.name_mol1) + '"...' +
@@ -244,96 +246,72 @@ class Logger(object):
 
         def wt_consistency():
 
-            output.write(adj_str('* Consistency establishment between the structures:',
-                                 prefix='\n\n', suffix='\n'))
-
-            output.write(adj_str('# The basic approach is to subsequently remove hydrogen atoms',
-#                                 prefix='\n\t',suffix=''))
-                                 suffix=''))
-
-            output.write(adj_str('# until the same number of atoms is found in both molecules.',
-#                                 prefix='\n\t', suffix=''))
-                                 suffix=''))
-
-            output.write(adj_str('# If the number of atoms is identical and the atom types belong',
-#                                 prefix='\n\t', suffix=''))
-                                 suffix=''))
-
-            output.write(adj_str('# to the same group in the periodic table, the molecules are',
-#                                 prefix='\n\t', suffix=''))
-                                 suffix=''))
-
-            output.write(adj_str('# considered as consistent.',
-#                                 prefix='\n\t', suffix=''))
-                                 suffix=''))
+            output.write("\n")
+            output.write('* Consistency establishment between the structures:\n\n')
+            output.write('  The basic approach is to subsequently remove hydrogen atoms\n')
+            output.write('  until the same number of atoms is found in both molecules.\n')
+            output.write('  If the number of atoms is identical and the atom types belong\n')
+            output.write('  to the same group in the periodic table, the molecules are\n')
+            output.write('  considered as consistent.\n')
 
             if self.disorder_mol1:
 
-                output.write(adj_str('   - Initial disorder was found in "',
-                             prefix='\n\n', suffix='') +
+                output.write(adj_str('\n\n   - Initial disorder was found in "',
+                             suffix='') +
                              str(self.name_mol2) + '"')
 
                 output.write(adj_str('Disorder was resolved by the user...',
-#                             prefix='\n\t', suffix=''))
                              suffix=''))
 
             if self.disorder_mol2:
 
                 output.write(adj_str('   - Initial disorder was found in "',
-#                             prefix='\n\t', suffix='') +
                              suffix='') +
                              str(self.name_mol2) + '"')
 
                 output.write(adj_str('Disorder was resolved by the user...',
-#                             prefix='\n\t', suffix=''))
                              suffix=''))
 
             if not self.disorder_mol1 and not self.disorder_mol2:
 
-                output.write(adj_str('   - No disorder in the structures was found',
-                             prefix='\n\n', suffix='\n'))
+                output.write(adj_str('No disorder in the structures was found.',
+                                     suffix='\n'))
 
             output.write(adj_str('Initial number of atoms in "' + str(self.name_mol1) +
-#                         '"...', prefix='\n\t', suffix='\t') +
                          '"...', suffix='\t') +
                          str(self.cons_init_at_mol1) +
                          '  (' + str(self.cons_init_at_H_mol1) + ' H atoms)')
 
             output.write(adj_str('Initial number of atoms in "' + str(self.name_mol2) +
-#                         '"...', prefix='\n\t', suffix='\t') +
                          '"...', suffix='\t') +
                          str(self.cons_init_at_mol2) +
                          '  (' + str(self.cons_init_at_H_mol2) + ' H atoms)')
 
             if self.rem_H_btc:
 
-                output.write(adj_str('H atoms bound to carbon were removed...',
-#                             prefix='\n\t', suffix=''))
+                output.write(adj_str('\nNote: H atoms bound to carbon were removed.',
                              suffix=''))
 
             if self.rem_H_btg14:
 
-                output.write(adj_str('H atoms bound to group-14 elements were removed...',
-#                             prefix='\n\t', suffix=''))
+                output.write(adj_str('\nNote: H atoms bound to group-14 elements were removed.',
                              suffix=''))
 
             if self.rem_H_all:
 
-                output.write(adj_str('All H atoms were removed...',
-#                             prefix='\n\t', suffix=''))
+                output.write(adj_str('\nNote: All H atoms were removed.',
                              suffix=''))
 
-            output.write(adj_str('   - Consistency between the structures was established',
-                         prefix='\n\n', suffix=''))
+            output.write(adj_str('\n    Consistency between the structures was established:',
+                         suffix=''))
 
             output.write(adj_str('The number of atoms in "' + str(self.name_mol1) +
-                         '"...', prefix='\n\n\t', suffix='\t') +
+                         '"...', suffix='\t') +
                          str(self.cons_at_mol1) +
                          '  (' + str(self.cons_at_H_mol1) +
                          ' H atoms)')
 
             output.write(adj_str('The number of atoms in "' + str(self.name_mol2) +
-#                                 '"...', prefix='\n\t', suffix='\t') +
                                  '"...', suffix='\t') +
                          str(self.cons_at_mol2) +
                          '  (' + str(self.cons_at_H_mol2) +
@@ -341,90 +319,73 @@ class Logger(object):
 
             if not self.user_choice_rem_all_H and not self.user_choice_rem_btc_H and not self.user_choice_rem_btg14_H:
 
-                output.write(adj_str('   - No further modifications were done',
-                                     prefix='\n\n', suffix=''))
+                output.write(adj_str('\n    No further modifications were performed.',
+                                     suffix=''))
 
             if self.user_choice_rem_all_H:
 
-                output.write(adj_str('   - All hydrogen atoms were removed by the user',
-                                     prefix='\n\n', suffix=''))
+                output.write(adj_str('\n\n    All hydrogen atoms were removed by the user.',
+                                     suffix=''))
 
             elif self.user_choice_rem_btc_H:
 
-                output.write(adj_str('   - All hydrogen atoms bound to carbon were removed by the user',
-                                     prefix='\n\n', suffix=''))
+                output.write(adj_str('\n\n    All hydrogen atoms bound to carbon were removed by the user.',
+                                     suffix=''))
 
             elif self.user_choice_rem_btg14_H:
 
-                output.write(adj_str('   - All hydrogen atoms bound to group-14 elements were removed by the user',
-                                     prefix='\n\n', suffix=''))
+                output.write(adj_str('\n\n    All hydrogen atoms bound to group-14 elements were removed by the user.',
+                                     suffix=''))
 
-            output.write(adj_str('Final number of atoms...',
-                                 prefix='\n\n\t', suffix='\t') +
+            output.write(adj_str('\n    Final number of atoms (number of hydrogens retained)...',
+                                 suffix='\t') +
                          str(align.n_atoms) +
                          '  (' + str(align.n_hydro) + ' H atoms)')
 
         def wt_std_orientation():
 
-            output.write(adj_str('* Transformation of the molecules into "Standard Orientation":',
-                                 prefix='\n\n', suffix='\n'))
-
-            output.write(adj_str('# 1. The center of mass was shifted to the Cartesian origin',
-#                         prefix='\n\t', suffix=''))
-                         suffix=''))
-
-            output.write(adj_str('# 2. The moment of inertia tensor was constructed, diagonalized',
-#                         prefix='\n\t', suffix=''))
-                         suffix=''))
-
-            output.write(adj_str('#    and the eigenvectors rotated on the x, y and z axes.',
-#                         prefix='\n\t', suffix=''))
-                         suffix=''))
+            output.write('\n\n* Transformation of the molecules into "Standard Orientation":\n')
+            output.write('  1. The center of mass was shifted to the Cartesian origin.\n')
+            output.write('  2. The moment of inertia tensor was constructed, diagonalized\n')
+            output.write('     and the eigenvectors rotated on the x, y and z axes.\n')
 
         def wt_match():
 
-            output.write(adj_str('* Details of the matching process:',
-                                 prefix='\n\n', suffix='\n'))
+            output.write('\n* Details of the matching process:')
 
             output.write(adj_str('Structures were matched...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(self.is_matched))
 
             if self.is_matched:
 
                 output.write(adj_str('Applied matching algorithm...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              str(self.match_alg))
 
                 output.write(adj_str('Solver used for matching...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              str(self.match_solv))
 
                 if self.use_groups:
 
                     output.write(adj_str('Solution of the matching problem...',
-#                                         prefix='\n\t', suffix='\t') +
                                          suffix='\t') +
                                  'PSE groups')
 
                 else:
 
                     output.write(adj_str('Solution of the matching problem...',
-#                                         prefix='\n\t', suffix='\t') +
                                          suffix='\t') +
                                  'regular')
 
                 output.write(adj_str('Number of highest deviations to be shown...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              str(self.n_dev))
 
-                output.write(adj_str('The highest deviations were between the pairs...',
-                                     prefix='\n\n\t', suffix='\t') +
-                             '[Angstrom]\n')
+                output.write(adj_str('\n\n    The highest deviations were between the pairs...',
+                                     suffix='\t') +
+                             '[Angstrom]')
 
                 [output.write('\n' + 29 * " " +
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
@@ -441,133 +402,109 @@ class Logger(object):
             # Contribution of individual atom types
             rmsd_perc = (align.rmsd_idv ** 2 / np.sum(align.rmsd_idv ** 2)) * 100
 
-            output.write(adj_str('* Kabsch alignment:',
-                                 prefix='\n\n', suffix='\n'))
-
-            output.write(adj_str('# General settings',
-#                                 prefix='\n\t', suffix='\n'))
-                                 suffix='\n'))
+            output.write('\n\n* Kabsch alignment:\n')
+            output.write('    # General settings')
 
             output.write(adj_str('Substructures were defined...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(align.has_sub_rmsd))
 
             output.write(adj_str('Weighting function for Kabsch algorithm...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(align.wts_type))
 
             output.write(adj_str('Consideration of multi-center-contributions...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(align.calc_mcc))
 
-            output.write(adj_str('# Differentiation criteria and color information',
-                                 prefix='\n\n\t', suffix='\n'))
+            output.write('\n\n    # Differentiation criteria and color information')
 
             output.write(adj_str('Number of colors for aRMSD plot...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.n_col_aRMSD))
 
             output.write(adj_str('Maximum RMSD value for color projection [Angstrom]..',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.max_RMSD_diff))
 
             output.write(adj_str('Threshold for bond comparison [Angstrom]...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.thresh))
 
             output.write(adj_str('Number of distance pairs above threshold...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(align.n_chd_bnd))
 
             output.write(adj_str('Percentage of the colored intersections...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str((1.0 - 2 * settings.n) * 100))
 
             output.write(adj_str('Color for shorter bonds in "' +
                                  str(self.name_mol1) + '" vs. "' +
                                  str(self.name_mol2) + '"...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.col_short_hex) + '  [HEX]')
 
             output.write(adj_str('Color for longer bonds in "' +
                                  str(self.name_mol1) + '" vs. "' +
                                  str(self.name_mol2) + '"...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.col_long_hex) + '  [HEX]')
 
             output.write(adj_str('Number of bonds below threshold...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(align.n_chd_bnd))
 
             output.write(adj_str('Color of "' + str(self.name_mol1) + '"...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.col_model_fin_hex) + '  [HEX]')
 
             output.write(adj_str('Color of "' + str(self.name_mol2) + '"...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(settings.col_refer_fin_hex) + '  [HEX]')
 
 # Rotation matrix
-            output.write(adj_str('Final rotation matrix from "Standard Orientation"...',
-                                 prefix='\n\n\t', suffix='\n'))
+            output.write(adj_str('\n\n    Final rotation matrix from "Standard Orientation"...',
+                                 suffix='\n'))
 
-            output.write('\n\t           |' + '{:+06.8f}'.format(align.tot_rot_mat[0][0]) + '  ' +
+            output.write('\n           |' + '{:+06.8f}'.format(align.tot_rot_mat[0][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[0][1]) +
                          '  ' + '{:+06.8f}'.format(align.tot_rot_mat[0][2]) + '|')
-            output.write('\n\t     U  =  |' + '{:+06.8f}'.format(align.tot_rot_mat[1][0]) + '  ' +
+            output.write('\n     U  =  |' + '{:+06.8f}'.format(align.tot_rot_mat[1][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[1][1]) +
                          '  ' + '{:+06.8f}'.format(align.tot_rot_mat[1][2]) + '|')
-            output.write('\n\t           |' + '{:+06.8f}'.format(align.tot_rot_mat[2][0]) + '  ' +
+            output.write('\n           |' + '{:+06.8f}'.format(align.tot_rot_mat[2][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[2][1]) +
                          '  ' + '{:+06.8f}'.format(align.tot_rot_mat[2][2]) + '|')
 
-            output.write(adj_str('# This matrix aligns "' +
+            output.write(adj_str('\n\n    # This matrix aligns "' +
                                  str(self.name_mol1) + '" with "' +
                                  str(self.name_mol2) + '".',
-                                 prefix='\n\n\t', suffix=''))
-
-            output.write(adj_str('# U already includes all custom symmetry operations!',
-#                                 prefix='\n\t', suffix=''))
                                  suffix=''))
 
-            output.write(adj_str('* Quality of the Superposition:',
-                                 prefix='\n\n', suffix='\n'))
+            output.write(adj_str('# U already includes all custom symmetry operations!',
+                                 suffix=''))
+
+            output.write(adj_str('\n\n* Final Quality of the Superposition:',
+                                 suffix='\n'))
 
             output.write(adj_str('d values for the GARD calculation...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          str(self.d_min) + ', ' + str(self.d_max))
 
             output.write(adj_str('Superposition R^2 (dimensionless)...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.r_sq, n_digits=5))
 
             output.write(adj_str('Cosine similarity (dimensionless)...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.cos_sim, n_digits=5))
 
             output.write(adj_str('GARD score (dimensionless)...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.gard, n_digits=5))
 
             output.write(adj_str('RMSD (Kabsch test after refined suposition, Angstrom)...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
@@ -595,43 +532,35 @@ class Logger(object):
 
              for entry in range(align.n_atom_types)]
 
-            output.write(adj_str('   - z-matrix properties',
-                                 prefix='\n\n', suffix='\n'))
-
-            output.write(adj_str('# z-matrices are created for both molecules using',
-#                                 prefix='\n\t', suffix=''))
+            output.write(adj_str('\n\n    z-matrix properties:',
                                  suffix=''))
 
-            output.write(adj_str('# 3 N - 1 bond distances, 3 N - 2 bond angles and',
-#                                 prefix='\n\t', suffix
+            output.write(adj_str('# z-matrices are created for both molecules considering',
                                  suffix=''))
 
-            output.write(adj_str('# 3 N - 3 dihedral angles and the total RMSD and',
-#                                 prefix='\n\t', suffix=''))
+            output.write(adj_str('# (3 N - 1) bond distances, (3 N - 2) bond angles and',
                                  suffix=''))
-            output.write(adj_str('#' + 8 * " " + ' the relative contributions are calculated.',
-#                                 prefix='\n\t', suffix='\n'))
+
+            output.write(adj_str('# (3 N - 3) dihedral angles.  Both the total RMSD and',
+                                 suffix=''))
+            output.write(adj_str('# the relative contributions are calculated.',
                                  suffix='\n'))
 
             output.write(adj_str('RMSD [Angstrom]...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.rmsd_z_matrix, n_digits=5))
 
             output.write(adj_str('Contribution of distances...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.c_dis * 100, n_digits=0) +
                          '  [%]')
 
             output.write(adj_str('Contribution of angles...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.c_ang * 100, n_digits=0) +
                          '  [%]')
 
             output.write(adj_str('Contribution of dihedral angles...',
-#                                 prefix='\n\t', suffix='\t') +
                                  suffix='\t') +
                          self.format_value(align.c_tor * 100, n_digits=0) +
                          '  [%]')
@@ -641,60 +570,51 @@ class Logger(object):
                 form1 = align.make_sum_formula(pos=align.pos_sub1)
                 form2 = align.make_sum_formula(pos=align.pos_sub2)
 
-                output.write(adj_str('   - Decomposition into different substructures',
-                                     prefix='\n\n', suffix='\n'))
+                output.write(adj_str('\n\n   - Decomposition into different substructures',
+                                     suffix='\n'))
 
                 output.write(adj_str('Substructure 1',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              '[' + str(form1) + ']' +
                              '  (' + str(len(align.pos_sub1)) +
                              ' atoms)')
 
                 output.write(adj_str('Superposition R^2 (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.r_sq_sub1, n_digits=5))
 
                 output.write(adj_str('Cosine similarity (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.cos_sim_sub1, n_digits=5))
 
                 output.write(adj_str('RMSD [Angstrom]...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.rmsd_sub1, n_digits=5))
 
                 output.write(adj_str('Contribution...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.c_sub1 * 100, n_digits=0) +
                              '  [%]')
 
-                output.write(adj_str('Substructure 2',
-                                     prefix='\n\n\t', suffix='\t') +
+                output.write(adj_str('\n\nSubstructure 2',
+                                     suffix='\t') +
                              '[' + str(form2) + ']' +
                              '  (' + str(len(align.pos_sub2)) +
                              ' atoms)')
 
                 output.write(adj_str('Superposition R^2 (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.r_sq_sub2, n_digits=5))
 
                 output.write(adj_str('Cosine similarity (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.cos_sim_sub2, n_digits=5))
 
                 output.write(adj_str('RMSD [Angstrom]...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.rmsd_sub2, n_digits=5))
 
                 output.write(adj_str('Contribution...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              self.format_value(align.c_sub2 * 100, n_digits=0) +
                              '  [%]')
@@ -707,82 +627,72 @@ class Logger(object):
 
             if align.has_stats:
 
-                output.write(adj_str('* Evaluation of structural parameters:',
-                                     prefix='\n\n', suffix='\n'))
+                output.write(adj_str('\n\n* Evaluation of structural parameters:',
+                                     suffix='\n'))
 
                 output.write(adj_str('# 1. The RMSE values are the root-mean-square errors',
-#                                     prefix='\n\t', suffix=''))
                                      suffix=''))
 
-                output.write(adj_str('#    between the corresponding properties of the two structures',
-#                                     prefix='\n\t', suffix=''))
+                output.write(adj_str('#    between the corresponding properties of the two structures.',
                                      suffix=''))
 
                 output.write(adj_str('# 2. The R**2 values are the the correlation coefficients',
-#                                     prefix='\n\t', suffix=''))
                                      suffix=''))
-                output.write(adj_str('#    between the two data sets',
-#                                     prefix='\n\t', suffix=''))
+                output.write(adj_str('#    between the two data sets.',
                                      suffix=''))
 
-                output.write(adj_str('Number of bonds...',
-                                     prefix='\n\n\t', suffix='\t') +
+                output.write(adj_str('\n\nNumber of bonds...',
+                                     suffix='\t') +
                              str(align.n_bonds))
 
                 output.write(adj_str('R**2 of linear correlation (dimensionless)...',
-                                     prefix='\n\t', suffix='\t') +
+                                     suffix='\t') +
                              wt_prop(self.prop_bnd_dist_r_sq))
 
                 output.write(adj_str('RMSE [Angstrom]...',
-                                     prefix='\n\t', suffix='\t') +
+                                     suffix='\t') +
                              wt_prop(self.prop_bnd_dist_rmsd))
 
-                output.write(adj_str('Number of bond types...',
-                                     prefix='\n\n\t', suffix='\t') +
+                output.write(adj_str('\n\nNumber of bond types...',
+                                     suffix='\t') +
                              str(align.n_bnd_types))
 
                 output.write(adj_str('R**2 of linear correlation (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_bnd_dist_r_sq))
 
                 output.write(adj_str('RMSE [Angstrom]...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_bnd_dist_type_rmsd))
 
-                output.write(adj_str('Number of angles...',
-                                     prefix='\n\n\t', suffix='\t') +
+                output.write(adj_str('\n\nNumber of angles...',
+                                     suffix='\t') +
                              str(align.n_angles))
 
                 output.write(adj_str('R**2 of linear correlation (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_ang_r_sq))
 
                 output.write(adj_str('RMSE [degrees]...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_ang_rmsd))
 
-                output.write(adj_str('Number of dihedrals...',
-                                     prefix='\n\n\t', suffix='\t') +
+                output.write(adj_str('\n\nNumber of dihedrals...',
+                                     suffix='\t') +
                              str(align.n_torsions))
 
                 output.write(adj_str('R**2 of linear correlation (dimensionless)...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_tor_r_sq))
 
                 output.write(adj_str('RMSE [degrees]...',
-#                                     prefix='\n\t', suffix='\t') +
                                      suffix='\t') +
                              wt_prop(self.prop_tor_rmsd))
 
         def wt_eof():
 
-            output.write(adj_str('*** End of log file ***',
-                                 prefix='\n\n', suffix=''))
+            output.write(adj_str('\n\n*** End of log file ***',
+                                 suffix=''))
 
         output = open(self.file_name, 'w')  # Create a new file
 
