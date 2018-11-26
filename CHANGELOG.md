@@ -1,3 +1,17 @@
+Version     0.9.7 (26 October 2018, development)
+------------------------
+
+**Improvements**
+          - Reorder of the presentation of the similarity results (Kabsch, 
+            cosine, GARD).  Especially keeping the GARD data together and close
+            to their corresponding literature reference.
+
+**Bugfixes**
+          - Heading tabulators should no longer be used in the permanent record,
+            aRMSD_logfile.out.  The remaining internal ones do not disturb the
+            self-imposed line limit (80 chars/line) if interpreted as either
+            four, or eight chars.
+
 Version     0.9.5 (24 October 2018, development)
 ------------------------
 
