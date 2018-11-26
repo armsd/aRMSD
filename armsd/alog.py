@@ -194,7 +194,7 @@ class Logger(object):
 
             delta = self.max_string_len - len(string) - 4  # -4 accounts for \t
 
-            return prefix + string + ' ' * delta + suffix
+            return ("\n    ") + string + ' ' * delta + suffix
 
         def wt_general_info():
             output.write("+" + 78 * '-' + "+\n")
