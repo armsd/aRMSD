@@ -58,7 +58,7 @@ class Logger(object):
         self.n_atoms = None  # Final number of atoms after consistency
         self.rot_to_std = None  # Rotation matrix for standard orientation
         self.use_groups = False  # If PSE groups are to be used in matching algorithm
-        self.consist = False  # If the two molecular strucutres are consistent
+        self.consist = False  # If the two molecular structures are consistent
         self.match_alg = 'distance'  # Matching algorithm
         self.match_solv = 'hungarian'  # Solver used in matching process
         self.is_matched = False  # If the molecules were matched
@@ -198,28 +198,28 @@ class Logger(object):
 
         def wt_general_info():
             output.write("+" + 78 * '-' + "+\n")
-            output.write('|' + 17 * " " +
-                         'aRMSD - automatic RMSD Calculator (version ' + str(self.version) + ")" +
-                         12 * " " + "|\n")
 
-            output.write('|' + 26 * " " +
-                         'Arne Wagner, Norwid Behrnd (' + str(self.year) + ')' +
-                         19 * " " + "|\n")
+            programName = str("aRMSD - automatic RMSD Calculator (version ") +\
+                          str(self.version) + str(")")
+            output.write("|" + programName.center(78) + "|\n")
+
+            contribution = str("Arne Wagner, Norwid Behrnd (") + str(self.year)
+            output.write("|" + contribution.center(78) + "|\n")
+
+            output.write("|" + 78 * " " + "|\n")
+
+            output.write("|" +
+                         "A brief description of the program can be found in the manual and in:".center(78) +
+                         "|\n")
+
+            output.write("|" +
+                         'A. Wagner, PhD thesis, University of Heidelberg, 2015.'.center(78) +
+                         "|\n")
 
             output.write("|" + 78 * " " + "|\n")
 
             output.write("|" + 4 * " " +
-                         'A brief description of the program can be found in the manual and in:' +
-                         5 * " " + "|\n")
-
-            output.write("|" + 4 * " " +
-                         'A. Wagner, PhD thesis, University of Heidelberg, 2015.' +
-                         20 * " " + "|\n")
-
-            output.write("|" + 78 * " " + "|\n")
-
-            output.write("|" + 4 * " " +
-                         'Cite this program as:' + 53 * " " + "|\n")
+                         'Cite this program by:' + 53 * " " + "|\n")
 
             output.write("|" + 4 * " " +
                          'A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.' +
@@ -227,6 +227,8 @@ class Logger(object):
 
             output.write("|" + 4 * " " +
                          "doi: 10.1021/acs.jcim.6b00516" + 45 * " " + "|\n")
+
+            output.write("|    source, and version used.".ljust(79) + "|\n")
 
             output.write("+" + 78 * "-" + "+\n")
 
@@ -277,15 +279,19 @@ class Logger(object):
                 output.write(adj_str('No disorder in the structures was found.',
                                      suffix='\n'))
 
-            output.write(adj_str('Initial number of atoms in "' + str(self.name_mol1) +
-                         '"...', suffix='\t') +
-                         str(self.cons_init_at_mol1) +
-                         '  (' + str(self.cons_init_at_H_mol1) + ' H atoms)')
+            output.write(adj_str('Initial number of atoms in "' +
+                                 str(self.name_mol1) +
+                                 '"...', suffix='\t') +
+                                 str(self.cons_init_at_mol1) +
+                                 '  (' + str(self.cons_init_at_H_mol1) +
+                                 ' H atoms)')
 
-            output.write(adj_str('Initial number of atoms in "' + str(self.name_mol2) +
-                         '"...', suffix='\t') +
-                         str(self.cons_init_at_mol2) +
-                         '  (' + str(self.cons_init_at_H_mol2) + ' H atoms)')
+            output.write(adj_str('Initial number of atoms in "' +
+                                 str(self.name_mol2) +
+                                 '"...', suffix='\t') +
+                                 str(self.cons_init_at_mol2) +
+                                 '  (' + str(self.cons_init_at_H_mol2) +
+                                 ' H atoms)')
 
             if self.rem_H_btc:
 
@@ -337,7 +343,7 @@ class Logger(object):
                 output.write(adj_str('\n\n    All hydrogen atoms bound to group-14 elements were removed by the user.',
                                      suffix=''))
 
-            output.write(adj_str('\n    Final number of atoms (number of hydrogens retained)...',
+            output.write(adj_str('\n    Final global atom count (number of hydrogens retained)...',
                                  suffix='\t') +
                          str(align.n_atoms) +
                          '  (' + str(align.n_hydro) + ' H atoms)')
@@ -383,9 +389,9 @@ class Logger(object):
                                      suffix='\t') +
                              str(self.n_dev))
 
-                output.write(adj_str('\n\n    The highest deviations were between the pairs...',
-                                     suffix='\t') +
-                             '[Angstrom]')
+                output.write("\n\n    " +
+                             "The highest deviations were between the pairs..." +
+                              11 * " " + "[Angstrom]")
 
                 [output.write('\n' + 29 * " " +
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
@@ -393,7 +399,7 @@ class Logger(object):
                     20 * " " +
                     '{:6.5f}'.format(self.disord_rmsd[entry])) for entry in range(self.n_dev)]
 
-                output.write(adj_str('The RMSD after matching was [Angstrom]..',
+                output.write(adj_str('The RMSD after the initial matching was [Angstrom]..',
                                      prefix='\n\n\t', suffix='\t') +
                              '{:6.5f}'.format(self.match_rmsd))
 
@@ -464,33 +470,39 @@ class Logger(object):
                          str(settings.col_refer_fin_hex) + '  [HEX]')
 
 # Rotation matrix
-            output.write(adj_str('\n\n    Final rotation matrix from "Standard Orientation"...',
-                                 suffix='\n'))
+            output.write("\n\n    " +\
+                         "Final rotation matrix from 'Standard Orientation':\n")
 
-            output.write('\n           |' + '{:+06.8f}'.format(align.tot_rot_mat[0][0]) + '  ' +
+            output.write('\n           |' +
+                         '{:+06.8f}'.format(align.tot_rot_mat[0][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[0][1]) +
-                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[0][2]) + '|')
-            output.write('\n     U  =  |' + '{:+06.8f}'.format(align.tot_rot_mat[1][0]) + '  ' +
+                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[0][2]) +
+                         '|')
+
+            output.write('\n     U  =  |' +
+                         '{:+06.8f}'.format(align.tot_rot_mat[1][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[1][1]) +
-                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[1][2]) + '|')
-            output.write('\n           |' + '{:+06.8f}'.format(align.tot_rot_mat[2][0]) + '  ' +
+                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[1][2]) +
+                         '|')
+
+            output.write('\n           |' +
+                         '{:+06.8f}'.format(align.tot_rot_mat[2][0]) + '  ' +
                          '{:+06.8f}'.format(align.tot_rot_mat[2][1]) +
-                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[2][2]) + '|')
+                         '  ' + '{:+06.8f}'.format(align.tot_rot_mat[2][2]) +
+                         '|\n')
 
-            output.write(adj_str('\n\n    # This matrix aligns "' +
-                                 str(self.name_mol1) + '" with "' +
-                                 str(self.name_mol2) + '".',
-                                 suffix=''))
+            output.write("\n    # This matrix aligns " + 
+                                 str(self.name_mol1) + " with " + 
+                                 str(self.name_mol2) + ".\n")
 
-            output.write(adj_str('# U already includes all custom symmetry operations!',
-                                 suffix=''))
+            output.write('    # U already includes all custom symmetry operations!\n')
 
             output.write(adj_str('\n\n* Final Quality of the Superposition:',
                                  suffix='\n'))
 
-            output.write(adj_str('d values for the GARD calculation...',
+            output.write(adj_str('RMSD (Kabsch test after refined superposition, Angstrom)...',
                                  suffix='\t') +
-                         str(self.d_min) + ', ' + str(self.d_max))
+                         self.format_value(align.rmsd, n_digits=5))
 
             output.write(adj_str('Superposition R^2 (dimensionless)...',
                                  suffix='\t') +
@@ -500,13 +512,14 @@ class Logger(object):
                                  suffix='\t') +
                          self.format_value(align.cos_sim, n_digits=5))
 
+            output.write(adj_str('d values for the GARD calculation...',
+                                 suffix='\t') +
+                         str(self.d_min) + ', ' + str(self.d_max))
+
             output.write(adj_str('GARD score (dimensionless)...',
                                  suffix='\t') +
                          self.format_value(align.gard, n_digits=5))
 
-            output.write(adj_str('RMSD (Kabsch test after refined suposition, Angstrom)...',
-                                 suffix='\t') +
-                         self.format_value(align.rmsd, n_digits=5))
 
             output.write("\n\n" + 4 * " " +
                          "For an introduction into the GARD calculation, see J. C. Baber,\n")
@@ -517,7 +530,7 @@ class Logger(object):
             output.write(4 * " " +
                          "2009, 49, 1889-1900, doi: 10.1021/ci9001074.\n")
 
-            output.write("\n\n- Decomposition into different atom types" +
+            output.write("\n\n* Decomposition into different atom types" +
                          10 * (" ") + "absolute" + 5 * " " + "relative\n")
 
             output.write(50*" " + "[Angstrom]" + 6 * " " + "[%]")
@@ -532,19 +545,11 @@ class Logger(object):
 
              for entry in range(align.n_atom_types)]
 
-            output.write(adj_str('\n\n    z-matrix properties:',
-                                 suffix=''))
-
-            output.write(adj_str('# z-matrices are created for both molecules considering',
-                                 suffix=''))
-
-            output.write(adj_str('# (3 N - 1) bond distances, (3 N - 2) bond angles and',
-                                 suffix=''))
-
-            output.write(adj_str('# (3 N - 3) dihedral angles.  Both the total RMSD and',
-                                 suffix=''))
-            output.write(adj_str('# the relative contributions are calculated.',
-                                 suffix='\n'))
+            output.write("\n\n    z-matrix properties:\n")
+            output.write("    # z-matrices are created for both molecules, based on\n")
+            output.write("    # (3 N - 1) bond distances, (3 N - 2) bond angles and\n")
+            output.write("    # (3 N - 3) dihedral angles.  Both the total RMSD and\n")
+            output.write("    # the relative contributions are calculated.")
 
             output.write(adj_str('RMSD [Angstrom]...',
                                  suffix='\t') +
@@ -627,21 +632,15 @@ class Logger(object):
 
             if align.has_stats:
 
-                output.write(adj_str('\n\n* Evaluation of structural parameters:',
-                                     suffix='\n'))
+                output.write("\n\n* Evaluation of structural parameters:\n"),
+                output.write("    # 1. The RMSE values are the root-mean-square errors\n")
+                output.write("    #    between the corresponding properties of the two tructures.\n")
 
-                output.write(adj_str('# 1. The RMSE values are the root-mean-square errors',
-                                     suffix=''))
+                output.write("    # 2. The R**2 values are the the correlation coefficients\n")
+                output.write("    #    between the two data sets.\n")
 
-                output.write(adj_str('#    between the corresponding properties of the two structures.',
-                                     suffix=''))
 
-                output.write(adj_str('# 2. The R**2 values are the the correlation coefficients',
-                                     suffix=''))
-                output.write(adj_str('#    between the two data sets.',
-                                     suffix=''))
-
-                output.write(adj_str('\n\nNumber of bonds...',
+                output.write(adj_str('Number of bonds...',
                                      suffix='\t') +
                              str(align.n_bonds))
 
@@ -651,9 +650,9 @@ class Logger(object):
 
                 output.write(adj_str('RMSE [Angstrom]...',
                                      suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_rmsd))
+                             wt_prop(self.prop_bnd_dist_rmsd) + "\n")
 
-                output.write(adj_str('\n\nNumber of bond types...',
+                output.write(adj_str('Number of bond types...',
                                      suffix='\t') +
                              str(align.n_bnd_types))
 
@@ -663,9 +662,9 @@ class Logger(object):
 
                 output.write(adj_str('RMSE [Angstrom]...',
                                      suffix='\t') +
-                             wt_prop(self.prop_bnd_dist_type_rmsd))
+                             wt_prop(self.prop_bnd_dist_type_rmsd) + "\n")
 
-                output.write(adj_str('\n\nNumber of angles...',
+                output.write(adj_str('Number of angles...',
                                      suffix='\t') +
                              str(align.n_angles))
 
@@ -675,9 +674,9 @@ class Logger(object):
 
                 output.write(adj_str('RMSE [degrees]...',
                                      suffix='\t') +
-                             wt_prop(self.prop_ang_rmsd))
+                             wt_prop(self.prop_ang_rmsd) + "\n")
 
-                output.write(adj_str('\n\nNumber of dihedrals...',
+                output.write(adj_str('Number of dihedrals...',
                                      suffix='\t') +
                              str(align.n_torsions))
 
