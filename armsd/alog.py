@@ -848,12 +848,13 @@ class Logger(object):
 
         releaseNotice = str(" aRMSD (version ") + str(self.version) +\
                         str(", ") + str(self.year) + str(") ")
-        print(releaseNotice.center(80) + "\n")
+#        print(releaseNotice.center(80) + "\n")
+        print(releaseNotice.center(80))
 
         print(80 * "=" + "")
 
         print(str("A. Wagner, University of Heidelberg (2015, 2017),").center(80))
-        print(str("forked by N. Behrnd (2018)").center(80))
+        print(str("forked by N. Behrnd (2018)").center(80) + "\n")
 
         print(str(" Description ").center(80, "-"))
         print("Key features:")
@@ -864,15 +865,13 @@ class Logger(object):
         print("* Supports error propagation for experimental structures")
         print("* Generates different visualization types of the superposition results")
         print("* Writes outfiles that can be passed to other programs")
-        print("\n")
 
-        print("* The original version for Windows by A. Wagner, including its documentation")
-        print("      is hosted on GitHub: https://github.com/armsd/aRMSD.")
-        print("* You are using a derivative fork (based on release 0.9.6 of the above),")
-        print("    developed under Linux Debian by N. Behrnd including documentation, hosted")
-        print("    on GitHub: https://github.com/nbehrnd/aRMSD.")
+        print("* The original version was created by A. Wagner under Windows.  You find it")
+        print("      hosted on GitHub: https://github.com/armsd/aRMSD.")
+        print("* You are using a derivative fork based on the former, developed under Linux")
+        print("      by N. Behrnd, hosted on GitHub: https://github.com/nbehrnd/aRMSD.")
 
-        print(80 * "-")
+#        print(80 * "-")
 
         print(
             '\n*** Cite this program as:' +
@@ -882,13 +881,13 @@ class Logger(object):
     def pt_versions(self, core_version, plot_version, log_version):
 
         print("\nRelease dates of the individual modules:")
-        print("core module:    \t'" + str(core_version) + "'")
-        print("plot module:    \t'" + str(plot_version) + "'")
-        print("log  module:    \t'" + str(log_version) + "'")
+        print("- core module:    \t'" + str(core_version) + "'")
+        print("- plot module:    \t'" + str(plot_version) + "'")
+        print("- log  module:    \t'" + str(log_version) + "'")
 
     def pt_start(self):
 
-        print("\n> Starting the program ...")
+#        print("\n> Starting the program ...")
         print(80 * "-")
 
     ############################################################################

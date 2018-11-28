@@ -3973,7 +3973,7 @@ def parse_files(logger, number, settings):
         try:
 
             print("\nEnter the file name with extension for the " + str(number_str))
-            input_file = input("\n>> ")
+            input_file = input(">> ")
 
             try:
 
