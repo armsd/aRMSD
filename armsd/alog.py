@@ -1,6 +1,6 @@
 """
 aRMSD log functions
-(c) 2017 by Arne Wagner, 2018 added by Norwid Behrnd
+(c) 2017 by Arne Wagner, 2018 -- because it was forked -- by Norwid Behrnd
 """
 
 # Authors: Arne Wagner, Norwid Behrnd
@@ -116,7 +116,8 @@ class Logger(object):
 
     def pt_no_mpl(self):
 
-        print("\n> Matplotlib appears to be missing - but is required for 2D plots!")
+        print("\n> Matplotlib, required for 2D plots, appears to be missing!\n")
+        print("> Yet, most of the scrutiny still is possible (cf. primer).")
 
     def check_modules(self, has_np, np_version, has_vtk, vtk_version,
                       has_mpl, mpl_version, has_pybel, pyb_version,
@@ -203,7 +204,8 @@ class Logger(object):
                           str(self.version) + str(")")
             output.write("|" + programName.center(78) + "|\n")
 
-            contribution = str("Arne Wagner, Norwid Behrnd (") + str(self.year)
+            contribution = str("Arne Wagner, Norwid Behrnd (") +\
+                           str(self.year) + str(")")
             output.write("|" + contribution.center(78) + "|\n")
 
             output.write("|" + 78 * " " + "|\n")
@@ -218,21 +220,27 @@ class Logger(object):
 
             output.write("|" + 78 * " " + "|\n")
 
-            output.write("|" + 4 * " " +
-                         'Cite this program by:' + 53 * " " + "|\n")
+            output.write("|" +
+                         str("    Cite this program by:").ljust(78) +
+                         "|\n")
 
-            output.write("|" + 4 * " " +
-                         'A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.' +
-                         10 * " " + "|\n")
+            output.write("|" +
+                         str("    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438").ljust(78) +
+                         "|\n")
 
-            output.write("|" + 4 * " " +
-                         "doi: 10.1021/acs.jcim.6b00516" + 45 * " " + "|\n")
+            output.write("|" +
+                         str("    (doi: 10.1021/acs.jcim.6b00516),").ljust(78) +
+                         "|\n")
 
-            output.write("|    source, and version used.".ljust(79) + "|\n")
+            output.write("|" +
+                         str("    source (http://www.github.com/nbehrnd/armsd), and version used.".ljust(78)) +
+                         "|\n")
 
             output.write("+" + 78 * "-" + "+\n")
 
-            output.write("\n" + str(self.timestamp.strftime("%d-%b-%Y")).rjust(80))
+            output.write("\n" +
+                         str(self.timestamp.strftime("%d-%b-%Y")).rjust(80) +
+                         "\n")
 
             output.write("\n\n" +
                          '*** Log file about the superposition of structures ***' +
@@ -391,7 +399,7 @@ class Logger(object):
 
                 output.write("\n\n    " +
                              "The highest deviations were between the pairs..." +
-                              11 * " " + "[Angstrom]")
+                             11 * " " + "[Angstrom]")
 
                 [output.write('\n' + 29 * " " +
                               self.format_sym_idf(align.sym_idf_mol1[self.disord_pos[entry]],
@@ -470,7 +478,7 @@ class Logger(object):
                          str(settings.col_refer_fin_hex) + '  [HEX]')
 
 # Rotation matrix
-            output.write("\n\n    " +\
+            output.write("\n\n    " +
                          "Final rotation matrix from 'Standard Orientation':\n")
 
             output.write('\n           |' +
@@ -491,8 +499,8 @@ class Logger(object):
                          '  ' + '{:+06.8f}'.format(align.tot_rot_mat[2][2]) +
                          '|\n')
 
-            output.write("\n    # This matrix aligns " + 
-                                 str(self.name_mol1) + " with " + 
+            output.write("\n    # This matrix aligns " +
+                                 str(self.name_mol1) + " with " +
                                  str(self.name_mol2) + ".\n")
 
             output.write('    # U already includes all custom symmetry operations!\n')
@@ -500,7 +508,7 @@ class Logger(object):
             output.write(adj_str('\n\n* Final Quality of the Superposition:',
                                  suffix='\n'))
 
-            output.write(adj_str('RMSD (Kabsch test after refined superposition, Angstrom)...',
+            output.write(adj_str('RMSD (Kabsch test after refined superposition [Angstrom])...',
                                  suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
@@ -519,7 +527,6 @@ class Logger(object):
             output.write(adj_str('GARD score (dimensionless)...',
                                  suffix='\t') +
                          self.format_value(align.gard, n_digits=5))
-
 
             output.write("\n\n" + 4 * " " +
                          "For an introduction into the GARD calculation, see J. C. Baber,\n")
@@ -639,7 +646,6 @@ class Logger(object):
                 output.write("    # 2. The R**2 values are the the correlation coefficients\n")
                 output.write("    #    between the two data sets.\n")
 
-
                 output.write(adj_str('Number of bonds...',
                                      suffix='\t') +
                              str(align.n_bonds))
@@ -712,9 +718,9 @@ class Logger(object):
 
         print("\n> A logfile (" + str(self.file_name) + ") has been written successfully!")
 
-    ###############################################################################
+    ############################################################################
     # HANDLERS FOR USER INPUT
-    ###############################################################################
+    ############################################################################
 
     def get_menu_choice(self, choices, question, return_type='int'):
         """ Handles user input in menu routine, returns a valid user choice based on 'return_type' """
@@ -832,17 +838,24 @@ class Logger(object):
 
         return dictionary
 
-    ###############################################################################
+    ############################################################################
     # START
-    ###############################################################################
+    ############################################################################
 
     def pt_welcome(self):
 
-        print("\n\n=============================================================================")
-        print("                            aRMSD: Version " + str(self.version))
-        print("=============================================================================")
-        print("                  A. Wagner, University of Heidelberg (" + str(self.year) + ")")
-        print("-------------------------------- Description --------------------------------")
+        print("\n\n" + 80 * "=")
+
+        releaseNotice = str(" aRMSD (version ") + str(self.version) +\
+                        str(", ") + str(self.year) + str(") ")
+        print(releaseNotice.center(80) + "\n")
+
+        print(80 * "=" + "")
+
+        print(str("A. Wagner, University of Heidelberg (2015, 2017),").center(80))
+        print(str("forked by N. Behrnd (2018)").center(80))
+
+        print(str(" Description ").center(80, "-"))
         print("Key features:")
         print("* Parses data from various file formats")
         print("* Establishes consistency and matches coordinate sequences of two molecules")
@@ -851,13 +864,20 @@ class Logger(object):
         print("* Supports error propagation for experimental structures")
         print("* Generates different visualization types of the superposition results")
         print("* Writes outfiles that can be passed to other programs")
-        print("* ... more features and changes can be found in the documentation")
-        print("  ... this project is hosted on GitHub: https://github.com/armsd/aRMSD")
-        print("  ... documentation: http://armsd.rtfd.io")
+        print("\n")
+
+        print("* The original version for Windows by A. Wagner, including its documentation")
+        print("      is hosted on GitHub: https://github.com/armsd/aRMSD.")
+        print("* You are using a derivative fork (based on release 0.9.6 of the above),")
+        print("    developed under Linux Debian by N. Behrnd including documentation, hosted")
+        print("    on GitHub: https://github.com/nbehrnd/aRMSD.")
+
         print(80 * "-")
+
         print(
             '\n*** Cite this program as:' +
-            '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.')
+            '\n    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438' +
+            '\n    (doi: 10.1021/acs.jcim.6b00516)' + "; with address and version of aRMSD used.")
 
     def pt_versions(self, core_version, plot_version, log_version):
 
@@ -868,12 +888,12 @@ class Logger(object):
 
     def pt_start(self):
 
-        print("\n> Starting program ...")
+        print("\n> Starting the program ...")
         print(80 * "-")
 
-    ###############################################################################
+    ############################################################################
     # FILE IMPORT
-    ###############################################################################
+    ############################################################################
 
     def pt_file_not_found(self):
 
@@ -881,7 +901,9 @@ class Logger(object):
 
     def pt_import_success(self, input_file, element_symbol):
 
-        print("\n> '" + str(input_file) + "' has been loaded successfully! (#Atoms: " + str(len(element_symbol)) + ")")
+        print("\n> '" + str(input_file) +
+              "' has been loaded successfully! (#Atoms: " +
+              str(len(element_symbol)) + ")")
 
     def lg_files_loaded(self):
 
@@ -900,7 +922,7 @@ class Logger(object):
 
     def chk_std_devs(self, molecule1, molecule2, settings):
 
-        print("\n-----------------------------------------------------------------------------")
+        print("\n", 80 * "-")
         print("> Checking for coordinate standard deviations...")
 
         self.has_cor_std_mol1 = np.sum(molecule1.cor_std) != 0.0  # Checks deviations for both molecules
@@ -919,24 +941,25 @@ class Logger(object):
 
         print(80 * "-")
 
-    ###############################################################################
+    ############################################################################
     # Plotting
-    ###############################################################################
+    ############################################################################
 
     def pt_plotting(self):
 
-        print("\n> Results are now shown ... close the pop-up window to continue!")
+        print("\n> Results are now shown in a separate window.")
+        print("... To continue, quit the pop-up window with 'q'.")
 
     def pt_plotting_screenshot(self):
 
-        print("> Press the 's' button to save the scene as .png file or 'h' for help.\n")
+        print("> To save the scene as *.png, press 's'. For help, press 'h'.\n")
 
     def pt_plotting_substructure_def(self):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("========================== Substructure Definition  =========================")
+        print("\n", 80 * "-")
+        print(str(" Substructure Definition ").center(80, "="))
         print(80 * "-")
-        print("\n> - Click on atoms to add or remove them from the designated substructure")
+        print("\n> Click on atoms to add or remove them from the designated substructure")
         print("\n> You have to select at least two atoms, but keep in mind that substructures")
         print("> with few atoms are not very meaningful. All unselected atoms will")
         print("> constitute the second substructure.\n")
@@ -949,7 +972,7 @@ class Logger(object):
 
     def pt_aRMSD_plot_info(self):
 
-        print("\n> - A click on one atom will show its RMSD contribution,")
+        print("\n> A click on one atom will show its RMSD contribution,")
         print(">   2/3 or 4 selected atoms will display information about the")
         print(">   respective distances, angles and dihedrals.\n")
 
@@ -957,36 +980,48 @@ class Logger(object):
 
         print("\n> WARNING: Only 2 bond types were found - consequently R2 is meaningless!")
 
-    ###############################################################################
+    ############################################################################
     # CONSISTENCY MESSAGES
-    ###############################################################################
+    ############################################################################
 
     def pt_consistency_old(self):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("=============== Consistency Checks and Structural Modification ==============")
+        print("\n")
+        print(80 * "-")
+        print(str(" Consistency Checks and Structural Modification ").center(80, "="))
         print(80 * "-")
 
     def pt_consistency_menu(self):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("=============== Consistency Checks and Structural Modification ==============")
+        print("\n", 80 * "-")
+        print(str(" Consistency Checks and Structural Modification ").center(80, "="))
         print(80 * "-")
+
         print("-10 Reset molecules to the original status")
-        print("-5  Load the saved status (save point available: '" + str(self.was_saved) + "')")
+        print("-5  Load the saved status (save point available: '" +
+              str(self.was_saved) + "')")
+
         print("-2  Reset substructure")
         print("-1  Establish consistency based on current (sub)structures")
         print(80 * "-")
-        print("    A substructure has been defined       : '" + str(self.has_sub) + "'")
-        print("    Consistency has been established      : '" + str(self.consist) + "'")
-        print("    Group matching algorithm will be used : '" + str(self.use_groups) + "'")
+
+        print("    A substructure has been defined       : '" +
+              str(self.has_sub) + "'")
+
+        print("    Consistency has been established      : '" +
+              str(self.consist) + "'")
+
+        print("    Group matching algorithm will be used : '" +
+              str(self.use_groups) + "'")
         print(80 * "-")
+
         print("0   ... exit the menu (point of no return)")
         print("1   ... show information about the two data sets")
         print("2   ... define substructures (!next release!)")
         print("3   ... remove selected atoms")
         print("8   ... show the molecules again")
         print(80 * "-")
+
         print("10  ... save current changes")
         print("20  ... render the combined scene with VTK")
         print("21  ... export the scene/structures, change VTK settings")
@@ -1000,9 +1035,11 @@ class Logger(object):
 
         choices = []
 
-        print("\n-----------------------------------------------------------------------------")
-        print("    What should happen to the remaining " + str(n_hydro) + " H-atoms?")
+        print("\n", 80 * "-")
+        print("    What should happen to the remaining " +
+              str(n_hydro) + " H-atoms?")
         print(80 * "-")
+
         print("    Info: The exclusion of H-atoms in RMSD calculations is recommended if")
         print("          they were not located and refined in the X-ray experiment")
         print(80 * "-")
@@ -1014,12 +1051,14 @@ class Logger(object):
 
         if not self.rem_H_btc and self.can_rem_H_btc and n_hydro != n_hydro_c:
 
-            print("1   ... remove all hydrogen atoms bound to carbon (" + str(n_hydro_c) + ")")
+            print("1   ... remove all hydrogen atoms bound to carbon (" +
+                  str(n_hydro_c) + ")")
             choices.append(1)
 
         if not self.rem_H_btg14 and self.can_rem_H_btg14:
 
-            print("2   ... remove all hydrogen atoms bound to group-14 elements (" + str(n_hydro_full) + ")")
+            print("2   ... remove all hydrogen atoms bound to group-14 elements ("
+                  + str(n_hydro_full) + ")")
             choices.append(2)
 
         print("3   ... keep all hydrogen atoms")
@@ -1031,7 +1070,8 @@ class Logger(object):
 
     def pt_consistency_start(self, n_atoms1, n_atoms2):
 
-        print("\n> Performing consistency checks ... (Number of atoms: " + str(n_atoms1) + ", " + str(n_atoms2) + ")")
+        print("\n> Performing consistency checks ... (Number of atoms: " +
+              str(n_atoms1) + ", " + str(n_atoms2) + ")")
 
     def lg_multiple_occupation_found(self, logg_for='molecule1'):
 
@@ -1048,7 +1088,8 @@ class Logger(object):
             self.disorder_mol2 = True
             name = self.name_mol2
 
-        print("           Disordered positions in molecule: '" + str(name) + "'\n")
+        print("           Disordered positions in molecule: '" +
+              str(name) + "'\n")
 
     def pt_info_multiple_occupation(self, sym, idf, xyz, entry):
 
@@ -1059,27 +1100,29 @@ class Logger(object):
 
     def pt_number_h_atoms(self, n_hydro_mol1, n_hydro_mol2):
 
-        print("  There are (" + str(n_hydro_mol1) + " & " + str(n_hydro_mol2) + ") H atoms in the molecules")
+        print("  There are (" + str(n_hydro_mol1) +
+              " & " + str(n_hydro_mol2) + ") H atoms in the molecules")
 
     def lg_rem_H_btc(self, n_hydro_mol1, n_hydro_mol2):
 
         self.rem_H_btc = True
         print("\n  Removing all hydrogen atoms bound to carbon ...")
-        print("  All respective hydrogen atoms (" + str(n_hydro_mol1) + " & " + str(
-            n_hydro_mol2) + ") have been removed!")
+        print("  All respective hydrogen atoms (" + str(n_hydro_mol1) +
+              " & " + str(n_hydro_mol2) + ") have been removed!")
 
     def lg_rem_H_btg14(self, n_hydro_mol1, n_hydro_mol2):
 
         self.rem_H_btg14 = True
         print("\n  Removing all hydrogen atoms bound to group-14 elements ...")
-        print("  All respective hydrogen atoms (" + str(n_hydro_mol1) + " & " + str(
-            n_hydro_mol2) + ") have been removed!")
+        print("  All respective hydrogen atoms (" + str(n_hydro_mol1) +
+              " & " + str(n_hydro_mol2) + ") have been removed!")
 
     def lg_rem_H_all(self, n_hydro_mol1, n_hydro_mol2):
 
         self.rem_H_all = True
         print("\n  Removing all hydrogen atoms ...")
-        print("  All hydrogen atoms (" + str(n_hydro_mol1) + " & " + str(n_hydro_mol2) + ") have been removed!")
+        print("  All hydrogen atoms (" + str(n_hydro_mol1) +
+              " & " + str(n_hydro_mol2) + ") have been removed!")
 
     def lg_group_algorithm(self):
 
@@ -1108,7 +1151,8 @@ class Logger(object):
 
     def pt_consistency_failure(self, n_atoms1, n_atoms2):
 
-        print("\n> ERROR: Number of atoms (" + str(n_atoms1) + " & " + str(n_atoms2) +
+        print("\n> ERROR: Number of atoms (" + str(n_atoms1) +
+              " & " + str(n_atoms2) +
               ") is not identical - check your input files!")
         self.pt_exiting()
 
@@ -1148,15 +1192,17 @@ class Logger(object):
 
     def pt_unsupported_atom(self, symbol):
 
-        print("\n> ERROR: Unsupported atomic symbol ('" + str(symbol) + "') found!")
+        print("\n> ERROR: Unsupported atomic symbol ('" +
+              str(symbol) + "') found!")
         print("         Check your files for dummy atoms, etc.!")
 
     def pt_unsupported_element(self, symbol):
 
-        print("\n> ERROR: Unknown element symbol ('" + str(symbol) + "') encountered!")
+        print("\n> ERROR: Unknown element symbol ('" +
+              str(symbol) + "') encountered!")
 
     # COORDINATE UNITS
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def lg_unit_check(self):
 
@@ -1178,7 +1224,7 @@ class Logger(object):
         print("  Coordinates were transformed from [Bohr] to [Angstrom], updating bonds ...")
 
     # MISC
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def pt_exiting(self):
 
@@ -1198,18 +1244,19 @@ class Logger(object):
 
     def pt_swap_n_pairs(self):
 
-        question = "\n>>  How many atom pairs are to be swapped? "
+        question = "\n>>  How many atom pairs are to be swapped?"
 
         return question
 
     def pt_swap_atoms(self, sym1, idf1, sym2, idf2):
 
-        print("\n> Swapping atom " + str(sym1) + str(idf1) + " with " + str(sym2) + str(idf2))
+        print("\n> Swapping atom " + str(sym1) + str(idf1) +
+              " with " + str(sym2) + str(idf2))
 
     def pt_program_termination(self):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("========================= Normal program termination ========================")
+        print("\n", 80 * "-")
+        print(str(" Normal program termination ").center(80, "="))
         print(80 * "-")
 
     def pt_requirement_error(self):
@@ -1217,7 +1264,7 @@ class Logger(object):
         print("\n> ERROR: Requirements are not met, exiting program!")
 
     # FILE HANDLING
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def pt_unsupported_file_type(self, filetypes):
 
@@ -1251,11 +1298,12 @@ class Logger(object):
             return "# Created with aRMSD V. " + str(self.version) + str(comment) + "\n"
 
     # MATCHING AND SYMMETRY OPERATIONS
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def pt_sym_expand(self, symOP):
 
-        print("\n> Expanding coordinates by symmetry operation '" + str(symOP) + "'")
+        print("\n> Expanding coordinates by symmetry operation '" +
+              str(symOP) + "'")
 
     def pt_standard_orientation(self):
 
@@ -1273,29 +1321,35 @@ class Logger(object):
 
     def pt_sym_inversion(self):
 
-        print("\n> Inversion of '" + str(self.name_mol1) + "' structure at the origin of the coordinate system ...")
+        print("\n> Inversion of '" + str(self.name_mol1) +
+              "' structure at the origin of the coordinate system ...")
 
     def pt_sym_reflection(self, plane):
 
-        print("\n> Reflection of '" + str(self.name_mol1) + "' structure at the " + str(plane) + "-plane ...")
+        print("\n> Reflection of '" + str(self.name_mol1) +
+              "' structure at the " + str(plane) + "-plane ...")
 
     def pt_rot_info(self):
 
-        print("\nUse '-n' for counter-clockwise rotations\n(e.g. -20 for a rotation of -360/20 = -18 deg.)")
+        print("\nUse '-n' for counter-clockwise rotations")
+        print("\n(e.g. -20 for a rotation of -360/20 = -18 deg.)")
 
     def pt_sym_rotation(self, n, axis):
 
         if n < 0:
 
-            print("\nA " + str(abs(n)) + "-fold ccw rotation (" + str(round(360.0 / n, 1)) + " deg.) around the " +
+            print("\nA " + str(abs(n)) + "-fold ccw rotation (" +
+                  str(round(360.0 / n, 1)) + " deg.) around the " +
                   str(axis) + "-axis was requested.")
 
         else:
 
-            print("\nA " + str(n) + "-fold cw rotation (" + str(round(360.0 / n, 1)) + " deg.) around the " +
+            print("\nA " + str(n) + "-fold cw rotation (" +
+                  str(round(360.0 / n, 1)) + " deg.) around the " +
                   str(axis) + "-axis was requested.")
 
-        print("\n> Applying rotation to '" + str(self.name_mol1) + "' structure ...")
+        print("\n> Applying rotation to '" +
+              str(self.name_mol1) + "' structure ...")
 
     def pt_wrong_n(self):
 
@@ -1319,18 +1373,20 @@ class Logger(object):
 
     def pt_highest_deviations(self, molecule1, molecule2, settings):
 
-        print("\n-----------------------------------------------------------------------------\n")
+        print("\n", 80 * "-", "\n")
         print("\tThe geometric RMSD of the current alignment is: " + "{:6.3f}".format(self.match_rmsd) + " A\n")
         print("\t\t The " + str(settings.n_dev) + " most disordered atom pairs are:")
         print("\t\tEntry\t\t      Pair\t\t  Distance / A ")
 
-        [print("\t\t  " + str(settings.n_dev - entry) + "\t\t" + self.format_sym_idf(molecule1.sym_idf[molecule1.disord_pos[entry]],
-                                                                                     molecule2.sym_idf[molecule2.disord_pos[entry]]) +
-               "\t   " + "{:6.3f}".format(molecule2.disord_rmsd[entry])) for entry in range(settings.n_dev)]
+        [print("\t\t  " + str(settings.n_dev - entry) + "\t\t" +
+               self.format_sym_idf(molecule1.sym_idf[molecule1.disord_pos[entry]],
+                                   molecule2.sym_idf[molecule2.disord_pos[entry]]) +
+               "\t   " +
+               "{:6.3f}".format(molecule2.disord_rmsd[entry])) for entry in range(settings.n_dev)]
 
     def pt_all_bonds(self, align):
 
-        print("\n-----------------------------------------------------------------------------")
+        print("\n", 80*"-")
 
     def pt_no_proper_rmsd_sub(self):
 
@@ -1342,23 +1398,30 @@ class Logger(object):
         desc_ang, ang_mol1, ang_mol2, delta_ang = align.get_max_diff_prop(settings, prop='angle')
         desc_tor, tor_mol1, tor_mol2, delta_tor = align.get_max_diff_prop(settings, prop='torsion')
 
-        print("\n--------------- The Highest Deviations in Internal Coordinates --------------")
-        print("The " + str(settings.n_max_diff) + " highest deviations are printed below")
+        print("\n")
+        print(str(" The Highest Deviations in Internal Coordinates ").center(80, "-"))
+
+        print("The " + str(settings.n_max_diff) +
+              " highest deviations are printed below")
+
         print("Entries are: Atoms, values in the Model and Reference, difference")
         print(80 * "-")
+
         print(" >> Bonds (in Angstrom):")
-        [print("    " + str(entry + 1) + ".  " + str(desc_dis[entry]) + " " + str(dis_mol1[entry]) + " " + str(
-            dis_mol2[entry]) +
-               "\tDiff. " + str(delta_dis[entry])) for entry in range(settings.n_max_diff)]
+        [print("    " + str(entry + 1) + ".  " +
+               str(desc_dis[entry]) + " " + str(dis_mol1[entry]) + " " +
+               str(dis_mol2[entry]) + "\tDiff. " + str(delta_dis[entry])) for entry in range(settings.n_max_diff)]
         print(80 * "-")
+
         print(" >> Bond angles (in deg.):")
-        [print("    " + str(entry + 1) + ".  " + str(desc_ang[entry]) + " " + str(ang_mol1[entry]) + " " + str(
-            ang_mol2[entry]) +
+        [print("    " + str(entry + 1) + ".  " + str(desc_ang[entry]) + " " +
+               str(ang_mol1[entry]) + " " + str(ang_mol2[entry]) +
                "\tDiff. " + str(delta_ang[entry])) for entry in range(settings.n_max_diff)]
         print(80 * "-")
+
         print(" >> Dihedral angles (in deg.):")
-        [print("    " + str(entry + 1) + ".  " + str(desc_tor[entry]) + " " + str(tor_mol1[entry]) + " " + str(
-            tor_mol2[entry]) +
+        [print("    " + str(entry + 1) + ".  " + str(desc_tor[entry]) + " " +
+               str(tor_mol1[entry]) + " " + str(tor_mol2[entry]) +
                "\tDiff. " + str(delta_tor[entry])) for entry in range(settings.n_max_diff)]
         print(80 * "-")
 
@@ -1367,19 +1430,34 @@ class Logger(object):
         # Contribution of individual atom types (based on MSD)
         rmsd_perc = (align.rmsd_idv ** 2 / np.sum(align.rmsd_idv ** 2)) * 100
 
-        print("\n-----------------------------------------------------------------------------")
-        print("====================== Quality of the Superposition =========================")
+        print("\n", 80 * "-")
+        print(str(" Quality of the Superposition ").center(80, "="))
         print(80 * "-")
-        print("\n> The type of weighting function is: '" + str(align.wts_type) + "'")
-        print("\n-------------------------- Similarity Descriptors ---------------------------")
-        print("   >>>   Superposition R^2 :  " + self.format_value(align.r_sq, n_digits=5))
-        print("   >>>   Cosine similarity :  " + self.format_value(align.cos_sim, n_digits=5))
-        print("   >>>   GARD score        :  " + self.format_value(align.gard, n_digits=5))
-        print("\n------------------------ Root-Mean-Square-Deviation -------------------------")
-        print("   >>>   RMSD              :  " + self.format_value(align.rmsd, n_digits=5) + " Angstrom")
+
+        print("\n> The type of weighting function is: '" +
+              str(align.wts_type) + "'")
+
+        print("\n")
+        print(str(" Similarity Descriptors ").center(80, "-"))
+
+        print("   >>>   Superposition R^2 :  " +
+              self.format_value(align.r_sq, n_digits=5))
+
+        print("   >>>   Cosine similarity :  " +
+              self.format_value(align.cos_sim, n_digits=5))
+
+        print("   >>>   GARD score        :  " +
+              self.format_value(align.gard, n_digits=5))
+
+        print("\n")
+        print(str(" Root-Mean-Square-Deviation ").center(80, "-"))
+
+        print("   >>>   RMSD              :  " +
+              self.format_value(align.rmsd, n_digits=5) + " Angstrom")
+
         print("\n   >>>   - Decomposition   :  Individual atom types  (total percentage)")
-        [print("           " + "{:4.4s}".format(align.at_types[entry]) + " (#" +
-               "{:3.0f}".format(align.occ[entry]) + ")     :  " +
+        [print("           " + "{:4.4s}".format(align.at_types[entry]) +
+               " (#" + "{:3.0f}".format(align.occ[entry]) + ")     :  " +
                self.format_value(align.rmsd_idv[entry], n_digits=5) + " Angstrom  (" +
                self.format_value(rmsd_perc[entry], n_digits=0) + " %)") for entry in range(align.n_atom_types)]
 
@@ -1389,38 +1467,67 @@ class Logger(object):
 
             print("\n   >>>   - Decomposition   :  Substructure properties")
             print(80 * "-")
-            print("           Substructure 1  :  # Atoms: " + str(len(align.pos_sub1)) + "    [" + str(form1) + "]")
-            print("                     RMSD  :  " + self.format_value(align.rmsd_sub1, n_digits=5) + " Angstrom  (" +
+
+            print("           Substructure 1  :  # Atoms: " +
+                  str(len(align.pos_sub1)) + "    [" + str(form1) + "]")
+
+            print("                     RMSD  :  " +
+                  self.format_value(align.rmsd_sub1, n_digits=5) + " Angstrom  (" +
                   self.format_value(align.c_sub1 * 100.0, n_digits=0) + " %)")
-            print("        Superposition R^2  :  " + self.format_value(align.r_sq_sub1, n_digits=5))
-            print("        Cosine similarity  :  " + self.format_value(align.cos_sim_sub1, n_digits=5))
+
+            print("        Superposition R^2  :  " +
+                  self.format_value(align.r_sq_sub1, n_digits=5))
+
+            print("        Cosine similarity  :  " +
+                  self.format_value(align.cos_sim_sub1, n_digits=5))
             print(80 * "-")
-            print("           Substructure 2  :  # Atoms: " + str(len(align.pos_sub2)) + "    [" + str(form2) + "]")
-            print("                     RMSD  :  " + self.format_value(align.rmsd_sub2, n_digits=5) + " Angstrom  (" +
+
+            print("           Substructure 2  :  # Atoms: " +
+                  str(len(align.pos_sub2)) + "    [" + str(form2) + "]")
+
+            print("                     RMSD  :  " +
+                  self.format_value(align.rmsd_sub2, n_digits=5) + " Angstrom  (" +
                   self.format_value(align.c_sub2 * 100.0, n_digits=0) + " %)")
-            print("        Superposition R^2  :  " + self.format_value(align.r_sq_sub2, n_digits=5))
-            print("        Cosine similarity  :  " + self.format_value(align.cos_sim_sub2, n_digits=5))
+
+            print("        Superposition R^2  :  " +
+                  self.format_value(align.r_sq_sub2, n_digits=5))
+
+            print("        Cosine similarity  :  " +
+                  self.format_value(align.cos_sim_sub2, n_digits=5))
 
         elif not align.has_sub_rmsd and align.has_sub:
 
             print("\n> INFO: Reexecute Kabsch alignment to include the substructure decomposition!")
 
-        print("\n--------------------------- Z-matrix properties -----------------------------")
-        print("   >>>   RMSD              :  " + self.format_value(align.rmsd_z_matrix, n_digits=5))
+        print("\n")
+        print(str(" Z-matrix properties ").center(80, "-"))
+        print("   >>>   RMSD              :  " +
+              self.format_value(align.rmsd_z_matrix, n_digits=5))
+
         print("\n   >>>   - Decomposition   :  total percentage")
-        print("             distances     :  " + self.format_value(align.c_dis * 100.0, n_digits=0) + " %")
-        print("             angles        :  " + self.format_value(align.c_ang * 100.0, n_digits=0) + " %")
-        print("             dihedrals     :  " + self.format_value(align.c_tor * 100.0, n_digits=0) + " %")
+        print("             distances     :  " +
+              self.format_value(align.c_dis * 100.0, n_digits=0) + " %")
+
+        print("             angles        :  " +
+              self.format_value(align.c_ang * 100.0, n_digits=0) + " %")
+
+        print("             dihedrals     :  " +
+              self.format_value(align.c_tor * 100.0, n_digits=0) + " %")
 
     def pt_data_set_info(self, molecule1, molecule2):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("==================== Information about Molecular Data =======================")
+        print("\n", 80 * "-")
+        print(str(" Information about Molecular Data ").center(80, "="))
         print(80 * "-")
-        print("-------  Molecule 1: 'Model'                 Molecule 2: 'Reference'  -------")
-        print("   #Atoms = " + str(molecule1.n_atoms) + "                          #Atoms = " + str(molecule2.n_atoms))
-        print("   #H-Atoms = " + str(molecule1.n_h_atoms) + "                          #H-Atoms = " + str(
-            molecule2.n_h_atoms))
+
+        print(str(" Molecule 1: 'Model'" + 18 * " " + "Molecule 2: 'Reference' ").center(80, "-"))
+
+        print("   #Atoms = " + str(molecule1.n_atoms) +
+              "                          #Atoms = " + str(molecule2.n_atoms))
+
+        print("   #H-Atoms = " + str(molecule1.n_h_atoms) +
+              "                          #H-Atoms = " + str(molecule2.n_h_atoms))
+
         print("-- Sym.-Idf.        --  [xyz] / A    |  Sym.-Idf.        -- [xyz] / A  --")
 
         if molecule1.n_atoms > molecule2.n_atoms:
@@ -1440,36 +1547,47 @@ class Logger(object):
             common_number = molecule2.n_atoms
             rest_number = 0
 
-        [print("   " + str(molecule1.sym_idf[entry]) + "\t" + str(np.around(molecule1.cor[entry], 3)) + "\t\t" +
-               str(molecule2.sym_idf[entry]) + "\t" + str(np.around(molecule2.cor[entry], 3)))
+        [print("   " + str(molecule1.sym_idf[entry]) + "\t" +
+               str(np.around(molecule1.cor[entry], 3)) + "\t\t" +
+               str(molecule2.sym_idf[entry]) + "\t" +
+               str(np.around(molecule2.cor[entry], 3)))
          for entry in range(common_number)]
 
         if rest_number != 0:
 
             if to_print == 'molecule1':
 
-                [print("   " + str(molecule1.sym_idf[common_number + entry]) + "\t" +
+                [print("   " + str(molecule1.sym_idf[common_number + entry]) +
+                       "\t" +
                        str(np.around(molecule1.cor[common_number + entry], 3))) for entry in range(rest_number)]
 
             else:
 
-                [print("   \t\t\t\t\t" + str(molecule2.sym_idf[common_number + entry]) + "\t" +
+                [print("   \t\t\t\t\t" +
+                       str(molecule2.sym_idf[common_number + entry]) + "\t" +
                        str(np.around(molecule2.cor[common_number + entry], 3))) for entry in range(rest_number)]
 
     def pt_x_ray_menu(self, n_atoms, symOPs, picker_type):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("========================= X-ray Data Modification ===========================")
+        print("\n", 80 * "-")
+        print(str(" X-ray Data Modification ").center(80, "="))
         print(80 * "-")
+
         print("-10 Exit the menu")
         print("-5  Export structure to '.xyzs' file")
         print("-4  Export structure to '.xyz' file")
-        print("-2  Change picker mode (current: '" + str(picker_type) + "')")
+        print("-2  Change picker mode (current: '" +
+              str(picker_type) + "')")
+
         print("-1  Show the X-ray structure again")
         print(80 * "-")
-        print("    Current number of atoms     : " + str(n_atoms))
+        print("    Current number of atoms     : " +
+              str(n_atoms))
         print(80 * "-")
-        [print(str(entry) + "   expand by operation\t\t'" + str(symOPs[entry]) + "'") for entry in range(len(symOPs))]
+
+        [print(str(entry) + "   expand by operation\t\t'" +
+               str(symOPs[entry]) + "'") for entry in range(len(symOPs))]
+
         print(str(entry + 1) + "   expand by custom operation ")
         print(80 * "-")
 
@@ -1480,20 +1598,31 @@ class Logger(object):
 
     def pt_match_menu(self, settings):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("================ Symmetry Adjustments & Sequence Matching ===================")
+        print("\n", 80 * "-")
+        print(str(" Symmetry Adjustments & Sequence Matching ").center(80, "="))
         print(80 * "-")
-        print("-6  Set number of deviations which are highlighted in the plot (current = " + str(settings.n_dev) + ")")
-        print("-5  Load the saved status (save point available: '" + str(self.was_saved) + "')")
+
+        print("-6  Set number of deviations which are highlighted in the plot (current = " +
+              str(settings.n_dev) + ")")
+
+        print("-5  Load the saved status (save point available: '" +
+              str(self.was_saved) + "')")
+
         print("-4  Change plot settings")
         print("-3  Manually swap atoms in Model structure")
         print("-2  Change matching algorithm or solver")
         print("-1  Match molecular sequences based on current alignment")
         print(80 * "-")
-        print("    Current matching algorithm  : '" + str(self.match_alg) + "'")
-        print("    Current matching solver     : '" + str(self.match_solv) + "'")
-        print("    Structures were matched     : '" + str(self.is_matched) + "'")
+        print("    Current matching algorithm  : '" +
+              str(self.match_alg) + "'")
+
+        print("    Current matching solver     : '" +
+              str(self.match_solv) + "'")
+
+        print("    Structures were matched     : '" +
+              str(self.is_matched) + "'")
         print(80 * "-")
+
         print("0   ... exit the menu (no return)")
         print("1   ... inversion at the origin")
         print("2   ... reflection at the xy plane")
@@ -1504,7 +1633,10 @@ class Logger(object):
         print("7   ... rotation around the z axis")
         print("8   ... show the molecules again")
         print(80 * "-")
-        print("10  ... save current changes (status was saved: '" + str(self.was_saved) + "')")
+
+        print("10  ... save current changes (status was saved: '" +
+              str(self.was_saved) + "')")
+
         print("20  ... export structures")
         print(80 * "-")
 
@@ -1518,29 +1650,37 @@ class Logger(object):
 
             pt_alg = self.match_alg
 
-        print("\n> Changed " + str(alg_type) + " algorithm to '" + str(pt_alg) + "'.")
+        print("\n> Changed " + str(alg_type) +
+              " algorithm to '" + str(pt_alg) + "'.")
 
     def pt_algorithm_menu(self, molecule):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("======================= Matching Algorithm Submenu ==========================")
+        print("\n", 80 * "-")
+        print(str(" Matching Algorithm Submenu ").center(80, "="))
         print(80 * "-")
+
         print("-10 Return to upper menu")
-        print("-1  Show details of current solving algorithm ('" + str(self.match_solv) + "')")
-        print("0   Show details of current matching algorithm ('" + str(self.match_alg) + "')")
+        print("-1  Show details of current solving algorithm ('" +
+              str(self.match_solv) + "')")
+
+        print("0   Show details of current matching algorithm ('" +
+              str(self.match_alg) + "')")
         print(80 * "-")
+
         print("1   ... use absolute distance between atoms ('distance')")
         print("2   ... use combination of absolut and relative distances ('combined')")
         print("3   ... use random permutations ('brute_force')")
         print(80 * "-")
+
         print("4   ... use 'Hungarian' solver for the permutation matrix ('hungarian')")
         print("5   ... use 'aRMSD' solver for the permutation matrix ('standard')")
         print(80 * "-")
 
     def pt_solve_algorithm_details(self):
 
-        print("\n-----------------------------------------------------------------------------")
-        print("Details about the algorithm '" + str(self.match_solv) + "':")
+        print("\n", 80*"-")
+        print("Details about the algorithm '" +
+              str(self.match_solv) + "':")
 
         if self.match_solv == 'hungarian':
 
@@ -1558,13 +1698,15 @@ class Logger(object):
     def pt_match_algorithm_details(self):
 
         print("\n", 80 * "-")
-        print("Details about the algorithm '" + str(self.match_alg) + "':")
+        print("Details about the algorithm '" +
+              str(self.match_alg) + "':")
 
         if self.match_alg == 'distance':
 
             print("This algorithm uses the distances between the possible atom pairs for the")
             print("creation of the permutation matrix. Hence it requires an alignment of")
-            print("sufficiently good quality - provided by the user through\nsymmetry transformations.")
+            print("sufficiently good quality - provided by the user through")
+            print("\nsymmetry transformations.")
 
         elif self.match_alg == 'combined':
 
@@ -1578,7 +1720,6 @@ class Logger(object):
             print("This is an experimental algorithm that tries to find the best solution to")
             print("the matching problem through all possible permutations. This will take a")
             print("lot of time - however: nothing is required from the user.")
-
         print(80 * "-")
 
     def pt_export_structure_menu(self, min_rad, max_rad):
@@ -1586,6 +1727,7 @@ class Logger(object):
         print("\n", 80 * "-")
         print(" Export Structures ".center(80, "="))
         print(80 * "-")
+
         print("-10 Return to upper menu")
         print("-1  Project atomic radii for export (current range: " +
               str(min_rad) + " to " + str(max_rad) + ")")
@@ -1601,9 +1743,10 @@ class Logger(object):
         print("\n", 80 * "-")
         print(" Export Structures ".center(80, "="))
         print(80 * "-")
-        print("-10 Return to upper menu")
 
+        print("-10 Return to upper menu")
         print(80 * "-")
+
         print("0   ... export superposition in two '.xyz' files")
         print("1   ... export superposition in one '.xyzs' files")
         print("2   ... export aRMSD representation in one '.xyzs' file")
@@ -1663,19 +1806,17 @@ class Logger(object):
         print("\n", 80 * "-")
         print(" Set Weighting Functions ".center(80, "="))
         print(80 * "-")
+
         print("Info: For functions marked with a '*' the contributions from other atoms")
         print("      to each individual atom (multi-center-correction) can be calculated")
         print("      if requested.")
-
         print(80 * "-")
 
         print("-10 Return to upper menu")
-
         print(80 * "-")
 
         print("    Current weighting function  : '" + str(align.wts_type) + "'")
         print("    Calculate mcc contribution  : '" + str(align.calc_mcc) + "'")
-
         print(80 * "-")
 
         print("0   ... geometric / unweighted")
@@ -1713,6 +1854,7 @@ class Logger(object):
         print("-2  Change weighting function")
         print("-1  Perform Kabsch alignment (required for all functions)")
         print(80 * "-")
+
         print("    Current weighting function  : '" +
               str(align.wts_type) + "'")
 
@@ -1721,7 +1863,6 @@ class Logger(object):
 
         print("    Kabsch alignment performed  : '" +
               str(align.has_kabsch) + "'")
-
         print(80 * "-")
 
         print("0   ... visualize results in aRMSD representation")
@@ -1740,11 +1881,11 @@ class Logger(object):
         print("\n" + 80 * "-")
         print(" Change RMSD Settings ".center, "=")
         print(80 * "-")
+
         print("-10 Return to upper menu")
 
         print("-5  Use RYG coloring scheme for 'aRMSD representation' (current = " +
               str(settings.use_aRMSD_col) + ")")
-
         print(80 * "-")
 
         print("0   ... set maximum RMSD value for color projection (current = " +
@@ -1786,11 +1927,13 @@ class Logger(object):
 
         print("-10 Return to upper menu")
         print(80 * "-")
+
         print("0   ... draw labels (current = " +
               str(settings.draw_labels) + ")")
 
         print("1   ... change label type (current = " +
               str(settings.label_type) + ")")
+
         print("2   ... set global scale factor (current = " +
               str(settings.scale_glob) + ")")
 
@@ -1811,7 +1954,6 @@ class Logger(object):
 
         print("8   ... draw color bar (current = " +
               str(settings.draw_col_map) + ")")
-
         print(80 * "-")
 
     def pt_kabsch_alignment(self, w_function_type):
@@ -1821,9 +1963,8 @@ class Logger(object):
 
     def pt_rot_matrix(self, rot_matrix):
 
-        print("\nThe rotation matrix for the optimal alignment (from Standard Orientation) is:\n")
-
-        print("\t           |" + "{:+06.8f}".format(rot_matrix[0][0]) + "  " +
+        print("\n The optimal alignment is achieved with this rotation matrix:")
+        print("\n\t           |" + "{:+06.8f}".format(rot_matrix[0][0]) + "  " +
               "{:+06.8f}".format(rot_matrix[0][1]) +
               "  " + "{:+06.8f}".format(rot_matrix[0][2]) + "|")
 
