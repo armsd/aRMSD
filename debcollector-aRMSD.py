@@ -1,17 +1,20 @@
 #!/usr/bin/ python
 
 # File name: debcollector-aRMSD.py
-# Last edit: 2018-10-23
+# Last edit: 2018-11-28
 
 """
 Motivation:  Collection and installation of the *.deb needed to start
 aRMSD may be put into a list Python works on.
 
-Intended use: python debcollector-aRMSD.python
+Intended use on the CLI with
 
-for either Python2 or Python3 of Debian 9 (sid/buster).  Worked fine
-on this platform.  Potentially working -- but not tested -- on
-related Ubuntu 18.04 LTS, too.
+python debcollector-aRMSD.python
+
+in the supervised shell of Debian 9 (Sid/buster) with administrator privileges.
+It equally was tested to proceed successfully on Xubuntu 18.04 LTS.  Reference
+installation for Xubuntu was the default (64 bit) point release 18.04.1,
+accessed in November 2018.
 """
 
 # module calling
@@ -26,8 +29,9 @@ print("'debcollector-aRMSD.py' installs packages to use aRMSD.")
 # what is the platform?
 print("\nYou choose either")
 print(" [0]    Quit the script altogether, no installation.")
-print(" [1]    Debian based platform recquiering packages as *.deb.")
-print(" [2]    Fedora based platform requiring *.rpm.\n")
+print(" [1]    Debian based platform requiering packages as *.deb.")
+print(" [2]    Fedora based platform requiring *.rpm.")
+print("           This option is foreseen, but currently not implemented.")
 
 # selection
 platform = str(input())
@@ -36,11 +40,11 @@ if platform == str("0"):
     sys.exit()
 
 if platform == str("1"):
-    print("\n Work now assumes you work on Debian.")
-    print(" Not tested, yet possible to work for Ubuntu 18.04 LTS, too.\n")
+    print("\n It is assumed you either work on Debian 9 (Sid/buster),)")
+    print(" or on Xubuntu 18.04 LTS (successfully tested on point release 18.04.1).")
 
 if platform == str("2"):
-    print("\n Work now assumes you work on Fedora.")
+    print("\n It is assumed you work on Fedora.")
     print(" Currently, Fedora's *.rpm packages were not checked for suitability for aRMSD.")
     print(" Hence, for the moment, this will install nothing on Fedora.")
     print(" The script will close now.")
@@ -48,10 +52,9 @@ if platform == str("2"):
 
 
 # Programs to install under Debian (ref.: Debian 9 sid/buster,
-# October 2019).  This list is used as reference for later definitions
+# October 2018).  This list is used as reference for later definitions
 # (e.g., Fedora in the next list), too.
-#
-# Potentially working -- but not yet tested -- for derivates like Ubuntu 18.04 LTS.
+
 collect_Debian = ["cython",
                   "cython3",
                   "openbabel",
@@ -71,8 +74,8 @@ collect_Debian = ["cython",
                   "vtk7"]
 
 
-# Programs to install under Fedora (reference: was the online repository,
-# https://apps.fedoraproject.org/packages, visited October 2018).
+# Programs to install under Fedora (reference: the online repository,
+# https://apps.fedoraproject.org/packages).
 collect_Fedora = []
 
 # installation on Debian
