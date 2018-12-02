@@ -951,7 +951,8 @@ class Logger(object):
 
     def pt_plotting_screenshot(self):
 
-        print("> To save the scene as *.png, press 's'. For help, press 'h'.\n")
+#        print("> To save the scene as *.png, press 's'. For help, press 'h'.\n")
+        print("> To save the scene as *.png, press 's'.")
 
     def pt_plotting_substructure_def(self):
 
