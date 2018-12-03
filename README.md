@@ -12,8 +12,11 @@ made available on <https://github.com/armsd/aRMSD>.
 Contrasting to said original branch, *this* fork develops `aRMSD`
 under Linux (Debian 10 / Buster, currently testing / Sid), since it
 was used side-by-side with other programs already deployed
-successfully in Linux.  Changes made within this fork, however,
-should work equally in other operating systems.
+successfully in Linux.  Specific to Linux: I liked to have a Python
+script resolving the dependencies of `aRMSD` instead of a somewhat
+manual download, and installation anticipated for Windows.  Other
+than this, changes made within this fork, however, should work
+equally in other operating systems.
 
 
 # What may aRMSD do for you &#x2013; an appetizer
