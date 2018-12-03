@@ -1,0 +1,599 @@
+
+================================================================================
+                          aRMSD (version 0.9.8, 2018)                           
+================================================================================
+               A. Wagner, University of Heidelberg (2015, 2017),                
+                           forked by N. Behrnd (2018)                           
+
+--------------------------------- Description ----------------------------------
+Key features:
+* Parses data from various file formats
+* Establishes consistency and matches coordinate sequences of two molecules
+* Aligns two molecular structures based on the Kabsch algorithm
+* Supports different weighting functions for the superposition
+* Supports error propagation for experimental structures
+* Generates different visualization types of the superposition results
+* Writes outfiles that can be passed to other programs
+* The original version was created by A. Wagner under Windows.  You find it
+      hosted on GitHub: https://github.com/armsd/aRMSD.
+* You are using a derivative fork based on the former, developed under Linux
+      by N. Behrnd, hosted on GitHub: https://github.com/nbehrnd/aRMSD.
+
+*** Cite this program as:
+    A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438
+    (doi: 10.1021/acs.jcim.6b00516); with address and version of aRMSD used.
+
+Release dates of the individual modules:
+- core module:    	'2018-10-24'
+- plot module:    	'2016-11-03'
+- log  module:    	'2018-11-28'
+
+Module check:
+- numpy         	'1.14.5'
+- VTK           	'6.3.0'
+- matplotlib    	'2.2.2'
+- uncertainties 	'3.0.2'
+- openbabel     	'2.4.1'
+--------------------------------------------------------------------------------
+
+Enter the file name with extension for the first file (comp./model)
+>> M1.cif
+
+> ERROR: File type is not supported by openbabel!
+
+Enter the file name with extension for the first file (comp./model)
+>> M1.pdb
+
+> 'M1.pdb' has been loaded successfully! (#Atoms: 20)
+
+Enter the file name with extension for the second file (exp./reference)
+>> M2.pdb
+
+> 'M2.pdb' has been loaded successfully! (#Atoms: 20)
+--------------------------------------------------------------------------------
+... Files have been loaded!
+
+--------------------------------------------------------------------------------
+> Checking for coordinate standard deviations...
+... No standard deviations were found!
+--------------------------------------------------------------------------------
+
+  Checking length unit of xyz coordinates ...
+  The coordinate unit is [Angstrom]
+
+  Checking length unit of xyz coordinates ...
+  The coordinate unit is [Angstrom]
+
+> The current status was saved successfully!
+
+
+--------------------------------------------------------------------------------
+================ Consistency Checks and Structural Modification ================
+--------------------------------------------------------------------------------
+
+> Performing consistency checks ... (Number of atoms: 20, 20)
+  There are (7 & 7) H atoms in the molecules
+
+> The structures of both molecules are consistent.
+
+--------------------------------------------------------------------------------
+    What should happen to the remaining 7 H-atoms?
+--------------------------------------------------------------------------------
+    Info: The exclusion of H-atoms in RMSD calculations is recommended if
+          they were not located and refined in the X-ray experiment
+--------------------------------------------------------------------------------
+0   ... remove all hydrogen atoms (7)
+3   ... keep all hydrogen atoms
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 3
+
+> The molecules were rotated into 'Standard Orientation' ...
+
+> The current status was saved successfully!
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'False'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+>>  Enter your choice: 1
+
+> Inversion of 'Model' structure at the origin of the coordinate system ...
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'False'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+>>  Enter your choice: 2
+
+> Reflection of 'Model' structure at the xy-plane ...
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'False'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+>>  Enter your choice: 10
+
+> The current status was saved successfully!
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'False'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: -1
+
+--------------------------------------------------------------------------------
+
+	The geometric RMSD of the current alignment is:  0.214 A
+
+		 The 5 most disordered atom pairs are:
+		Entry		      Pair		  Distance / A 
+		  5		   H-3 -- H-3   	    0.511
+		  4		   H-5 -- H-5   	    0.539
+		  3		   H-6 -- H-6   	    0.571
+		  2		  O-20 -- O-20  	    0.598
+		  1		  O-17 -- O-17  	    0.722
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'True'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+>>  Enter your choice: 10
+
+> The current status was saved successfully!
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'True'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 0
+
+> Exiting symmetry transformation menu ...
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'False'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: -1
+
+--------------------------------------------------------------------------------
+========================= Quality of the Superposition =========================
+--------------------------------------------------------------------------------
+
+> The type of weighting function is: 'none'
+
+
+---------------------------- Similarity Descriptors ----------------------------
+   >>>   Superposition R^2 :  0.99498
+   >>>   Cosine similarity :  0.99731
+   >>>   GARD score        :  0.80826
+
+
+-------------------------- Root-Mean-Square-Deviation --------------------------
+   >>>   RMSD              :  0.20276 Angstrom
+
+   >>>   - Decomposition   :  Individual atom types  (total percentage)
+           C    (#  9)     :  0.11507 Angstrom  (08.48 %)
+           H    (#  7)     :  0.20956 Angstrom  (28.14 %)
+           O    (#  4)     :  0.31451 Angstrom  (63.38 %)
+
+
+----------------------------- Z-matrix properties ------------------------------
+   >>>   RMSD              :  0.38077
+
+   >>>   - Decomposition   :  total percentage
+             distances     :  22.96 %
+             angles        :  43.37 %
+             dihedrals     :  33.67 %
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 0
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 1
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+> To save the scene as *.png, press 's'.
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 2
+
+> Results are now shown in a separate window.
+... To continue, quit the pop-up window with 'q'.
+
+
+---------------- The Highest Deviations in Internal Coordinates ----------------
+The 3 highest deviations are printed below
+Entries are: Atoms, values in the Model and Reference, difference
+--------------------------------------------------------------------------------
+ >> Bonds (in Angstrom):
+    1.  [C-15, C-16] 1.454 1.598	Diff. 0.14400000000000013
+    2.  [C-8, O-17] 1.253 1.143	Diff. -0.10999999999999988
+    3.  [C-8, C-9] 1.491 1.55	Diff. 0.05899999999999994
+--------------------------------------------------------------------------------
+ >> Bond angles (in deg.):
+    1.  [O-18, C-8, O-17] 119.817 128.56	Diff. 8.74300000000001
+    2.  [O-17, C-8, O-18] 119.817 128.56	Diff. 8.74300000000001
+    3.  [C-9, C-8, O-18] 117.728 112.809	Diff. -4.918999999999997
+--------------------------------------------------------------------------------
+ >> Dihedral angles (in deg.):
+    1.  [C-14, C-9, C-8, O-18] 35.066 50.081	Diff. 15.015
+    2.  [O-18, C-8, C-9, C-14] 35.066 50.081	Diff. 15.015
+    3.  [C-14, C-9, C-8, O-17] 144.442 130.267	Diff. -14.175000000000011
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 3
+
+--------------------------------------------------------------------------------
+========================= Quality of the Superposition =========================
+--------------------------------------------------------------------------------
+
+> The type of weighting function is: 'none'
+
+
+---------------------------- Similarity Descriptors ----------------------------
+   >>>   Superposition R^2 :  0.99498
+   >>>   Cosine similarity :  0.99731
+   >>>   GARD score        :  0.80826
+
+
+-------------------------- Root-Mean-Square-Deviation --------------------------
+   >>>   RMSD              :  0.20276 Angstrom
+
+   >>>   - Decomposition   :  Individual atom types  (total percentage)
+           C    (#  9)     :  0.11507 Angstrom  (08.48 %)
+           H    (#  7)     :  0.20956 Angstrom  (28.14 %)
+           O    (#  4)     :  0.31451 Angstrom  (63.38 %)
+
+
+----------------------------- Z-matrix properties ------------------------------
+   >>>   RMSD              :  0.38077
+
+   >>>   - Decomposition   :  total percentage
+             distances     :  22.96 %
+             angles        :  43.37 %
+             dihedrals     :  33.67 %
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: 5
+
+> A logfile (aRMSD_logfile.out) has been written successfully!
+
+--------------------------------------------------------------------------------
+<built-in method center of str object at 0x7f7ba4445240> =
+--------------------------------------------------------------------------------
+-10 Exit aRMSD
+-8  Plot aRMSD color map
+-7  Change general RMSD settings
+-6  Add/remove bond
+-4  Change plot settings
+-3  Define two substructures (structures are defined: 'False')
+-2  Change weighting function
+-1  Perform Kabsch alignment (required for all functions)
+--------------------------------------------------------------------------------
+    Current weighting function  : 'none'
+    Calculate mcc contribution  : 'False'
+    Kabsch alignment performed  : 'True'
+--------------------------------------------------------------------------------
+0   ... visualize results in aRMSD representation
+1   ... visualize structural superposition
+2   ... perform statistic investigation of bond lengths and angles
+3   ... show RMSD results
+4   ... interpolate between the structures (cart., 10 steps)
+5   ... generate outfile
+20  ... export structural data
+--------------------------------------------------------------------------------
+
+>>  Enter your choice: -10
+
+--------------------------------------------------------------------------------
+========================== Normal program termination ==========================
+--------------------------------------------------------------------------------
+

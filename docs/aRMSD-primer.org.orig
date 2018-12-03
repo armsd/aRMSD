@@ -174,8 +174,15 @@ installation of the program.  Here and there, the primer merely will
   + =python-matplotlib=, =python-matplotlib-data=, =python3-matplotlib= (all
     in version 2.2.2-4+b1)
 
+<<<<<<< HEAD
+  If the user has administrative privileges, calling script 
+  =debcollector-aRMSD.py= from the CLI of python automates
+  fetching and installation of these necessary packages in one batch.
+
+=======
   + =python-uncertainties=, =python3-uncertainties= (all in version
     2.4.4-1)
+>>>>>>> development
 
   + =libvtk6.3=, =libvtk6.3-qt=, =python-vtk6=, =vtk6= (all in version
     6.3.0+dfsg2-2+b3); =libvtk7.1=, =libvtk7.1-qt=, =python3-vtk7=,
