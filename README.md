@@ -94,7 +94,7 @@ thesis in the Himmel group (University of Heidelberg, Germany).  It
 is described briefly in his PhD thesis submitted in
 2015.<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> The program was presented in further detail in
 
-Wagner, A., Himmel, H.-J. aRMSD: A Comprehensive Tool for Structural
+Wagner, A.; Himmel, H.-J. aRMSD: A Comprehensive Tool for Structural
 Analysis.  *J. Chem. Inf. Model.*, 2017, *57*, 428&#x2013;438 (doi:
 10.1021/acs.jcim.6b00516)
 
@@ -110,18 +110,18 @@ was on April 5, 2017.  My subsequent work on `aRMSD` is based on this release.
 # Footnotes
 
 <sup><a id="fn.1" href="#fnr.1">1</a></sup> Open Babel, <http://openbabel.org/wiki/Main_Page>.  For
-further details, see by O'Boyle, N. M., Banck, M., James, C. A.,
-Morley, C, Vandermeersch, T., Hutchison, G. R.  Open Babel: An open
+further details, see by O'Boyle, N. M.; Banck, M.; James, C. A.;
+Morley, C.; Vandermeersch, T.; Hutchison, G. R.  Open Babel: An open
 chemical toolbox. *J. Cheminf.* 2011, 3:33 (doi: 10.1186/1758-2946-3-33).
 
 <sup><a id="fn.2" href="#fnr.2">2</a></sup> <http://www.vtk.org>
 
-<sup><a id="fn.3" href="#fnr.3">3</a></sup> Kildgaard, J. V., Mikkelsen, K. V., Bilde, M., Elm,
+<sup><a id="fn.3" href="#fnr.3">3</a></sup> Kildgaard, J. V.; Mikkelsen, K. V.; Bilde, M.; Elm,
 J. Hydration of Atmospheric Molecular Clusters: A New Method for
 Systematic Configurational Sampling. *J. Phys. Chem. A* 2018, 122,
 5026&#x2013;5036 (doi: 10.1021/acs.jpca.8b02758).
 
-<sup><a id="fn.4" href="#fnr.4">4</a></sup> Temeslo, B., Mabey, J. M., Kubota, T., Appiah-Padi, N.,
+<sup><a id="fn.4" href="#fnr.4">4</a></sup> Temeslo, B.; Mabey, J. M.; Kubota, T.; Appiah-Padi, N.;
 Shields, G. C. ArbAlign: A Tool for Optimal Alignment of Arbitrarily
 Ordered Isomers Using the Kuhn-Munkres
 Algorithm. *J. Chem. Inf. Model.* 2017, 57, 1045&#x2013;1054 (doi:
