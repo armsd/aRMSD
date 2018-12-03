@@ -508,7 +508,7 @@ class Logger(object):
             output.write(adj_str('\n\n* Final Quality of the Superposition:',
                                  suffix='\n'))
 
-            output.write(adj_str('RMSD (Kabsch test with refined superposition [Angstrom])...',
+            output.write(adj_str('RMSD (Kabsch test, refined superposition [Angstrom])...',
                                  suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
