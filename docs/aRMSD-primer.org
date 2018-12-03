@@ -1,261 +1,764 @@
-# aRSMD-primer.org
+# file name: aRMSD-primer.org
+# last edit: 03-Dez-2018
+#+AUTHOR:  Norwid Behrnd
+#+TITLE:   aRMSD-primer (aRMSD 0.9.8)
+#+DATE:    03-Dez-2018
 
-* Generalities
+#+OPTIONS: toc:nil
 
-  Development of the program aRMSD started by Arne Wagner during his
-  PhD in the Himmel group (University of Heidelberg).  aRMSD was
-  presented both in his PhD thesis[fn:Wagner-thesis] and in a
-  publication[fn:aRMSD-paper].
+#+LATEX_CLASS:    koma-article
+#+LATEX_HEADER:   \usepackage[a4paper]{geometry}
 
-  The aim of this fork is to use aRMSD in a "portable mode" on a
-  computer running Linux Debian (sid/buster, 64 bit) from the CLI
-  provided by python -- without assistance of PyInstaller.
+#+LATEX_HEADER:   \usepackage{libertine}
+#+LATEX_HEADER:   \usepackage[libertine]{newtxmath}
+#+LATEX_HEADER:   \usepackage[scaled=0.9]{inconsolata}
+#+LATEX_HEADER:   \usepackage[USenglish]{babel}
+#+LATEX_HEADER:   \usepackage{microtype}
 
-  aRMSD allows a pre-alignment of a test relative to a reference
-  motif and subsequent refinement of this initial superposition
-  according to the Kabsch test. Accepted file formats of the model
-  data to test include *.xyz and *.pdb, and other formats openbabel
-  may read and convert into them. aRMSD’s focus is the pairwise
-  comparison of two model data; if you intend to compare several model
-  data batch-wise, you may be better served with alternatives presented
-  in section (TODO).
+#+LATEX_HEADER:   \usepackage[basicstyle=small]{listings}
+#+LATEX_HEADER:   \usepackage{graphicx}
 
-* System at disposition
-
-  The system at disposition runs Linux Debian (sid/buster, 64 bit).
-  Installed packages deemed to be relevant in successful deployment of
-  aRMSD are, as readout with the synaptic package manager by Debian:
-  + python (version 2.7.15+) and python3 (version 3.6.6)
-
-  + cython (version 0.28.4-1)
-
-  + openbabel, libopenbabel5, python-openbabel (all in version 2.4.1+dfsg-2)
-
-  + python-matplotlib, python-matplotlib-data, python3-matplotlib
-    (all in version 2.2.2-4+b1)
-
-  + python-uncertainties, python3-uncertainties (all in version 2.4.4-1)
-
-  + libvtk6.3, libvtk6.3-qt, python-vtk6 (all in version 6.3.0+dfsg2-2+b3);
-    libvtk7.1, libvtk7.1-qt, python3-vtk7, vtk7 (all in version 7.1.1+dfsg1-5)
+#+LATEX_HEADER:   \setkomafont{captionlabel}{\sffamily\bfseries}
+#+LATEX_HEADER:   \setcapindent{0em}  \setkomafont{caption}{\small}
 
 
-* Basic deployment
+The goal of the primer is to enable you to perform a basic comparison
+of two molecular structures with =aRMSD=, including proper
+installation of the program.  Here and there, the primer merely will
+/hint/ you to additional features implemented in =aRMSD=.
 
-  Ensure your system contains the libraries mentioned.  Either clone,
-  or download the zip archive of the master branch of this project. To
-  familiarize with some of the programs functions, the Kabsch test will
-  be demonstrated on two model data of benzamide, provided with
-  =BZAMID-A.pdb= and =BZAMID-B.pdb= in sub-folder examples.  Copy these
-  into sub-folder =aRMSD=.
+* setup of =aRMSD=
 
-** Loading of structures
+  Initially, Arne Wagner developed =aRMSD= under Windows.  Hence, the
+  corresponding section below retains all the relevant recommendations
+  by him as left in 2017 in the original branch of the project of
+  =aRMSD=.  The copy is verbatim, with the exception of putting the
+  information into one place, a reformat, and a spell check.
 
-  In sub-folder =aRMSD= now containing both model data to compare with
-  each other, launch the program
-  #+BEGIN_SRC python
-     python aRMSD.py
-  #+END_SRC
 
-  During the first launch of the program, additional files are written
-  into the current directory.  Assuming you use a 80x24 terminal, you
-  should see an output as in the following figure.
+  /This/ forked branch is based on the original version 0.9.6 by Arne
+  Wagner.  It was developed further in Debian 10 (Sid/buster) because
+  =aRMSD= was used side-by-side with other programs already deployed
+  successfully in Linux.  The installation process differs from the
+  one in Windows, as =pip= and =PyInstaller= are omitted, and the
+  installation of dependencies is automated by a script.
 
-  [[./load-structures01.png]]
+** setup in Windows 
 
-  Enter the names of the files intended for comparison.  There is no
-  auto-completion of the file names, nor bash-like history provided --
-  if you err, the easiest escape is hitting Ctrl + C twice to leave
-  the script.
+   =aRMSD= can be in two ways, either via =pip= (in this case it will
+   be used as a Python module or Python application) or you can
+   download the source code and compile it into a single standalone
+   executable. In any case some packages are required which are listed
+   below:
+   + =Python= (version 2.7 or 3.6)
+   + =numpy= (version 1.11.1 / 1.12)
+   + =vtk= (version 6.2.0 / 7.0)
+   + =matplotlib= (version 1.5.2 / 2.0)
+   + =PyQt4=
+   + =uncertainties= (version 3.0.1)
+   optional:
+   + =Cython= [performance improvements] (version 0.25.2)
+   + =openbabel= / =pybel= [additional file formats] (version 2.4.1)
 
-  /Note:/  For the sake of mere performing the Kabsch test, a missing
-  or currently not correctly recognized =matplotlib= is irrelevant.
+   Due to changes from =vtk 5= to =6=, =aRMSD= does not support an
+   older =vtk= version than =6.2= and a backwards compatibility to the
+   older =vtk 5= engine is not planned.
 
-  For each entry, aRMSD will provide feedback if the model was read
-  successfully, or not.  If necessary, you will offered a new prompt
-  to attempt a new data entry.
+   In order to adjust the source code by yourself, always make sure to
+   have the required Python packages installed and download the latest
+   version of the master branch. Whenever possible it is recommended
+   to add and update packages using pre-compiled Python =wheels=
+   (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your
+   operating system which can be installed via =pip=.
 
-  The subsequent interaction with aRMSD is keyboard driven.  The
-  program will check if the two models are consistent to each other
-  and ask you if all hydrogens should be excluded from the Kabsch
-  test, only the ones not attached to carbon atoms, or none.  For the
-  sake of this primer, the third option was chosen here.
 
-  [[./load-structures02.png]]
+*** Compilation arguments
 
-  The confirmation by =ENTER= will trigger the program to attempt a
-  first /initial/ superposition of the two models, depicted in a
-  newly opened window, the structure visualizer.  The structure
-  visualizer may be adjusted in dimension to your needs.  If it is
-  the currently active window, it may be closed at any time by =q=.
+    The following arguments can be passed to the installation script
+    and specify the usage of =Cython= and =openbabel= in the
+    compilation. All arguments are optional and if none are given
+    neither =Cython= nor =openbabel= will be used. The specification
+    of the =C compiler= may not be needed if your defaults are
+    properly set, however setting it explicitly should ensure a
+    successful installation.
 
-  [[./structure-visualizer-01.png]]
+         - =--use_cython= (=True / False=)
+         - =--cython_compiler= (any valid =C compiler= used by =Cython=,
+             e.g. =msvc=)
+         - =--use_openbabel= (=True / False=)
+         - =--overwrite= (=True / False=)
 
-** structure pre-alignment
+    During the installation, the existence of an =openbabel= hook file
+    in the =PyInstaller= hook path is checked. If no hook exists, a
+    respective file will be created. In case of an existing hook, the
+    file can be overwritten if the =--overwrite= variable is set to
+    =True=.
 
-  It is now the task of the user to assist in the program about the
-  pre-alignment of the tested model (red motif) in regard to the
-  reference model (green) and coordinate system (blue).  To familiarize
-  yourself with the situation, assisted with your mouse, you may tilt
-  the orientation (left mouse button), roll (left mouse button while
-  pressing the =Ctrl= key), pan (left mouse button while pressing either
-  of the =Shift= keys), or zoom (pressing the middle mouse key) while
-  hovering over this window.  The more you are out of the center of this
-  window, however, the more rapid these changes are.  Should this not
-  suffice you may engage an anaglyph view with keystroke =3=, too.
+*** Executable compiled with =PyInstaller=
 
-  If you are confident enough about the scenery encountered, you may
-  keep a still about the arrangement as *.png by hitting =s=.  To close
-  the structure visualizer by keystroke =q=.  Now decide if the quality
-  of this /preliminary/ superposition may be improved by either inversion
-  of the test molecules' orientation in regard to the coordinate system,
-  or by reflection at one of the principal planes may be improved further.
-  Each time you hit the corresponding key, the program attempts a new
-  /preliminary/ superposition and it is up to you to find the best
-  /preliminary/ superposition.
+    This produces a single file which can be copied alongside the
+    =settings.cfg= and the =xsf folder= to different machines with the
+    same architecture. Once the program has been compiled, this is
+    probably the easiest way to use =aRMSD= -- especially for users
+    that are unfamiliar with Python.
 
-  You leave this loop by hitting =10= to enter the next stage.  The figure
-  below illustrates few possible preliminary alignments of with test
-  structures =BZAMID-A.pdb= and =BZAMID-B.pdb=.
+    First ensure that you have the latest version of =PyInstaller=
+    (http://www.pyinstaller.org/) or install it with =pip=:
 
-  /Note:/ In principle, it is possible to compare structures provided
-  in different file formats provided either aRMSD recognizes them
-  naively, or by because of a conversion provided by openbabel.
-
-  [[./alignments.png]]
-
-** Structure re-ordering
-
-  The Kabsch algorithm will work successfully with consistent attribution
-  of atoms in reference and test motif.  This is ensured by launching the
-  Hungarian algorithm (key stroke =-1=).  This opens again the structure
-  visualizer.  In contrast to the previous display, you will notice that
-  atoms of test and reference structure, simultaneously perceived as related
-  as well as in geometrical proximity to each other are displayed with
-  the same atom labeling.  If still sufficiently distant from each other,
-  their relationship will be marked by yellow spheres and rods.
-
-  This display may equally help to sort out at least most of alignments
-  which should not be amended to further scrutiny (right hand example).
-
-  [[./Hungarian-01.png]]
-
-  In the later case, you should continue to cycle through different relative
-  orientations of test and reference structure.  Once the pre-alignment is
-  reasonable well, quit the visualizer (=q=) and leave this menu with =0=.
-
-** Kabsch test
-
-  The new interface eventually allows you to perform the Kabsch test,
-  to be triggered by =-1= as prerequisite of further analysis.
-
-  /Note:/ By default, aRMSD treats all atoms present as equally important
-  in this test.  By hitting =-2= prior to performing the Kabsch test,
-  however, you may consider atoms e.g. of higher number of (core) electrons,
-  scattering factors, or mass a higher weight than, for example, "less
-  well determined" hydrogens.  It is possible to revoke the parameters
-  for the Kabsch test  and subsequently refine the superposition again
-  without need to recur to the stage of pre-alignment.
-
-  The following steps may be performed in any order of consecution.
-  While it may be tempting to jump to the log generation directly (key
-  stroke =5=), calling both the statistics plot (key stroke =2=) and
-  terminal display of RMSD details (key stroke =3=) prior to this will
-  yield the most complete log file.
-
-  + Visual inspection of the Kabsch test in a common structure (=0=)
-
-    In this ball-and-stick representation comparing the refined fit of
-    model and reference structure, the /atom radii/ of the atoms are
-    proportional to the contribution of said atom to the global RMSD.
-    The /color/ of the spheres scales to the absolute remaining
-    difference of the to fit structures about said atom in \AA.
-
-    Clicking /on/ a representation of one, two, three, or four
-    adjacent atoms marks them to read-out to the final RMSD data about
-    the corresponding position; or corresponding difference in
-    distance, angle, or dihedral angle between model and reference.
-    These read-outs are non-permanent.
-
-    Some of the bonds depicted bear a red band in the center.  This is
-    to indicate that the same bond in the reference model is significantly
-    shorter, than in the tested model.  Conversely, a green band would
-    indicate a bond that is longer.  (Both threshold (default 0.2 \AA) and
-    color coding about this may be altered in the file =settings.cfg=.)
-
-    Again, it may be useful to keep a still of this by generation of a
-    *.png (key stroke =s=) prior to closing (=q=).
-
-  + Classical superposition display (=1=).  Model and reference are
-    depicted in the same color scheme as at the stage of pre-alignment.
-    In addition to the graphical display, it is possible to export both
-    now aligned models in either individually in two separate, or in
-    one common xyz-like file /via/ sub-menu =20=.  It is possible to
-    read these structures again in programs like VMD.[fn:VMD]
-
-    [[./Kabsch-analysis-01.png]]
-
-  + Statistics plots of the superposition (=2=).  Provided aRMSD was able
-    to access =python.matplotlib=, the comparison of distances, angles,
-    and dihedral angles of model and reference structure are depicted
-    in a synopsis.
-
-    [[./statistics.png]]
-
-    Currently, this is organized in sub-plots that may partially overlap
-    with each other if the new GUI starts.  Increasing the later's
-    dimension will render the diagrams more legible.  As usual for
-    =python.matplotlib=, you have the options to zoom and pan into
-    regions of particular interest, and save the drawing as bitmap
-    (*.jpeg, * .png), vector (*(e).ps, *.pdf, *.svg), or tikz's *.pgf.
-
-  + Optional log file about the analysis (key stroke =5=).  ASCII file
-    aRMSD_logfile.out provides you a verbose documentation about the
-    performed analysis.  It will report about the quality of the
-    pre-alignment; parameters, rotation matrix and results of the
-    Kabsch test (second RMSD provided under /refined/).
-
-    In addition to similarity measures by the Kabsch test, the log
-    file equally lists other characteristics such as $R^2$ and cosine
-    similiarity, as well as results by the GARD
-    calculation[fn:GARD-paper].
-
-    In case of testing BZAMID-A.pdb with BZAMID-B.pdb with each other,
-    the best fit aRMSD may find is described by
-    
     #+BEGIN_SRC shell
-      * Quality of the Superposition:                         
+      pip install pyinstaller
+    #+END_SRC
+    
+    Download the current master branch of =aRMSD=, extract the files
+    and navigate to the main folder. Run the compilation script in an
+    interactive Python shell or from command line by typing
 
-	      d values for the GARD calculation...                    	0.3, 1.2
-	      Superposition R^2 (dimensionless)...                    	0.99905
-	      Cosine similarity (dimensionless)...                    	0.99947
-	      GARD score (dimensionless)...                           	1.00000
-	      RMSD (refined, Angstrom)...                             	0.07669
+    #+BEGIN_SRC python
+      python compile_aRMSD.py
     #+END_SRC
 
-    If you hit =3= to show the RMSD results on the terminal (80 \times
-    24 px is minimal, 80 \times 43 px is recommended dimension) to
-    display these briefly, than the log equally will include them in
-    addition under section ``Evaluation of structural parameters''.
+    This will create a single executable file in the =armsd= folder
+    and should work for all operating systems. Temporary files will be
+    created during this process (the compilation will take around
+    30 min, depending on the machine) and deleted after the executable
+    is created. Optional arguments can be given to make use of
+    =Cython= (http://cython.org/) and =openbabel=
+    (http://openbabel.org/wiki/Main_Page). Note that the =Cython C
+    compiler= should be specified if several options are available:
 
-  + Interpolation between the structures (=4=).  This will generate a
-    set of 10 *.xyz files between your reference structure and the
-    fitted model structure.
+    #+BEGIN_SRC shell
+      python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
+    #+END_SRC
 
-  You leave =aRMSD= with key stroke =-10=.
+    If you are using Python 3.6, there is a bug in the =PyInstaller=
+    entry script and typing =pyinstaller= in a shell will not start a
+    correct process. To fix this, go in the Python installation folder
+    and edit the =pyinstaller-script.py= file: add quotes around the
+    path in the first program line (e.g. ="c:\program
+    files\python36\python.exe"=).
+
+   
+  
+* Setup of aRMSD in Linux Debian / Ubuntu
+
+  In addition to the =*.zip= archive available on GitHub, =aRMSD=
+  depends on libraries most likely not installed on your computer.
+  Anticipate about 0.2 to 0.3 GB of disk space needed for them.
+
+  For a facile, semi-automatic set-up, the top directory of the
+  extracted archive contains script =debcollector_aRMSD.py= which you
+  shall run once from the CLI prior to any use of =aRMSD=:
+
+  #+BEGIN_SRC shell
+    python debcollector.py
+  #+END_SRC
+
+  This script is dedicated to the deployment under Linux Debian (e.g.,
+  Debian 9 (Sid/buster), or Xubuntu (Xubuntu 18.04 LTS).  It will
+  request the administrator password, and triggers the system to fetch
+  and install the dependencies of =aRMSD= in one run.  Possibly, user
+  interaction is needed since this process may recursively install
+  modules /in addition/ to the ones explicitly listed in the script.
+
+  If you use a different operating system, or prefer a manual package
+  installation, here are the relevant modules I use on a reference
+  system (Debian 9, Sid/buster) to work with =aRMSD=:
+
+  + =python= (version 2.7.15+) and =python3= (version 3.6.6)
+
+  + =cython= (version 0.28.4-1)
+
+  + =openbabel=, =libopenbabel5=, =python-openbabel= (all in version
+    2.4.1+dfsg-2)
+
+  + =python-matplotlib=, =python-matplotlib-data=, =python3-matplotlib= (all
+    in version 2.2.2-4+b1)
+
+  + =python-uncertainties=, =python3-uncertainties= (all in version
+    2.4.4-1)
+
+  + =libvtk6.3=, =libvtk6.3-qt=, =python-vtk6=, =vtk6= (all in version
+    6.3.0+dfsg2-2+b3); =libvtk7.1=, =libvtk7.1-qt=, =python3-vtk7=,
+    =vtk7= (all in version 7.1.1+dfsg1-5)
+
+  Again, note that according to Arne Wagner's description about
+  =aRMSD= running in Windows, you may skip =cython= wich will provide
+  an /optional/ gain in performance.
+
+  After completed installation of these dependencies, enter the top
+  directory of the decompressed archive with your shell, and start
+  =aRMSD=:
+
+  #+BEGIN_SRC shell
+     python armsd/aRMSD.py 
+  #+END_SRC
+
+  The first start of the program is slower than the subsequent ones,
+  but your terminal should display a welcome screen similar to the one
+  in figure [[fig-small-welcome]].
+
+  #+ATTR_LATEX:   :width 15cm
+  #+ATTR_HTML:    :width 75%
+  #+NAME:    fig-small-welcome
+  #+CAPTION: Initial screen display of =aRMSD= in a 80 \times 24 character terminal.
+  [[./docSources/aRMSD-smallWelcome.png]]
+
+  While it is possible to work in the default dimension of a terminal
+  with 80 \times 24 characters, you may miss some of the intermediate
+  output provided by =aRMSD= by omission of vertical scrolling.
+  Hence, a taller terminal is recommended, e.g., 80 \times
+  43 characters, as shown in figure [[fig-large-welcome]].  However, a
+  terminal wider than 80 characters per line will not provide
+  additional benefit.
+
+  #+ATTR_LATEX:    :width 15cm
+  #+ATTR_HTML:     :width 75%
+  #+NAME:    fig-large-welcome
+  #+CAPTION: Initial screen display of =aRMSD= in a 80 \times 43 character terminal.
+  [[./docSources/aRMSD-largeWelcome.png]]
+
+  Like other python scripts run in the CLI, at any stage of working
+  with =aRMSD= the program may be closed safely from the terminal with
+  the command  =Ctrl + C=.
+
+  The =vtk= related modules are /essential/ to work with =aRMSD=.
+  Still, it is possible to access a subset of functions provided by
+  =aRMSD= with a few of the other modules modules missing.  In
+  particular, this is if 
+
+  + your system does not spot =libopenbabel=.  Then, file format
+    conversions provided by =babel= will be unavailable to =aRMSD=.
+    In this situation, the only model file type accessible to the
+    program is =*.xyz=.
+
+  + your system lacks =matplotlib=.  Then, there will be no provision
+    of the 2D statistics plots.  Since the corresponding sub-routine
+    in =aRMSD= equally contributes some numerical results, the
+    eventual log generated by =aRMSD= will miss portions of the
+    diagnostic data.
+
+  In both cases the welcome screen will tell you about the modules
+  missing / not recognized by the installation.  Yet even in this
+  situation =aRMSD= still will be capable to align the structure
+  models, refine their alignment and provide you with some of the
+  results of the similarity analysis.  You are set to work with
+  =aRMSD=.
 
 
-[fn:Wagner-thesis] A. Wagner: /Synthese und Koordinationschemie
-guanidinatstabilisierter Diboranverbindungen/, PhD thesis, Heidelberg,
-2015, https://katalog.ub.uni-heidelberg.de/titel/67882589
+* Example comparing two models successfully
 
-[fn:aRMSD-paper] A. Wagner, J. Himmel: /aRMSD: A Comprehensive Tool
-for Structural Analysis/, J. Chem. Inf. Model. 2017, 57, 428-438, doi:
-[[https://pubs.acs.org/doi/10.1021/acs.jcim.6b00516][10.1021/acs.jcim.6b00516]].
+  This chapter will detail out how to compare successfully to model
+  data with the basic test data provided with =aRMSD=.  It is
+  complemented by the next section about how to identify an
+  unsuccessful comparison of two model data.  In addition, the
+  complete CLI output by =aRMSD= as well as the log are provided in
+  the corresponding section of the appendix.
 
-[fn:VMD] VMD / Visual Molecular Dynamics,
-https://www.ks.uiuc.edu/Research/vmd/
+  In sub-folder =examples=, =aRMSD= provides a few test data to
+  familiarize with the program.  For the sake of simplicity, this
+  tutorial will use model data in the most basic file format
+  accessible for =aRMSD= -- even if your system lacks =babel= -- which
+  is =*.xyz=.  Copy the model data =M1.xyz= and =M2.xyz= into the
+  folder =armsd=.  These two represent two different conformations of
+  the aspirinate anion, derived from the corresponding =*.cif= found
+  in the CSD data base.[fn:CSD] They were simplified to the aspirinate
+  anion, retaining protons, and exported in either =*.xyz= or =*.pdb=
+  format with Olex2.[fn:Olex2]
 
-[fn:GARD-paper]: J. C. Baber, D. C. Thomson, J. B. Cross, C. Humblet:
-/GARD: A Generally Applicable Replacement for RMSD/,
-J. Chem. Inf. Model, 2009, 49, 1889-1900, doi: [[https://pubs.acs.org/doi/abs/10.1021/ci9001074][10.1021/ci9001074]].
+  + From the top directory of =aRMSD=, launch the program from the
+    shell with
+    
+    #+BEGIN_SRC shell
+      python armsd/aRMSD.py
+    #+END_SRC
+
+    After the simulated prompt (the =>= sign), enter the complete file
+    name (including the file extension) of the first model to load.
+    Contrary to the shell, there is no tab-assisted auto-completion of
+    the file name.  If you err with the file name, and the model does
+    not exist, you are offered a new prompt.  If you err with the file
+    name pointing to an exisiting model, but are not interested to
+    compare with an other model, the simplest rectification is to
+    close =aRMSD= with =Ctrl + C= and to start the program freshly
+    again.  
+
+    The confirmation of the input (=Enter=) will cause =aRMSD= to read
+    the data set and to prompt you for the input of the second model
+    datum (fig [[aRMSD-loadingModels]]).
+
+    #+ATTR_LATEX:   :width 15cm
+    #+ATTR_HTML:    :width 75%
+    #+NAME:    aRMSD-loadingModels
+    #+CAPTION: Model loading and consistency check by =aRMSD=.
+    [[./docSources/aRMSD-loadingModels.png]]
+
+    The atom coordinates provided in either =*.xyz= (/this/ example)
+    or =*.pdb= format provide the the atom coordinates as a tuple of
+    three numbers only.  This contrasts to the =*.cif= format where
+    the coordinates are provided including their standard deviations.
+    So, =aRMSD= /indicates/ the user about this information missing.
+    Based on the file type of the model data, you may continue the
+    analysis neglecting this.
+ 
+    /Hint:/ Indeed, it is possible to load different models of
+    different file type (with different file extensions), such as
+    =M1.xyz= for the first, and =M2.pdb= for the second model to
+    compare with each other.  At this stage of the analysis, =aRMSD=
+    will proceed successfully provided both models share the same
+    molecular constitution.  This is tested in the =Consistency Check=
+    mentioned in the lower part of the depicted output.
+
+  + Consideration of hydrogen atoms
+
+    =aRMSD= allows you to include all, or to exclude a selection of
+    hydrogens (bond to carbons, or bond to group-14 elements), or to
+    consider none of the hydrogens in the structure models from the
+    Kabsch test.  This is done without editing the underlying files
+    you provided, but will affect simultaneously both structure
+    "model" and structure "reference".
+
+    Generally speaking, compared with the comparison of "complete
+    models", the exclusion of hydrogens may (and indeed most often
+    will) increase the similarity of the structures perceived by
+    =aRMSD=, expressed by a lower overall-RMSD.  If you know that the
+    positions of the hydrogens in your model data are considerably
+    less accurately determined then the one of the non-hydrogen atoms,
+    then this may be good option to test.[fn:hydrogens]
+
+    For the purpose of this primer, however, all atoms were included
+    in the scrutiny (fig [[aRMSD-hydrogens]]), selected by key stroke =3=.
+
+    #+ATTR_LATEX:   :width 15cm
+    #+ATTR_HTML:    :width 50%
+    #+NAME:    aRMSD-hydrogens
+    #+CAPTION: User defined exclusion / retention of hydrogens in =aRMSD=.
+    [[./docSources/aRMSD-hydrogens.png]]
+
+    /Hint:/ Beside a yes-no decision about hydrogens, =aRMSD= equally
+    offers multiple more refined approaches how atoms will be
+    considered in the Kabsch test.  These then scale the individual
+    contribution of the atoms' position to the RMSD to the proton
+    count, the atomic mass, or the scattering factor (for the more
+    frequently used X-ray radiation wavelengths).  This accounts for
+    the determination of the atom coordinates of heavier atoms being
+    more accurate than for the lighter ones by X-ray diffraction
+    analysis, an approach considered as advanced use of =aRMSD=.
+
+    The program subsequently provides you a first reasonable /guess/
+    how to align the two models.
+
+  + User-assisted re-orientation of the models
+
+    This is the first time =aRMSD= will launch the =vtk=-based
+    structure visualizer in a window separate from the terminal,
+    providing an interactive 3D rendering
+    (fig. [[aRMSD-structureVisualizerDefault]]).  You may change the
+    position and size of this window freely.  The depicted scene shows
+    you /an initial/ alignment of atom labeled model (red motif) and
+    reference structure (green motif) in a reference coordinate system
+    (blue).
+
+    #+ATTR_LATEX:   :width 7.5cm
+    #+ATTR_HTML:    :width 50%
+    #+NAME:    aRMSD-structureVisualizerDefault
+    #+CAPTION: Vtk-based structure visualizer by =aRMSD=.
+    [[./docSources/aRMSD-structureVisualizerDefault-scaled.png]]
+
+    Multiple commands are at your disposition, outlined briefly in the
+    table [[VtkCommands]].
+
+    #+NAME:    VtkCommands
+    #+CAPTION: Typical commands to interact with the structure visualizer in =aRMSD=.
+    |-----------------------------------------+---------------------------|
+    | command                                 | function                  |
+    |-----------------------------------------+---------------------------|
+    | dragging with left mouse button (=LMB=) | tilt the scene            |
+    | =CTRL + LMB=                            | roll the scene            |
+    | =Shift + LMB=                           | pane the scene            |
+    | middle mouse reel                       | zoom the scene            |
+    | =r=                                     | return to a home position |
+    |-----------------------------------------+---------------------------|
+    | =3=                                     | toggle anaglyph display   |
+    | =e=, or =0=, or =q=                     | close the visualizer      |
+    | =s=                                     | save the scene (=*.png=)  |
+    |-----------------------------------------+---------------------------|
+
+    Note that the more your mouse is out of the center of the
+    visualizer's canvas, the more the mouse-assisted actions
+    accelerate.  You may document the match as bitmap with key-stroke
+    =s=; the visualizer, unaltered in its default dimension will write
+    a =*.png= (2048 \times 2048 px).  Repeated export of the scene,
+    e.g., from different perspectives, will automatically increment
+    the file names (=VTK_initial_plot.png=, =VTK_initial_plot_1.png=,
+    =VTK_initial_plot_2.png=, etc.) deposit in your current working
+    directory.
+
+    If you are familiar about the alignment shown to you, close the
+    visualizer (=q=).  If -- as in the current example -- the two
+    model data do not align nicely, the terminal offers you multiple
+    symmetry operations to try a better alignment
+    (fig. [[aRMSD-realignmentInterface]]).  Each time you select one of
+    the options, =aRMSD= displays a new /initial match/ of the two in
+    a newly opened instance of the visualizer.
+
+    #+ATTR_LATEX:   :width 15cm
+    #+ATTR_HTML:    :width 75%
+    #+NAME:    aRMSD-realignmentInterface
+    #+CAPTION: Symmetry operations provided by =aRMSD= to alter and improve the initial alignment of structure "model" and "reference".
+    [[./docSources/aRMSD-realignmentInterface.png]]
+
+    In the case of this primer, the relative arrangement has to
+    undergo an inversion (key-stroke =1=), and an reflection in
+    respect to the /xz/-plane (key-stroke =3=).  The approach is
+    iterative, and the order of consecution of these operations does
+    not matter.  The progress is shown in
+    figure [[aRMSD-M1M2-initialMatching]].  Intentionally both alignments
+    shown share the same perspective.
+
+    #+ATTR_LATEX:   :width 15cm
+    #+ATTR_HTML:    :width 75%
+    #+NAME:    aRMSD-M1M2-initialMatching
+    #+CAPTION: Example of progressively adjusting the relative alignment of structure "model" (=M1.xyz=) and "reference" (=M2.xyz=) in =aRMSD=.  a) After application of an inversion.  b) After subsequent application of inversion and reflection in respect to the /xz/-plane.
+    [[./docSources/aRMSD-M1M2-initialMatching.png]]
+    
+    At this stage, you aim for a fit of the two model structures that
+    is /good enough/.  (In the ongoing of this section, as well in
+    comparison with the next chapter, you will learn what this refers
+    to.)  Once two structure data do overlap -- again, it is /an
+    initial/ superposition only -- close the visualizer (key-stroke
+    =q=) and save this change alignment obtained (with key-stroke
+    =10=).
+
+  + Re-ordering of the atoms
+
+    To proceed in the refinement of the superposition successfully,
+    the atoms recognized of both models have to be labeled
+    consistently. /One/ approach available in =aRMSD= is the so-called
+    Hungarian algorithm, implemented as default strategy.  At the
+    current stage of the analysis, this is triggered by hitting =-1=
+    (minus one).
+
+    =aRMSD= will again open a =vtk=-visualizer of the two prealigned
+    models (figure [[aRMSD-M1M2-Hungarian]]).  In contrast to the former
+    situation, however, the labeling of the atoms of one molecule
+    should match the one of the same atoms in the second molecule.  In
+    addition, yellow streaks will indicate which atoms with greater
+    distance to each other =aRMSD= considers as equivalent.
+
+    #+ATTR_LATEX:   :width 15cm
+    #+ATTR_HTML:    :width 75%
+    #+NAME:    aRMSD-M1M2-Hungarian
+    #+CAPTION: Successful application of the Hungarian algorithm on well aligned structures "model"  and "reference".  Yellow streaks mark atoms of different molecules remote from each other which subsequently will be considered by =aRMSD= as analogous to each other. a) Display in the default perspective of =aRMSD=.  b) Altered perspective of the same "correlation".
+    [[./docSources/aRMSD-M1M2-Hungarian.png]]
+
+    Since the obtained match is reasonable, close the visualizer
+    (key-stroke =q=), and save the intermediate result (key-stroke
+    =10=).
+
+  + Refinement of the superposition and Kabsch test
+    
+    To enter the menu about the Kabsch test, hit now once =0= (zero).
+    The interface displayed by =aRMSD= in the terminal changes
+    (figure [[aRMSD-KabschInterface]]), and you are able to trigger the
+    refinement of the superposition with =-1= (minus one).  The now
+    following consecution of calling sub-routines is /recommended/ to
+    harvest the maximum of relevant data =aRMSD= provides.
+    
+    #+ATTR_LATEX:   :width 15cm 
+    #+ATTR_HTML:    :width 75%
+    #+NAME:    aRMSD-KabschInterface
+    #+CAPTION: The CLI by =aRMSD= about the Kabsch test.
+    [[./docSources/aRMSD-KabschInterface.png]]
+
+    + Key-stroke =0= (zero) again opens the interactive Vtk-based
+      visualizer (figure [[aRMSD-diffA-diffB]], left sub-figure).  This
+      adapted ball-stick representation displays /atom radii/ of the
+      atoms proportional to the /relative contribution/ of said atoms
+      to the global RMSD.  The /atom colors/ of the spheres scales to
+      the absolute remaining difference of the two fit structures
+      about said atom in Angstroms.  The lateral scale offers an
+      estimate of the latter.
+
+      #+ATTR_LATEX:  :width 15cm
+      #+ATTR_HTML:   :width 75%
+      #+NAME:    aRMSD-diffA-diffB
+      #+CAPTION: Structure display about the refined superposition of structure "model" (=M1.xyz=) and structure "reference" (=M2.xyz=) provided by =aRMSD=.  a) Composite representation, where the /atom radii/ scale to the relative, and the /atom colors/ of the atom to the absolute contribution of said atoms to the global RMSD (reference scale in Angstroms).  b) Wire-model superposition of the two models.
+      [[./docSources/aRMSD-diffA-diffB.png]]
+
+      Some of the bonds depicted /might/ bear a red band in the
+      center.  This is to indicate that the same bond in the reference
+      model is significantly shorter, than in the tested model.
+      Conversely, a green band indicates a bond that is longer.  By
+      default, the critical /length difference/ to set these bands
+      equals to 0.2 Angstrom.
+
+      Clicking /on/ a representation of one, two, three, or four atoms
+      selects them to read-out to the final RMSD data about the
+      corresponding position; or corresponding difference in distance,
+      angle; or dihedral angle between model and reference.  These
+      read-outs are non-permanent and provided /only/ on the terminal
+      (figure [[aRMSD-diffTest]]).
+
+      #+ATTR_LATEX:  :width 15cm
+      #+ATTR_HTML:   :width 75%
+      #+NAME:    aRMSD-diffTest
+      #+CAPTION: Example of subsequent selection of atom C11, C12, C13 and C14 to readout differences in position (or angle) in the refined superposition of the two structures =M1.xyz= and =M2.xyz=. 
+      [[./docSources/aRMSD-diffTest.png]]
+
+      The underlying routine providing the readouts is agnostic about
+      the atom type, allowing both the selection of hydrogens, as well
+      as non-H atoms.  The atoms of interest need not be adjacent,
+      either, which may be of interest comparing distances and angles.
+      Again, you close the visualizer with key-stroke =q=.
+
+    + A classical superposition display is obtained with key-stroke
+      =1=.  Model and reference are depicted by the visualizer
+      (figure [[aRMSD-diffA-diffB]], right sub-figure) with the same color
+      scheme as already known from the stage of prealignment.  As in
+      all other instances using the =vtk=-visualizer, the rendering
+      may be saved as =*.png= (key-stroke =s=), and closed (with
+      key-stroke =q=).
+
+    + With key-stroke =2=, an additional determination of statistics,
+      and generation of synoptic diagrams is provided.  This requires
+      access to =matplotlib=, and opens a window separate from the
+      therminal (figure [[aRMSD-M1M2-statistics]]).
+
+      #+ATTR_LATEX:   :width 15cm
+      #+ATTR_HTML:    :width 75%
+      #+NAME:     aRMSD-M1M2-statistics
+      #+CAPTION:  Synoptic statistics plots about the successfully comparison comparing the refined alignment of model =M1.xyz= and =M2.xyz= by =aRMSD=.
+      [[./docSources/aRMSD-M1M2-statistics.png]]
+
+      Currently, this analysis is organized in sub-plots that may
+      partially overlap with each other if the new GUI starts.
+      Increasing the dimension of the window renders the diagrams more
+      legible -- equally affecting the rendered permanent record.
+
+      As usual for =matplotlib=, you have the options to zoom and pan
+      within the sub-figures into particular regions of your interest.
+      The complete analysis may be saved as bitmap (=*.jpeg=, =* .png=
+      [default]), vector (=*.ps=, =*.eps=, =*.pdf=, =*.svg=), or
+      tikz's =*.pgf=.  By default, you have to define manually where
+      =matplotlib= should deposit the drawings generated.
+
+      The window about the statistics plots may be closed either by
+      mouse, or again key-stroke =q=.
+
+    + With call =3=, the program offers you a first decomposition
+      about RMSD's contributions onto the terminal
+      (figure [[aRMSD-M1M2SuperposQuality]]).  Even if you do not see
+      these results when accessing =aRMSD= from a small terminal
+      (80 \times 24 chars), it is useful to invoke this sub-routine
+      once -- even blindly --, since /its results/ will enter the
+      permanent record log written.
+      
+      #+ATTR_LATEX:   :width 15cm
+      #+ATTR_HTML:    :width 75%
+      #+NAME:    aRMSD-M1M2SuperposQuality
+      #+CAPTION: Terminal output of the refined superposition by =aRMSD=
+      [[./docSources/aRMSD-M1M2SuperposQuality.png]]
+
+    + Key-stroke =5= initiates =aRMSD= to write a permanent record
+      =aRMSD_log-file.out=.  With exception of the structure
+      representations and diagrams, this ASCII-file includes
+      additional results of the similarity measurement, such as the
+      rotation matrix applied to match the two structure models, or
+      further figures of merit (e.g., cosine similarity, GARD
+      similarity).
+
+      It equally provides you an insight about the quality of
+      superposition /prior/ and /after/ the refinement.  In the
+      present case about a successful comparison of model =M1.xyz=
+      with model =M2.xyz=, this is stated in line 48 onward about the
+      initial best match retained:
+     
+      #+NAME:  aRMSD-M1M2-successLog-match
+      # line #48 till and including line #61
+      #+INCLUDE: "./docSources/aRMSD-M1M2-successLog.out" :lines "48-62" src shell
+      and provides details about the sitution about the /then refined/
+      superposition of the two model structures:
+
+      #+NAME:  aRMSD-M1M2-successLog-Kabsch
+      # line #92 till and including line #102
+      #+INCLUDE: "./docSources/aRMSD-M1M2-successLog.out" :lines "92-103" src shell
+  
+  Last, but not least, a few words of caution:
+  + It is normal that performing the same computation a twice, with
+    the same files, in a different operating system yields results
+    /slighlty different/ from each other, e.g. between Xubuntu (point
+    release 18.04.1) and Debian 10 (testing / Buster).
+
+  + There are multiple "dialects" about the =*.pdb= format, which may
+    require the model data you have to be converted into =*.xyz=, for
+    example with =babel=[fn:babel] using a pattern of
+    #+BEGIN_SRC shell
+      babel -ipdb input.pdb -oxyz converted.xyz
+    #+END_SRC
+    As an example, the test data =M1.pdb= and =M2.pdb= were read
+    successfully only to the Debian installation, but not to the
+    Xubuntu analogue (cf. logs in the appendix).
+
+  + While retaining all other parameters equal, symmetry operations
+    needed to perform the model alignment successfully about model
+    data in =*.pdb= format may be different from the alignment about
+    model data in =*.xyz=.
+
+ 
+* Example comparing two models unsuccessfully
+
+  The purpose of this section is to show /by strong contrast/ to the
+  previous chapter how to recognize an unsuccessfully performed
+  analysis.  Assuming you understood the general work-flow outlined in
+  the section above, only a selected key points will be shown here.
+  Again, the test data in question are =M1.xyz= and =M2.xyz=.
+
+  Starting from scratch, the model data are read again.  To match the
+  precedent case, all hydrogen atoms are retained for the analysis.
+  Referring to figure [[aRMSD-M1M2-initialMatching]], however, now /only/
+  the symmetry operation of inversion is applied (hence,
+  /intentionally omitting/ the second operation of reflection in
+  respect to the /xz/-plane).
+
+  The implementation of the Hungarian algorithm still relates the
+  corresponding atoms successfully.  However, both the increased
+  number of yellow streaks as well their orientation /across/ the
+  structure models is a first warning sign
+  (figure [[aRMSD-badAlignmentOnlyInversion-stepA]]).
+
+  #+ATTR_LATEX:   :width 15cm
+  #+ATTR_HTML:    :width 75%
+  #+NAME:    aRMSD-badAlignmentOnlyInversion-stepA
+  #+CAPTION: Example of an ill-fated comparison of structure =M1.xyz= with structure =M2.xyz= with =aRMSD=, step 1/3.  a) The symmetry operation applied accounts only for inversion of the relative orientation of the two models.  Consequently b), the number of atoms deemed analogous to each other yet marked by yellow streaks is higher, than in the "best match" (previous chapter).  In addition, the streaks now pass largely /across/ the structure models.
+  [[./docSources/aRMSD-badAlignmentOnlyInversion-stepA.png]]
+
+  The subsequently performed refinement of the superposition
+  consequently yields chemically unreasonable differences and pattern
+  (figure [[aRMSD-badAlignmentOnlyInversion-stepB]]), equally manifested
+  in the statistics plots (figure [[aRMSD-badAlignmentOnlyInversion-stepC]]).
+
+  #+ATTR_LATEX:  :width 15cm
+  #+ATTR_HTML:   :width 75%
+  #+NAME:     aRMSD-badAlignmentOnlyInversion-stepB
+  #+CAPTION:  Example of an ill-fated comparison of structure =M1.xyz= with structure =M2.xyz= with =aRMSD=, step 2/3.  a) Composite display, b) classical superposition representation.
+  [[./docSources/aRMSD-badAlignmentOnlyInversion-stepB.png]]
+
+  #+ATTR_LATEX:   :width 15cm
+  #+ATTR_HTML:    :width 75%
+  #+NAME:    aRMSD-badAlignmentOnlyInversion-stepC
+  #+CAPTION: Example of an ill-fated comparison of structure =M1.xyz= with structure =M2.xyz= with =aRMSD=, 3/3.  Synoptic statistics plots.  
+  [[./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png]]
+
+  To commplement the findings, the corresponding section in the log
+  about the initial match states:
+
+  #+NAME:  aRMSD-M1M2-FailLog-match
+  # line #48 till and including line #61
+  #+INCLUDE: "./docSources/aRMSD-M1M2-failLog.out" :lines "48-62" src shell
+
+  and provides details about the sitution about the /then refined/
+  superposition of the two model structures:
+
+  #+NAME:  aRMSD-M1M2 FailLog-Kabsch
+  # line #92 till and including line #102
+  #+INCLUDE: "./docSources/aRMSD-M1M2-failLog.out" :lines "92-103" src shell
+
+
+* Supplementary data
+
+** log-file by aRMSD about the successful comparison, xyz-data
+
+   The following is the /complete/ log written by =aRMSD= about the
+   successful comparison of model =M1.xyz= with model =M2.xyz=.
+   Hosting system was Xubuntu 18.04 LTS (64 bit, point
+   release 18.04.1).
+
+   #+INCLUDE: "./docSources/aRMSD-M1M2-successLog.out" src shell
+
+   #+LATEX:  \clearpage{}
+
+** log-file by aRMSD about the unsuccessful comparison, xyz-data
+
+   The following is the /complete/ log written by =aRMSD= about the
+   unsuccessful comparison of model =M1.xyz= with model =M2.xyz=.
+   Hosting system was Xubuntu 18.04 LTS (64 bit, point
+   release 18.04.1).
+   
+   #+INCLUDE: "./docSources/aRMSD-M1M2-failLog.out" src shell
+
+   #+LATEX:  \clearpage{}
+
+** log-file by aRMSD about the successful comparison, pdb-data
+
+   In contrast to the =*.xyz= format, there are multiple "dialects"
+   about the =*.pdb= format, which may represent an obstacle already
+   loading the model data.  At the moment, the cause is not yet
+   understood.  A low-level resort may be to convert the files into
+   the =*.xyz= format, e.g. with =babel= in a pattern of
+   #+BEGIN_SRC shell
+     babel -ipdb input.pdb -oxyz output.xyz
+   #+END_SRC
+   In present case, loading the =*.pdb= successfully was possible in
+   the reference system (Debian 10), but not with Xubuntu 18.04 (point
+   release 18.04.1), despite the installations of =openbabel= in both
+   systems seemingly were identical.
+
+   The following is the /complete/ log written by =aRMSD= about the
+   successful comparison of model =M1.pdb= with model =M2.pdb=.
+
+   #+INCLUDE:  "./docSources/aRMSD-M1M2-successLog.out" src shell
+   
+   #+LATEX:  \clearpage{}
+
+** complete /terminal log/ by aRMSD for the successful comparison of xyz-data
+
+   The following is the /complete/ output =aRMSD= generates on the
+   terminal while comparing model =M1.xyz= with model =M2.xyz=
+   /successfully/.  Operating system was Xubuntu 18.04.1.
+
+   #+INCLUDE: "./docSources/aRMSD-M1M2-completeTerminalLog.txt" src shell
+
+   #+LATEX: \clearpage{}
+
+** complete /terminal log/ by aRMSD for the successful comparison of pdb-data
+
+   The following is the /complete/ output =aRMSD= generates on the
+   terminal while comparing model =M1.pdb= with model =M2.pdb=
+   /successfully/.  Operating system was Debian 10 (testing / Buster).
+
+   #+INCLUDE: "./docSources/aRMSD-completeCLI-log-DebianPdb.out" src shell
+
+   #+LATEX: \begin{center}$\diamond{}$ \end{center}
+
+[fn:CSD]  Model =M1.xyz= and =M1.pdb= are derivated from entry
+=FEHGAB=, while =M2.xyz= and =M2.pdb= are derivated from entry
+=IVUYEE= of the Cambridge Crystallographic Data Base.  The /primary/
+references for the model data are: =FEHGAB= / basis for model
+=M1.xyz=: "Five-coordinate nickel(II) complexes with carboxylate
+anions and derivatives of 1,5,9-triazacyclododec-1-ene: structural and
+1H NMR spectroscopic studies" by M. D. Santana, A. A. Lozano,
+G. Garcia, G. Lopez, J. Perez, /Dalton Transactions/, 2005, 104--109
+(doi: 10.1039/B413547D).  And for =IVUYEE=, basis for model =M2.xyz=:
+"Synthesis, structural characterization and biological studies of
+novel mixed ligand Ag(I) complexes with triphenylphosphine and aspirin
+or salicylic acid" by M. Poyraz, C. N. Banti, N. Kourkoumelis,
+V. Dokorou, M. J. Manos, M. Simčič, S. Golič-Grdadolnik,
+T. Mavromoustakos, A. D. Giannoulis, I. I. Verginadis,
+K. Charalabopoulos, S. K. Hadjikakou, /Inorganica Chimica Acta/, 2011,
+/375/, 114--121 (doi: 10.5517/ccv2f3f).
+
+[fn:Olex2]  Dolomanov, O. V.; Bourhis, L. J.; Gildea, R. J.; Howard,
+J. A. K.; Puschmann, H., OLEX2: A complete structure solution,
+refinement and analysis program (2009). /J. Appl. Cryst./, 42, 339--341.
+Olex2, version 1.2.10.
+
+[fn:babel] Open Babel, [[http://openbabel.org/wiki/Main_Page]].  For
+further details, see by O'Boyle, N. M.; Banck, M.; James, C. A.;
+Morley, C.; Vandermeersch, T.; Hutchison, G. R.  Open Babel: An open
+chemical toolbox. /J. Cheminf./ 2011, 3:33 (doi: 10.1186/1758-2946-3-33).
+
+
+[fn:hydrogens]  To account for the different data quality is right one
+motivation of =aRMSD= to load module =incertainties=, on one hand, and
+to access the standard derivations of the atom coordinates provided in
+the structure data (e.g., =*.cif=), on the other.
