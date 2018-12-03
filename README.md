@@ -1,142 +1,135 @@
-**Note 1:**  This fork targets a deployment of aRMSD under Linux without
-assistance by PyInstaller and calling the program from the CLI (i.e.,
-option a) of the original description).  It might be that changes of
-this fork equally work under other operational systems, too.
+![img](./aRMSD_logo.png)
 
-**Note 2:**  Familiarizing with the code takes some time.  Which is why
-a rather conservative approach changing the program seems personally
-more comfortable for me.  However, an initial illustrated primer about
-how to use this program was written.  Altogether with some test data in
-[./examples], for further information, see [./docs/aRSMD-primer.org].
+`aRMSD` is an open toolbox for the structural comparison of two
+constitutionally identical molecules.  The data are read from common
+file formats (e.g., `*.xyz`, `*.pdb`, etc.) by default, or by
+assistance of `openbabel`.<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> The results may be accessed
+interactively as 3D rendering with `vtk`<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> and exported.  The
+development started with Arne Wagner during his PhD
+thesis in the Himmel group (University of Heidelberg) and
+made available on <https://github.com/armsd/aRMSD>.
 
-![alt tag](./aRMSD_logo.png)
+Contrasting to said original branch, *this* fork develops `aRMSD`
+under Linux (Debian 10 / Buster, currently testing / Sid), since it
+was used side-by-side with other programs already deployed
+successfully in Linux.  Changes made within this fork, however,
+should work equally in other operating systems.
 
-An open toolbox for structural comparison between two molecules with
-various capabilities to explore different aspects of structural
-similarity and diversity. Using data from common file formats the
-minimum RMSD is found by combining the functionalities of the Hungarian
-and the Kabsch algorithm. Crystallographic data provided from cif files
-is fully supported and the results can be rendered with the help of the
-[vtk] (http://www.vtk.org/) package.
 
-# News & Updates
-This page is currently under construction and more files will be added
-from day to day. So the best way to keep track of all changes and the
-ongoing development process is by inspecting the
-[changelog] (./CHANGELOG.md). Please note that *aRMSD* was developed
-under Windows and is therefore not tested under other operating systems.
-Any feedback concerning the execution or PyInstaller compilation on
-Linux / Mac / ... is greatly appreciated.
+# What may aRMSD do for you &#x2013; an appetizer
 
-The official publication was published recently and can be found under
-(DOI: 10.1021/acs.jcim.6b00516). If you use *aRMSD* in your work, please
-cite: 
+As shown in the figure below, `aRMSD` may be used to align the
+models (a) and reorder the atom order by the Hungarian
+algorithm (b). Subsequently, the superposition is optimized by
+minimization of the RMSD according to the Kabsch algorithm.
 
-**A. Wagner, H.-J. Himmel, J. Chem. Inf. Model, 2017, 57, 428-438.**
+![img](./aRMSD-aspirinateSteps.png "Subsequent stages comparing two models of the aspirinate anion with `aRMSD`: a) user-assisted alignment, b) re-ordering of atoms by the Hungarian algorithm, c) interactive difference rendering, d) interactive refined superposition of the models.")
 
-# Installation
-*aRMSD* can be [installed] (./INSTALLATION.md) in two ways, either via
-pip (in this case it will be used as a Python module or Python
-application) or you can download the source code and compile it into a
-single standalone executable. In any case some packages are required
-which are listed below:
+In a newly designed representation (c), the differences between the
+two models may be accessed visually: atoms drawn with larger
+diameter indicate a larger *relative* contribution to the final RMSD
+determined for the complete model.  The color scaling, corresponding
+to the scale at the side, corresponds to the *absolute* difference
+&#x2013; in Angstroms &#x2013; of said atom for both models in the optimized
+superposition.
 
-    * Python 2.7 or 3.6
-    * numpy
-    * vtk
-    * matplotlib
-    * PyQt4
-    * uncertainties
+In addition, the program compares the corresponding bond lengths of
+model and reference indicates either by green or red color encoding
+if the one by the model is shorter, or lengthier than the
+corresponding bond in the reference.  Not shown here, but `aRMSD`
+allows the interactive readout of the differences found for selected
+bond lengths, angles, and dihedral angles, too.
 
-optional:
+Equally, the program offers you an interactive 3D rendering of model
+and reference with the optimized superposition (d).  This "best fit"
+determined may be saved in `*.xyz` files.
 
-    * Cython [performance improvements]
-    * openbabel / pybel [additional file formats]
+On an operational system including `matplotlib`, `aRMSD` may
+complement the scrutiny by computing and plotting selected
+statistics.  The scaling may be altered by the user, equally in
+charge to select the file format of export (`*.png`; `*.ps`, `*.eps`
+`*.pdf`, `*.svg`; `*.tkiz`).
 
-In order adjust the source code by yourself, always make sure to have
-the required Python packages installed and download the latest version
-of the master branch. Whenever possible it is recommended to add and
-update packages using pre-compiled Python
-[wheels] (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your
-operating system which can be installed via pip. If you add features or
-wish to have an idea implemented or a bug fixed, contact me or make a
-[request] (https://github.com/armsd/aRMSD/issues).
+![img](./aRMSD-aspirinateStatistics.png "Statistical plots drawn by `aRMSD` about said comparison of two aspirinate model data.")
 
-**a) Usage as Python application:**
+Besides the results of the Kabsch test, supplementary similarity
+figures of merit like the cosine similarity or the GARD values may
+be stored permanently in plain ASCII (`aRMSD_logfile.out`).
 
-- The easiest way to use *aRMSD*.
+Altogether with a few test data (sub-directory `examples`), an
+illustrated primer in sub-directory `docs` will guide you through
+setting-up the program and detail out how to perform a basic analysis. 
 
-Simply clone the project or download the zip file from GitHub, navigate
-to the armsd folder and run aRMSD.py, e.g. from command line
 
-```bash
-python aRMSD.py
-```
+# Where stands aRMSD, relatively to other programs?
 
-**b) Usage as Python module:**
+`aRMSD` emerges from the pair-wise comparison of (crystallographic,
+but not limited to this) models with significant user-interaction.
+This offers you multiple levels to check and adjust the progress of
+the analysis.  As such, a batch-wise comparison of models is not
+foreseen.
 
-- This will install *aRMSD* as a Python module that can be imported and
-used in other applications. This allows for both the most extensive
-utilization of the code and provides the possibility to keep an eye on 
-the ongoing development via pip.
+Note, however, that an automate, batch-wise scrutiny of two model
+data may yield wrong results.  One potential pitfall is how the
+model information is handled prior to the refinement of the
+structure alignment, where `aRMSD` uses the Hungarian algorithm.  To
+quote Kildgaard:<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
 
-Install the program by typing
+"The RMSD can be minimized by translating and rotating one set of
+coordinates (the other is held fixed) because the molecules are
+invariant under these operations. This will lead to the two
+molecules being superimposed but can also lead to a false RMSD value
+if the atoms are not ordered identically."
 
-```bash
-pip [to be added]
-```
+Independent from this problem, the conventional RMSD optimization
+accounts only for *atom connectivity*, neglecting *bond order*.  As
+demonstrated (and illustrated) by Temeslo<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>, this may
+yield to results questionable from a chemists point of view.
 
-in your command line.
 
-**c) Executable compiled with PyInstaller:**
+# History & Credits
 
-- Produces a single file which can be copied alongside the
-*settings.cfg* and the *xsf folder* to different machines with the same
-architecture. Once the program has been compiled, this is probably the
-easiest way to use *aRMSD* - especially for users that are unfamiliar
-with Python. 
+`aRMSD` was developed in Windows by Arne Wagner during his PhD
+thesis in the Himmel group (University of Heidelberg, Germany).  It
+is described briefly in his PhD thesis submitted in
+2015.<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> The program was presented in further detail in
 
-First ensure that you have the latest version of
-[PyInstaller] (http://www.pyinstaller.org/) or install it with pip.
+Wagner, A., Himmel, H.-J. aRMSD: A Comprehensive Tool for Structural
+Analysis.  *J. Chem. Inf. Model.*, 2017, *57*, 428&#x2013;438 (doi:
+10.1021/acs.jcim.6b00516)
 
-```bash
-pip install pyinstaller
-```
+and originally deposit as open source code with the permissible MIT
+license to the public under
 
-Download the current master branch of *aRMSD*, extract the files and
-navigate to the main folder. Run the compilation script in an
-interactive Python shell or from command line by typing
+<https://github.com/armsd/aRMSD>
 
-```bash
-python compile_aRMSD.py
-```
+As by November 2018, his last public github-commit regarding aRMSD
+was on April 5, 2017.  My subsequent work on `aRMSD` is based on this release.
 
-This will create a single executable file in the armsd folder and should
-work for all operating systems. Temporary files will be created during
-this process (the compilation will take around 30 min, depending on the
-machine) and deleted after the executable is created. Optional arguments
-can be given to make use of [Cython] (http://cython.org/) and
-[openbabel] (http://openbabel.org/wiki/Main_Page). Note that
-Cython C compiler should be specified if several options are available.
 
-```bash
-python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
-```
+# Footnotes
 
-If you are using Python 3.6, there is a bug in the PyInstaller entry
-script and typing pyinstaller in a shell will not start a correct
-process. To fix this, go in the Python installation folder and edit the
-pyinstaller-script.py file: add quotes around the path in the first
-program line (e.g. "c:\program files\python36\python.exe")) 
+<sup><a id="fn.1" href="#fnr.1">1</a></sup> Open Babel, <http://openbabel.org/wiki/Main_Page>.  For
+further details, see by O'Boyle, N. M., Banck, M., James, C. A.,
+Morley, C, Vandermeersch, T., Hutchison, G. R.  Open Babel: An open
+chemical toolbox. *J. Cheminf.* 2011, 3:33 (doi: 10.1186/1758-2946-3-33).
 
-# Documentation and Tutorial
-To use the program, start the executable (if you are running aRMSD for
-the first time it is recommended to start the executable from command
-line to catch potential error messages) or run the application in a
-Python shell. Copy the example files to your current working directory
-and follow the instructions on screen. More information will be added in
-the near future.
+<sup><a id="fn.2" href="#fnr.2">2</a></sup> <http://www.vtk.org>
 
-# License
-This package and its documentation are released under the
-[MIT License] (./LICENSE)
+<sup><a id="fn.3" href="#fnr.3">3</a></sup> Kildgaard, J. V., Mikkelsen, K. V., Bilde, M., Elm,
+J. Hydration of Atmospheric Molecular Clusters: A New Method for
+Systematic Configurational Sampling. *J. Phys. Chem. A* 2018, 122,
+5026&#x2013;5036 (doi: 10.1021/acs.jpca.8b02758).
+
+<sup><a id="fn.4" href="#fnr.4">4</a></sup> Temeslo, B., Mabey, J. M., Kubota, T., Appiah-Padi, N.,
+Shields, G. C. ArbAlign: A Tool for Optimal Alignment of Arbitrarily
+Ordered Isomers Using the Kuhn-Munkres
+Algorithm. *J. Chem. Inf. Model.* 2017, 57, 1045&#x2013;1054 (doi:
+10.1021/acs.jcim.6b00546).
+
+<sup><a id="fn.5" href="#fnr.5">5</a></sup> Wagner, A.  Synthese und Koordinationschemie
+guanidinatstabilisierter Diboranverbindungen.  (Synthesis and
+Coordination Chemistry of Guanidinate-Stabilised Diboranes) PhD thesis
+(2015), University of Heidelberg (Germany).  Written in German
+including an English summary.  The pdf of this document may be found
+at the doi 10.11588/heidok.00019018.
