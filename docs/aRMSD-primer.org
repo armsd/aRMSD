@@ -1,8 +1,8 @@
 # file name: aRMSD-primer.org
-# last edit: 07-Dez-2018
+# last edit: 13-Dez-2018
 #+AUTHOR:  Norwid Behrnd
 #+TITLE:   aRMSD-primer (aRMSD 0.9.8)
-#+DATE:    07-Dez-2018
+#+DATE:    13-Dez-2018
 
 #+OPTIONS: toc:nil
 
@@ -47,7 +47,7 @@ installation of the program.  Here and there, the primer merely will
   one in Windows, as =pip= and =PyInstaller= are omitted, and the
   installation of dependencies is automated by a script.
 
-** setup in Windows 
+** setup in Windows, outlined by Arne Wagner
 
    =aRMSD= can be in two ways, either via =pip= (in this case it will
    be used as a Python module or Python application) or you can
@@ -142,7 +142,18 @@ installation of the program.  Here and there, the primer merely will
     files\python36\python.exe"=).
 
    
+    
   
+*** comment on Arne Wagner's setup in Windows
+
+    In a recent test (December 2018), I was not able to replicate Arne
+    Wagner's approach to set-up =aRMSD= in Windows as outlined above.
+    However, and meant as a /temporary fix/ only, =aRMSD= equally may
+    be run within the portable =WinPython= system -- then using Python
+    (version 3.6.5) -- amended by a suitable vtk-wheel in Windows 7
+    (64 bit).  Details about this approach are provided on
+    [[https://github.com/nbehrnd/aRMSD-minimalWindowsSupport]].
+   
 * Setup of aRMSD in Linux Debian / Ubuntu
 
   In addition to the =*.zip= archive available on GitHub, =aRMSD=
