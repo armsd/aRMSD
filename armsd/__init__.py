@@ -41,7 +41,7 @@ This software is released under a dual license. (1) The MIT license.
 author.
 """
 
-# Authors: Arne Wagner
+# Authors: Arne Wagner, Norwid Behrnd
 # License: MIT
 
 from __future__ import absolute_import

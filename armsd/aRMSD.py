@@ -1,6 +1,6 @@
 """
 aRMSD main routines
-(c) 2017 by Arne Wagner
+(c) 2017 by Arne Wagner, 2018 added by Norwid Behrnd
 """
 
 # Authors: Arne Wagner
@@ -47,21 +47,41 @@ except ImportError:
 #   X.YrcN  # Release Candidate
 #   X.Y     # Final release
 
+# the original entries found, backup copy
+# name = 'aRMSD'
+# author = 'Arne Wagner'
+# author_email = 'arne.wagner@aci.uni-heidelberg.de'
+# url = 'https://github.com/armsd/aRMSD'
+# doc = 'http://armsd.rtfd.io'
+# lic = 'MIT'
+#
+# __aRMSD_version__ = '0.9.4'
+# __aRMSD_release__ = 2017
+# 
+# __log_version__ = '2017-04-05'
+# __core_version__ = '2017-01-03'
+# __plot_version__ = '2016-11-03'
+# 
+# __author__ = author+' <'+author_email+'>'
+# end of the backup copy
+
+# revised block
 name = 'aRMSD'
-author = 'Arne Wagner'
+author = 'Arne Wagner'    # with work done, how to /add/ a second author?
 author_email = 'arne.wagner@aci.uni-heidelberg.de'
 url = 'https://github.com/armsd/aRMSD'
 doc = 'http://armsd.rtfd.io'
 lic = 'MIT'
 
-__aRMSD_version__ = '0.9.4'
-__aRMSD_release__ = 2017
+__aRMSD_version__ = '0.9.8'
+__aRMSD_release__ = 2018
 
-__log_version__ = '2017-04-05'
-__core_version__ = '2017-01-03'
-__plot_version__ = '2016-11-03'
+__log_version__ = '2018-11-28'
+__core_version__ = '2018-10-24'
+__plot_version__ = '2016-11-03'  # there are points to better, but no change yet
 
 __author__ = author+' <'+author_email+'>'
+
 
 short_description = """
 aRMSD
@@ -428,7 +448,7 @@ def kabsch_menu(molecule1, molecule2, logger, settings):
             else:
 
                 align.export_kabsch(logger, settings)
-                
+
         else:
 
             logger.pt_invalid_input()
@@ -465,7 +485,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
 
     choices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 20, 21, 24, -1, -2, -3, -4, -5, -6]  # List of accepted choices
 
-    # Dictionary of symmetry number and transformation correlations 
+    # Dictionary of symmetry number and transformation correlations
     sym_number = {1: 'inv', 2: 'xy', 3: 'xz', 4: 'yz', 5: 'x', 6: 'y', 7: 'z'}
     sym_transf = {'xy': ac.z_axis, 'xz': ac.y_axis, 'yz': ac.x_axis, 'x': ac.x_axis, 'y': ac.y_axis, 'z': ac.z_axis}
 
@@ -484,7 +504,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
     while True:
 
         logger.pt_match_menu(settings)
-        
+
         if molecule1.show_mol:
 
             viewmol_vtk = ap.Molecular_Viewer_vtk(settings)
@@ -493,7 +513,7 @@ def symmetry_and_matching(molecule1, molecule2, logger, settings):
             logger.pt_plotting_screenshot()
             viewmol_vtk.show(molecule1, molecule2, settings)
             molecule1.show_mol = False
-            
+
         symmetry_operation = logger.get_menu_choice(choices, question, return_type='int')
 
         if symmetry_operation == -6:  # Set number of deviations and update information

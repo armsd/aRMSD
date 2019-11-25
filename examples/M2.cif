@@ -1,0 +1,106 @@
+#######################################################################
+#                 Cambridge Crystallographic Data Centre
+#                                CCDC
+#######################################################################
+# If this CIF has been generated from an entry in the Cambridge
+# Structural Database, then it will include bibliographic, chemical,
+# crystal, experimental, refinement or atomic coordinate data resulting
+# from the CCDC's data processing and validation procedures.
+#######################################################################
+data_CSD_CIF_IVUYEE
+_audit_creation_date               2011-09-06
+_audit_creation_method             CSD-ConQuest-V1
+loop_
+  _publ_author_name
+ 'M.Poyraz'
+ 'C.N.Banti'
+ 'N.Kourkoumelis'
+ 'V.Dokorou'
+ 'M.J.Manos'
+ 'M.Simcic'
+ 'S.Golic-Grdadolnik'
+ 'T.Mavromoustakos'
+ 'A.D.Giannoulis'
+ 'I.I.Verginadis'
+ 'K.Charalabopoulos'
+ 'S.K.Hadjikakou'
+
+_chemical_name_systematic
+;
+(2-Acetoxybenzoato)-tris(triphenylphosphine)-silver(i) N,N-dimethylformamide 
+solvate
+;
+_chemical_formula_moiety
+;
+C63 H52 Ag1 O4 P3,C3 H7 N1 O1
+;
+_chemical_formula_sum              'C66 H59 Ag1 N1 O5 P3'
+loop_
+  _atom_type_symbol
+  _atom_type_radius_bond
+ C 0.68
+ H 0.23
+ Ag 1.45
+ N 0.68
+ O 0.68
+ P 1.05
+
+#END
+loop_
+  _space_group_symop_id
+  _space_group_symop_operation_xyz
+ 1 x,y,z
+ 2 -x,-y,-z
+
+_symmetry_cell_setting             triclinic
+_symmetry_Int_Tables_number        2
+_symmetry_space_group_name_H-M     'P -1'
+_cell_length_a                     12.724(2)
+_cell_length_b                     13.662(3)
+_cell_length_c                     19.746(5)
+_cell_angle_alpha                  95.98(2)
+_cell_angle_beta                   102.66(2)
+_cell_angle_gamma                  117.49(1)
+_cell_volume                       2886.131
+_cell_formula_units_Z              2
+_exptl_crystal_colour              'colorless'
+_exptl_crystal_density_diffrn      1.319
+_exptl_crystal_description         'prismatic'
+_diffrn_ambient_temperature        293
+#These two values have been output from a single CSD field.
+_refine_ls_R_factor_gt             0.0854
+_refine_ls_wR_factor_gt            0.0854
+loop_
+  _atom_site_label
+  _atom_site_type_symbol
+  _atom_site_fract_x
+  _atom_site_fract_y
+  _atom_site_fract_z
+ O1 O 0.6578(8) 0.3072(7) 0.7170(5)
+ O2 O 0.5689(8) 0.2137(8) 0.6048(5)
+ O3 O 0.9879(12) 0.4781(10) 0.8076(6)
+ O4 O 0.9026(9) 0.3391(8) 0.7109(5)
+ C15 C 0.7665(10) 0.3797(9) 0.6370(8)
+ C25 C 0.6548(10) 0.2937(8) 0.6583(8)
+ C27 C 0.9901(11) 0.4925(10) 0.6537(8)
+ C33 C 0.8854(13) 0.4115(9) 0.6712(8)
+ C35 C 0.8447(14) 0.5064(11) 0.5644(8)
+ C48 C 0.7435(12) 0.4250(9) 0.5809(7)
+ C56 C 0.9631(13) 0.5382(10) 0.6016(9)
+ C57 C 0.9525(13) 0.3853(12) 0.7792(8)
+ C62 C 0.9627(18) 0.2920(14) 0.8184(8)
+ H16 H 1.07120 0.51170 0.67720
+ H23 H 0.83080 0.53960 0.52710
+ H36 H 0.66250 0.40220 0.55450
+ H44 H 1.02810 0.59470 0.58990
+ H49 H 0.92770 0.22180 0.78370
+ H50 H 0.91790 0.28030 0.85290
+ H51 H 1.04840 0.31780 0.84210
+
+_database_code_CSD                 IVUYEE
+_database_code_depnum_ccdc_archive  'CCDC 776894'
+_journal_coden_Cambridge           155
+_journal_name_full                 'Inorg.Chim.Acta '
+_journal_page_first                114
+_journal_volume                    375
+_journal_year                      2011
